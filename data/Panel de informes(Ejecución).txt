@@ -1,0 +1,8 @@
+ Primero, se selecciona la plantilla de informe deseada, como el "Informe de estacionamiento" creado previamente. Luego, se elige el objeto sobre el cual se generará el informe, que puede ser una unidad individual o un grupo de unidades.
+
+El siguiente paso es seleccionar el intervalo de tiempo para el informe. Hay tres opciones:
+
+Intervalo especificado: Se elige manualmente la fecha y hora de inicio y fin del informe.
+De hoy: El informe abarca desde la fecha y hora especificadas hasta el momento actual.
+Por anteriores: Se selecciona una cantidad de tiempo (por ejemplo, 2) y la unidad de tiempo (minutos, horas, días, semanas, meses o años). Si se marca la casilla "intervalo actual", el informe incluirá también el período actual (por ejemplo, las últimas dos semanas).
+Finalmente, se hace clic en el botón "ejecutar" para generar el informe. El contenido del informe se mostrará en el panel de resultados de informes.
