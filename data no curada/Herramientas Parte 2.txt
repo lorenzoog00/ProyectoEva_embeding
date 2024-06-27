@@ -1,9 +1,0 @@
-En esta segunda parte del tutorial de herramientas, se exploran las funciones de dirección y enrutamiento en la plataforma de seguimiento.
-
-Herramienta de dirección: Permite obtener la dirección y coordenadas de cualquier punto en el mapa según la fuente cartográfica seleccionada. Se puede buscar una dirección específica o hacer doble clic en un punto para obtener su información. La latitud, longitud y dirección se muestran en recuadros. Además, se puede guardar el punto como una geocerca circular, especificando el recurso, nombre, grupo y radio.
-
-Herramienta de enrutamiento: Permite calcular rutas óptimas entre múltiples puntos. Se selecciona la fuente cartográfica y la ciudad, luego se agregan puntos haciendo doble clic en el mapa. Los puntos se muestran como geocercas circulares con radios ajustables. Se puede cambiar el orden de los puntos y eliminarlos si es necesario.
-
-En los parámetros de la ruta, se puede elegir el proveedor de enrutamiento y optimizar el orden de los puntos para obtener el trayecto más corto. También se puede fijar el último punto para que la ruta termine en el mismo lugar donde comenzó. Se puede elegir el color de la ruta y hacer clic en "calcular" para generar el enrutamiento.
-
-La sección "guardar como geocerca" permite guardar la ruta como geocercas circulares (puntos clave) o como una geocerca lineal. Finalmente, se puede guardar la ruta para usarla en la pestaña de rutas.

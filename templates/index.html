@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seleccionar Archivos</title>
+    <title>Bienvenido</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Selecciona los archivos para filtrar el DataFrame</h1>
+        <div class="navbar">
+            <a href="{{ url_for('logout') }}">Log out</a>
+        </div>
+        <h1>Hola, {{ nombre_usuario }}</h1>
+        <h2>Selecciona los archivos para filtrar el DataFrame</h2>
         <form action="{{ url_for('submit') }}" method="post">
             {% for file in files %}
                 <div class="checkbox">

@@ -1,7 +1,0 @@
-La pestaña de recorridos en la plataforma de seguimiento permite visualizar el historial de movimiento de una unidad seleccionada. Se puede personalizar la visualización eligiendo la coloración por viajes, simple o por velocidad, así como el grosor de la línea y si se desea mostrar la numeración de eventos y la agrupación de eventos cercanos.
-
-También es posible activar opciones para mostrar eventos específicos en el recorrido, como excesos de velocidad, llenados y descargas de combustible, notificaciones, imágenes, videos, estacionamientos, paradas, posiciones iniciales y finales, y anotaciones con marcas de tiempo.
-
-Para definir el intervalo de tiempo del recorrido, se puede elegir entre opciones predefinidas (hoy, ayer, una semana, un mes) o especificar un intervalo personalizado. Al mostrar el recorrido, se puede expandir la lista de viajes individuales, activar o desactivar la visualización de cada recorrido en el mapa, y ver detalles como el kilometraje total.
-
-El reproductor de recorridos permite visualizar el movimiento de la unidad paso a paso, mostrando la dirección, marca de tiempo, valores de parámetros y sensores en cada tramo. También se puede guardar un recorrido como una geocerca si es una ruta común para el vehículo.
