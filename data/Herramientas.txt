@@ -1,0 +1,202 @@
+Detector LBS
+
+El detector LBS es una herramienta que permite determinar la última ubicación de la unidad por medio de estaciones base de telefonía móvil. Para utilizarla, se requiere el derecho de acceso a unidades Solicitar informes y mensajes a la unidad. Para abrir el Detector LBS, haga clic en el elemento del mismo nombre en el menú de herramientas que se encuentra en el mapa a la izquierda. Para determinar la ubicación de una unidad, selecciónela en la ventana de la herramienta. En la lista, solo están disponibles las unidades que cumplen con estos requisitos: unidades están en la lista de trabajo de la pestaña Seguimiento, usted tiene el derecho de acceso a las unidades, las unidades envían los parámetros cell_id (número de identificación de la estación base de telefonía móvil), mcc, mnc y lac (parámetros de servicio). Una vez seleccionada la unidad, su ubicación se busca automáticamente. La ubicación detectada se muestra en el centro del mapa y se marca con un marcador azul. En la ventana de la herramienta Detector LBS, puede ver el tiempo cuando se recibieron los datos de la última ubicación y la dirección. Además, aquí se encuentra el icono que permite actualizar la información si hay nuevos datos. La ubicación de la unidad determinada de este modo es aproximada, ya que se muestra solo la ubicación de la estación base más cercana.
+
+Preguntas y respuestas
+
+¿Qué es LBS? LBS (Servicio Basado en Localización del inglés «Location Based Service») es el servicio que determina la posición de una unidad según las coordenadas de estaciones base de GSM.
+
+¿Cuándo puede ser necesario LBS? GPS puede ser inaccesible por diferentes razones: mal funcionamiento de la antena GPS, entorno urbano denso, túneles, estacionamientos cubiertos, etc. En estos casos puede ser apropiado utilizar LBS. Debido a ondas más cortas, es mucho más probable captar la señal con el uso de LBS en los lugares donde hay barreras (de concreto armado, metal, superficies apantalladas).
+
+¿Con qué precisión se determina la posición a través de LBS en comparación con GPS? Normalmente la precisión de LBS es menos alta: depende de condiciones radioeléctricas locales, densidad de red de estaciones base, configuración de celdas. Sin embargo, con LBS es más fácil captar la señal. Esto maximiza la probabilidad de que se obtengan los datos de posición en un mensaje cuando GPS no está disponible.
+
+¿Dónde se aplica LBS? Se puede ajustar el servicio de LBS para cualquier unidad a seguir siempre que se cumplan las especificaciones técnicas. Principalmente, LBS se aplica en las áreas donde son importantes no coordenadas precisas, sino el hecho de la llegada, salida, movimiento o detención de una unidad. Por ejemplo, al transportar cargas en contenedores, el dispositivo se instala dentro de un contenedor y no puede captar la señal de satélites. Sin embargo, los mensajes de LBS demuestran el hecho de la llegada de la mercancía al almacén, paradas no planeadas, desviaciones significativas de la ruta. Asimismo, LBS se aplica para controlar unidades que no se mueven, en particular, si el dispositivo no tiene una fuente de corriente constante. Esto permite ahorrar la batería del dispositivo, mientras que el módulo GPS la gastaría más.
+
+¿De qué equipo Wialon puede recibir datos de LBS? Puede ver la lista de dispositivos soportados en nuestra página web en el apartado Hardware.
+
+¿Cómo Wialon determina la posición a través de LBS al recibir mensajes de una unidad? Cuando una unidad seguida no envía datos de posición por satélites, Wialon lee el ID de la estación base y busca coordenadas en su base de datos.
+
+¿Qué base de datos con coordenadas se utiliza en Wialon y cómo se actualiza esta base? En Wialon se utiliza su propia base de datos. Se actualiza a medida que se reciben nuevos mensajes de unidades que contienen datos LBS junto con coordenadas GPS. Antes de agregar datos a la base de datos, los puntos nuevos se verifican adicionalmente. Actualmente, en la base de datos hay más de 62 millones de puntos.
+
+¿Qué datos debe enviar el dispositivo para determinar la posición a través de LBS? En los mensajes debe haber cuatro parámetros: cell_id (número de identificación de la estación base del operador móvil), mcc, mnc y lac (parámetros de servicio). Para asegurarse de que los parámetros se han entregado y recibido correctamente, revise los mensajes de datos en la pestaña Mensajes.
+
+¿Por qué mi rastreador no envía datos LBS? Puede haber varias razones: Su dispositivo es técnicamente incapaz de transmitir datos LBS; La configuración de su dispositivo es incorrecta. Para determinar la posición mediante LBS, es necesario que el dispositivo transmita al menos 4 parámetros: mcc, mnc, lac, Cell_ID. Verifique la configuración de su dispositivo y asegúrese de que su dispositivo pueda transmitir estos parámetros. No está activada la opción Filtración de validación de mensajes. Seleccione Filtración de validación de mensajes en la pestaña Avanzadas de las propiedades de la unidad, luego active la opción Permitir posicionamiento por torres de red celular.
+
+¿Cómo ver la última posición de la unidad determinada a través de LBS? Para ver la última posición de la unidad determinada a través de LBS utilice el detector LBS.
+
+¿Cómo ajustar el posicionamiento de la unidad por LBS y en qué influirá esto? Para que en Wialon se guarden los datos LBS de la unidad, abra la pestaña Avanzadas de las propiedades de la unidad, active la filtración de validación de mensajes, así como la opción Permitir posicionamiento por torres de red celular. Después de hacerlo, las coordenadas LBS se utilizarán en informes y al mostrar la unidad en el mapa. Para las notificaciones, se debe activar también la opción Procesar mensajes LBS en los parámetros. Las coordenadas LBS de la unidad se guardan solo si en el mensaje estas coordenadas se han determinado más tarde que las coordenadas GPS.
+
+¿Cómo entender que la posición de la unidad se ha determinado a través de LBS? Si la posición de la unidad se ha determinado a través de LBS, esta unidad se visualiza en el mapa de forma especial y en la pestaña Seguimiento, en el área de trabajo, al lado del nombre de la unidad se muestra el icono.
+
+En la página web de Gurtam está escrito que para mi dispositivo no se soporta LBS. ¿Qué hacer? Envíe su solicitud a hw@wialon.com indicando el tipo del dispositivo para que consideremos su cuestión.
+
+En el dispositivo está configurado el envío de datos LBS, pero los parámetros no aparecen en los mensajes. ¿Qué hacer? Si para su dispositivo hay la experticia ampliada, escriba a hw@wialon.com indicando todos los detalles. También puede pedir asistencia para ajustar los demás dispositivos.
+
+En la mayoría de los casos la posición de la unidad se determina a través de LBS, pero a veces los mensajes quedan sin coordenadas. ¿Qué hacer? Envíe su solicitud a support@wialon.com indicando los valores de parámetros mcc, mnc, lac, cell_ID.
+
+En los mensajes de la unidad hay parámetros de LBS, pero no se puede utilizarlos en el sistema de rastreo (en los sensores, mensajes, informes, notificaciones, etc.). ¿Qué hacer? Asegúrese de que para la unidad está habilitado el uso de LBS en la pestaña Avanzadas de sus propiedades, y en caso de notificaciones, está activada también la opción Procesar mensajes LBS en los parámetros de notificaciones. Si el problema persiste, escriba a support@wialon.com indicando todos los detalles.
+
+SMS
+
+Requisitos previos
+
+Para enviar mensajes de texto desde el sistema de rastreo, se requiere lo siguiente: el servicio Mensajes SMS debe estar activado en las propiedades del plan de facturación o de la cuenta; la opción Puede enviar SMS debe estar activada en las propiedades del usuario; para enviar un mensaje de texto a una unidad, adicionalmente el usuario debe tener el derecho de acceso Modificar propiedades de conexión y el número telefónico debe estar indicado en las propiedades de la unidad; para enviar un mensaje de texto a un conductor, adicionalmente el número telefónico debe estar indicado en las propiedades de este conductor. La herramienta SMS permite enviar mensajes de texto a conductores, unidades o algún número telefónico. Para abrir la herramienta, haga clic en el icono en el menú de herramientas que se encuentra en el mapa a la izquierda. Además de esta herramienta, usted puede enviar mensajes de texto en las siguientes partes del sistema de rastreo: en la pestaña Seguimiento (opción SMS); en la pestaña Unidades; en la pestaña Conductores. También puede utilizar SMS para enviar comandos al dispositivo instalado en la unidad. Para ello, debe seleccionar SMS en el campo Canal de las propiedades del comando.
+
+Envío de mensajes desde el sistema de rastreo
+
+Para enviar un mensaje empleando la herramienta SMS, siga los siguientes pasos: En la lista desplegable, escoja el tipo del destinatario: Conductores o Unidades. En la lista más abajo, seleccione el destinatario. Su número telefónico se muestra entre los paréntesis después del nombre. Si una unidad tiene dos números telefónicos, ella se muestra dos veces en la lista. Utilice el filtro dinámico para facilitar la búsqueda. Si quiere enviar un mensaje al número que no hay en la lista, escríbalo en el formato internacional en el campo Número de teléfono a la derecha. Por defecto, en este campo se muestra el número del destinatario escogido en el paso 2. Escriba el texto del mensaje. Más abajo se muestra la cantidad de caracteres y de SMS en los que será dividido el texto introducido. Apriete Enviar. Después de enviar el mensaje, en el historial se muestra el registro correspondiente.
+
+Envío de mensajes por el conductor
+
+El conductor también puede enviar mensajes de texto al operador al sistema de rastreo empleando su teléfono móvil. Para ello el número de teléfono del conductor debe estar indicado en sus propiedades en el sistema de rastreo. El número de teléfono del operador depende del módem que se emplea en el servicio para el envío de SMS. La forma más simple de conocerlo es enviar un mensaje al conductor desde el sistema de rastreo. Los mensajes enviados por el conductor se muestran en el historial y en la ventana Comunicación con conductores igual que los comandos enviados desde un dispositivo. En esta ventana se puede responder al mensaje del conductor haciendo clic en el icono. También los mensajes del conductor y operador se muestran en el informe avanzado por conductores en la tabla Mensajes SMS. Además, usted puede intercambiar mensajes de texto con el conductor utilizando la aplicación Chatterbox.
+
+Dirección
+
+Esta herramienta está diseñada para encontrar lugares en el mapa y determinar direcciones de puntos. También permite guardar el lugar marcado como geocerca. Para abrir la herramienta, haga clic en el elemento Dirección en el menú de herramientas que se encuentra en el mapa a la izquierda.
+
+Cambiar la fuente de dirección
+
+Por defecto, se utiliza el proveedor de mapas Gurtam Maps como fuente de dirección. Sin embargo, se puede escoger otras fuentes: Google Maps, Yandex, Visicom, what3words, etc. (depende de la configuración de sus mapas y de si se admiten). Se puede seleccionar una fuente en la lista desplegable Mostrar como dirección.
+
+Buscar un lugar en el mapa
+
+Para encontrar un lugar en el mapa, empiece a ingresar su dirección en el campo Buscar dirección y seleccione la opción conveniente en la lista. Si no la encuentra, intente reformular su solicitud. Si en los parámetros del usuario se ha rellenado el campo Ciudad, al abrir la herramienta Dirección, esta ciudad está especificada por defecto y usted solo tiene que ingresar una calle y casa. El lugar encontrado en el mapa se marca con el icono. En la ventana de la herramienta, se muestra la información adicional (vea más abajo).
+
+Determinar la dirección
+
+Para determinar la dirección de un lugar, utilice uno de estos métodos: haga doble clic en el punto necesario en el mapa; ingrese las coordenadas en los campos Latitud y Longitud y haga clic en Mostrar. Utilice un punto como separador decimal. El lugar encontrado se marca con el icono rojo y en la ventana de la herramienta se muestra la información adicional (vea más abajo).
+
+Información en la ventana de la herramienta
+
+En la ventana de la herramienta se muestran la latitud y longitud geográficas y la dirección (si está disponible). Si al lado del lugar marcado hay geocercas, su lista se muestra en el campo Geocercas debajo de la dirección. A la izquierda del nombre de la geocerca, se muestra su color y distancia hasta el punto marcado (siempre que la opción Distancia de unidad a geocerca esté activada en los parámetros del usuario). Si usted se ha movido por el mapa y quiere volver a la posición inicial, haga clic en el botón Mostrar. Si tiene claves Google o Yandex, puede ver imágenes panorámicas del lugar encontrado. Para hacerlo, expanda la sección Google Street View o Yandex Panorama en la ventana de la herramienta.
+
+Guardar como geocerca
+
+Puede guardar el lugar marcado como geocerca de forma circular. Para hacerlo, realice estos pasos: Expanda la sección Guardar como geocerca en la ventana de la herramienta. Configure las propiedades de la geocerca. Los campos obligatorios se marcan con un asterisco. Propiedad Descripción Recurso* Recurso en el que se debe guardar la geocerca. Esta lista desplegable se muestra si el usuario tiene acceso a más de una geocerca. Por defecto, la geocerca se crea en el recurso de la cuenta del usuario. Una vez guardado el punto como geocerca, no se puede modificar esta propiedad. Nombre* El nombre de geocerca debe contener al menos cuatro caracteres. Vea reglas de ingreso de datos. Grupo Grupo al que debe pertenecer la geocerca. Radio* Radio del círculo. Dependiendo del sistema de medidas del recurso, el radio se especifica en el sistema métrico (metros), estadounidense (pies) o imperial (pies). El valor por defecto es 100 m. Haga clic en Guardar. Una vez guardada la geocerca, ella se añade a la lista de trabajo en la pestaña Geocercas. Si es necesario, puede modificar sus propiedades.
+
+Análisis de recorridos
+
+Esta herramienta permite obtener la información detallada sobre los puntos del recorrido. Antes de iniciar, tiene que visualizar el recorrido de la unidad utilizando uno de los siguientes métodos:
+
+Pestaña: Recorridos Método de visualización del recorrido
+Recorridos: Visualice el recorrido siguiendo estos pasos.
+Mensajes: Solicite mensajes de la unidad y su recorrido se mostrará automáticamente en el mapa.
+Informes: En los ajustes de la plantilla del informe, marque la opción Recorridos de viajes o Todos los mensajes en el mapa. El recorrido se muestra en el mapa al ejecutar el informe.
+Seguimiento: Utilice la opción Recorrido rápido.
+
+Para abrir la herramienta Análisis de recorridos, haga clic en el elemento del mismo nombre en el menú de herramientas que se encuentra en el mapa a la izquierda. Para analizar el recorrido, haga lo siguiente:
+
+Seleccione el recorrido en la lista desplegable. Seleccione el modo de análisis del recorrido: punto único o multipunto. El modo multipunto permite ver la información sobre varios puntos en la ventana de herramienta. En el modo de punto único, cuando un nuevo punto se escoge, la información del punto anterior se elimina. Coloque el cursor sobre un punto del recorrido para ver la descripción emergente o haga doble clic en el punto para que la información sobre él se muestre en la ventana de la herramienta.
+
+Descripciones emergentes de puntos
+
+Al colocar el cursor sobre el recorrido, el punto más cercano en un radio de 50 píxeles del que se ha recibido un mensaje se resalta con un círculo azul pulsante. La descripción emergente del punto puede contener la siguiente información: icono y nombre de unidad; fecha y hora de recepción del mensaje; dirección; geocerca si la unidad se encuentra dentro de una geocerca; velocidad de movimiento de la unidad; altitud sobre el nivel del mar; cantidad de satélites con los que se ha establecido la conexión; coordenadas; valores de sensores que se han marcado como visibles; valores de parámetros de mensajes. Para los valores de velocidad, altitud y otros parámetros se usa el sistema de medidas de la unidad. La información de la descripción emergente se puede resaltar y copiar al portapapeles. Los datos que se deben mostrar en la descripción se configuran en los parámetros del usuario.
+
+Información de puntos en la ventana de la herramienta
+
+Haga doble clic con el ratón en cualquier parte del recorrido o mapa para que el punto más cercano del que se ha recibido un mensaje se resalte con un marcador y se muestre en el centro del mapa. En la ventana de la herramienta y en la descripción emergente del marcador, se muestra toda la información que puede haber en la descripción emergente del punto. Además, en la ventana de la herramienta, se puede ver la distancia entre el punto inicial y el punto seleccionado y cuánto tiempo tardó la unidad en recorrer esta distancia. En el modo multipunto, el último punto seleccionado en el mapa se indica con un marcador rojo; y los demás, con el marcador azul. En la ventana de la herramienta, la línea del último punto marcado se resalta en azul. Haga clic en la línea del punto o haga doble clic con el ratón para que el punto se muestre en el centro del mapa. Utilice el icono para expandir o contraer la información sobre el punto. Para eliminar una línea y marcador, haga clic en.
+
+Área
+
+Esta herramienta permite determinar el perímetro y área de las zonas marcadas en el mapa. Para abrir la herramienta Área, haga clic en el elemento del mismo nombre en el menú de herramientas que se encuentra en el mapa a la izquierda. Para medir el perímetro y área de una zona, márquela en el mapa utilizando las siguientes acciones: agregar un punto: hacer doble clic con el ratón; mover el punto: colocar el cursor sobre el punto y arrastrarlo al lugar necesario; eliminar un punto: hacer doble con el ratón en el punto (disponible solo si hay más de dos puntos); eliminar todos los puntos: hacer clic en el botón Restablecer. Además, puede acercar o alejar el mapa si es necesario. El área y perímetro de la zona marcada se muestran en la ventana de la herramienta. Las unidades de medida dependen del sistema de medidas establecido en los parámetros del usuario: hectáreas, para el sistema métrico; millas y pies cuadradas, para los sistemas estadounidense e imperial.
+
+Reproductor de recorridos
+
+Esta herramienta se utiliza para reproducir recorridos del movimiento de unidades dinámicamente. Para abrir la herramienta, haga clic en el icono, en el menú de herramientas que se encuentra en el mapa a la izquierda. Se puede dibujar recorridos en el mapa de cuatro modos: En la pestaña Recorridos, mostrar uno o varios recorridos correspondientes al intervalo de tiempo especificado. En la pestaña Mensajes, solicitar mensajes del período determinado. El recorrido se dibuja en el mapa automáticamente. En la pestaña Informes, ejecutar un informe teniendo marcada la opción Todos los mensajes en el mapa o Recorridos de viajes en la configuración del informe. Utilizar el icono de recorrido rápido en la pestaña Seguimiento. El último recorrido construido se escoge automáticamente en el reproductor de recorridos. También se puede elegir un recorrido manualmente de la lista desplegable. El nombre del recorrido coincide con el nombre de la unidad y entre paréntesis se muestra en qué pestaña ha sido construido.
+
+Ajustes del reproductor de recorridos
+
+Mover el mapa. Esta función durante la reproducción puede ser automática o manual. Esto se ajusta mediante el icono. Si la opción Mover el mapa automáticamente está desactivada, se podrá mover el mapa solo manualmente. Si está activada, el mapa se mueve automáticamente: junto con la unidad durante la reproducción; al emplear los botones de posición inicial y final; al usar los botones de mover por el recorrido punto a punto; al hacer clic en la escala temporal (el mapa se traslada al punto correspondiente del recorrido); al escoger un recorrido de la lista desplegable (el mapa se traslada al primer punto del recorrido). Mostrar imágenes. Si hay imágenes en los mensajes de la unidad, pueden mostrarse u ocultarse durante la reproducción mediante el icono. En la lista desplegable, seleccione la velocidad de reproducción más conveniente: de tiempo real (1x) a 1000 veces acelerada (1000x, es decir, en un segundo se mostrarán cerca de 16 minutos de mensajes). Cualquiera que sea la velocidad elegida, los mensajes con la velocidad nula se mostrarán con la velocidad máxima. Si la velocidad de reproducción ha sido cambiada durante la reproducción misma, para aplicarla hay que apretar pausa y volver a activar la reproducción. La velocidad de reproducción es bastante convencional. La posibilidad de mostrar todo durante el lapso dado depende del navegador que se utiliza, rendimiento del ordenador, número de mensajes en el recorrido e intervalos de tiempo entre los mensajes. En cualquier caso, se reproducirán todos los mensajes aunque esto necesite más tiempo.
+
+Reproducción
+
+Se puede reproducir recorridos tanto en el panel de recorridos como mediante el reproductor. Para reproducir un recorrido, apriete el botón ; para parar,. Al terminar la reproducción, la unidad se queda en el punto de su última ubicación. Durante la reproducción del recorrido, por el mapa se mueve un icono que muestra la dirección del movimiento y/o una flecha que muestra hacia dónde está moviendo la unidad. En el recorrido conviene usar iconos giratorios. El nombre de la unidad reproducida está escrito en violeta. Al mismo tiempo, la unidad real desaparece del mapa temporalmente. Durante la reproducción, bajo el nombre de la unidad, se muestran la dirección y velocidad de cada mensaje; y encima de la escala temporal, la fecha y hora. Además, si hay claves de Google o Yandex, se puede seguir el movimiento de las unidades usando las vistas panorámicas de calles. Para eso hay que desplegar las secciones Google Street View o Yandex Panorama situadas abajo. En las secciones de abajo se muestran los cambios de los valores de parámetros y sensores (solo sensores visibles). Despliegue estas secciones para ver su contenido completo. Si desea seguir solo parámetros y sensores determinados, puede trasladarlos a la sección principal del reproductor de recorridos. Para esto, haga un clic doble en el elemento necesario. Todos los datos cambian dinámicamente de acuerdo con el mensaje reproducido en el momento. Si el dispositivo envía imágenes, estas se muestran en ventanas emergentes durante la reproducción. Se puede desplazarse por el recorrido por medio de un clic en algún lugar de la escala temporal o en algún punto en el mapa. Además, se puede utilizar los botones siguientes: : moverse al primer mensaje (va acompañado por el marcador en el mapa), : moverse al último mensaje (va acompañado por el marcador en el mapa), : siguiente mensaje, : mensaje anterior. Asimismo, se puede reproducir recorridos por medio de la aplicación Track Player que permite reproducir simultáneamente recorridos de varias unidades por el mismo lapso.
+
+Unidades más cercanas
+
+Esta herramienta permite encontrar en el mapa las unidades que, según sus últimos mensajes, están más cerca del lugar indicado por usted. Se puede buscar solo entre aquellas unidades que están en la lista de trabajo de la pestaña Seguimiento. Para abrir la herramienta, haga clic en el icono en el menú de herramientas que se encuentra en el mapa a la izquierda. Para buscar unidades, realice los siguientes pasos: Indique el lugar haciendo doble clic en el mapa o comience a ingresar la dirección en el campo Buscar dirección y seleccione la opción necesaria. Si una ciudad está indicada en los parámetros de usuario, esta ciudad se muestra por defecto en el campo de ingreso de la dirección. Indique qué cantidad de unidades más cercanas que desea encontrar: 5, 10 o 20. Active la opción Considerar enrutamiento para que la distancia hasta la unidad no se mida en línea recta sino considerando carreteras. Además, si la opción está activada, en el resultado de búsqueda al lado de la distancia se muestra cuánto tiempo tardará la unidad en llegar al lugar indicado por usted. Por defecto Gurtam Maps se utilizan para el cálculo de la ruta. La lista contiene las fuentes que están seleccionadas en los parámetros del usuario. Las direcciones se determinan solo según los mapas Gurtam Maps. Si es necesario filtrar unidades por geocerca dentro de la cual las unidades se encuentran actualmente, seleccione una en el campo Geocerca. Por ejemplo, puede crear la geocerca alrededor de una ciudad y emplearla para excluir unidades de otras ciudades. En el campo Últimos datos, seleccione cuándo la unidad ha tenido que enviar su último mensaje. Por ejemplo, si selecciona el intervalo 1 hora, se buscan solo aquellas unidades que han enviado mensajes durante la última hora. Como resultado, obtiene una lista de unidades con la siguiente información:
+
+Tipo de información
+Comentario
+Nombre de unidad
+Se hace clic en el nombre de la unidad, ella se muestra en el centro del mapa.
+Número de teléfono del conductor
+Se muestra solo si el número de teléfono está indicado en las propiedades del conductor y este conductor está asignado a la unidad.
+Distancia a la unidad desde el lugar indicado
+Si la opción Considerar enrutamiento está activada, la distancia se calcula tomando en cuenta carreteras.
+Duración del viaje
+Se muestra al lado de la distancia a la unidad si la opción Considerar enrutamiento está activada.
+Color que muestra el estado del sensor
+Se muestra el color del estado que tiene el sensor seleccionado para la opción Estado del sensor en las propiedades de la unidad. Los colores del sensor se configuran en sus propiedades. La descripción emergente contiene el nombre del sensor y el valor de su parámetro.
+Icono para envío de comandos
+Se puede enviar los comandos que se han creado en la pestaña del mismo nombre de las propiedades de la unidad.
+
+Ajustes de enrutamiento
+
+Esta sección consiste de ajustes básicos y adicionales que permiten planificar rutas teniendo en cuenta las siguientes particularidades: medio de transporte; leyes de tránsito de diferentes países; características del vehículo; tipos de vías y pavimentos; tipos de carga que se transporta, etc.
+
+Ajustes básicos
+
+Los siguientes ajustes de enrutamiento básicos están disponibles:
+
+Ajustes
+Descripción
+Fuente de geodatos
+Fuente de datos que se emplea para determinar direcciones de puntos de ruta. Por defecto, es la que está establecida en la sección del mismo nombre de los parámetros del usuario. Si es necesario, escoja otra fuente de geodatos en la lista desplegable.
+Fuente de enrutamiento
+Fuente de datos que se emplea para planificar rutas. Por defecto, la fuente de enrutamiento Gurtam Maps está establecida. Si es necesario, escoja otra fuente de enrutamiento en la lista desplegable. Esta lista contiene las fuentes que están marcadas en la sección del mismo nombre de los parámetros de usuario. La fuente de enrutamiento indicada influye en la cantidad de ajustes adicionales.
+Puntos de ruta
+
+En esta sección, puede agregar puntos de ruta y trabajar con ellos. Para crear una ruta, es obligatorio indicar direcciones de al menos dos puntos: punto de salida y punto de destino. Además, puede añadir cualquier cantidad de puntos intermedios. Los siguientes marcadores se utilizan para designar puntos añadidos en la lista y en el mapa: punto de salida; punto intermedio; punto de destino. Cada marcador tiene el número de orden del punto. Los números cambian automáticamente de acuerdo con la cantidad de puntos y su orden.
+
+Agregación de puntos
+
+Se utilizan los siguientes métodos para agregar puntos de ruta: ingresar coordenadas; ingresar la dirección; ingresar el nombre de una geocerca o de una unidad; hacer clic en el mapa.
+
+Método
+Descripción
+Ingresar coordenadas
+Para añadir un punto, haga lo siguiente: Haga clic en la línea de dirección vacía. Si es necesario, agregue una nueva línea haciendo clic en Agregar punto. En la línea, ingrese las coordenadas separándolas con coma. Se admiten los siguientes formatos: grados decimales con signo para indicar la longitud occidente y latitud sur (por ejemplo, 45.49150, -73.61638 o 45.49150°, -73.61638°); grados decimales con letras que indican la longitud y altitud (por ejemplo, N45.49150, W73.61638 o N45.49150°, W73.61638°). Seleccione estas coordenadas en la lista desplegable.
+Ingresar la dirección
+Para añadir un punto, haga lo siguiente: Haga clic en la línea de dirección vacía. Si es necesario, agregue una nueva línea haciendo clic en Agregar punto. Empiece a ingresar la dirección (al menos 3 caracteres). Encuentre la dirección necesaria en la lista desplegable que se genera según los resultados de búsqueda. La búsqueda se realiza con la fuente de geodatos indicada en los ajustes de enrutamiento. Asimismo, para escoger una dirección puede colocar el cursor sobre ella y apretar la tecla Intro. La dirección escogida se añade automáticamente en la línea del punto.
+Ingresar el nombre de la geocerca o de la unidad
+Igual que en el método anterior, empiece a ingresar el nombre de la geocerca o de la unidad. Para buscar unidades, debe introducir al menos 3 caracteres. En la lista desplegable, escoja la opción necesaria. Las geocercas y unidades se muestran al final de la lista, después de coordenadas y direcciones. Si usted ha escogido una unidad, el punto se agrega en el lugar donde está la unidad en este momento. Si usted ha escogido una geocerca, el punto se agrega en el centro de la geocerca.
+Hacer clic en el mapa
+Para añadir un punto, coloque el cursor sobre el lugar necesario en el mapa y haga clic izquierdo en él. El marcador del punto se añade automáticamente en este lugar. Para ver dónde se encuentran los puntos añadidos en el mapa, haga clic en su marcador en la lista.
+
+Trabajo con puntos
+
+Puede trabajar con los puntos de ruta en la lista y en el mapa. Todas las operaciones se sincronizan automáticamente, es decir, cualquier cambio en la lista aparece en el mapa y viceversa. Para trabajar con los puntos, se emplean los siguientes iconos:
+
+Icono
+Acción
+Cambiar el orden de puntos. Para esto, coloque el cursor sobre la línea del punto necesario, haga clic en el icono y mueva la línea al lugar deseado manteniendo presionado el botón izquierdo del ratón.
+Centrar el mapa en el punto de ruta. El icono se muestra al colocar el cursor sobre el marcador del punto en la lista.
+Borrar la dirección del punto.
+Eliminar el punto. El icono se muestra al colocar el cursor sobre el marcador del punto o al hacer clic en el marcador del punto en el mapa. Cuando se elimina un punto de destino, el último punto intermedio se convierte automáticamente en el punto de destino. Cuando se elimina un punto de salida, el primer punto intermedio se convierte automáticamente en el punto de salida. Para eliminar todos los puntos agregados a la vez, apriete el botón Limpiar todo. Para cambiar el orden de puntos mediante el mapa, apriete el marcador de un punto agregado y muévalo al lugar deseado manteniendo presionado el botón izquierdo del ratón. Si aleja mucho el mapa, los marcadores de puntos que están cerca uno del otro se unen de acuerdo con su orden. No se puede eliminar mediante el mapa los puntos unidos. Para eliminar tales puntos, utilice la lista en la ventana de la herramienta o acerque el mapa.
+
+Creación de rutas
+
+Para crear rutas, realice los siguientes pasos: Indique las direcciones de los puntos de ruta obligatorios y, si es necesario, añada cualquier cantidad de puntos intermedios. Establezca ajustes de enrutamiento si es necesario. Apriete el botón Crear ruta. Al finalizar, la ruta calculada según los puntos añadidos y ajustes establecidos se muestra en el mapa. Para cambiar puntos o ajustes y volver a crear la ruta, apriete el icono en la parte izquierda de la ventana, realice los cambios deseados y apriete el botón Crear ruta. También, para planificar rutas, puede utilizar la aplicación Logistics.
+
+Resultados de creación de ruta
+
+Los resultados que puede ver después de crear una ruta contienen la siguiente información: la ruta posible para la que están indicados la distancia entre el punto de salida y punto de destino y la duración de esta ruta; marcadores y direcciones de todos los puntos de la ruta. Además, se muestran los iconos para guardar la ruta como una geocerca o como una ruta.
+
+Rutas alternativas
+
+Si la opción Rutas alternativas está activada (disponible solo para las fuentes de enrutamiento Google, HERE, Sygic), varias rutas posibles con distancia y duración distintas pueden mostrarse en la sección Opciones de ruta. Puede escoger la opción de ruta deseada en esta sección o en el mapa. En el mapa la ruta escogida se resalta de color azul oscuro; y las demás opciones, de color azul claro.
+
+Acciones con la ruta creada
+
+Puede realizar las siguientes acciones con la ruta creada: guardarla como una geocerca o una ruta; exportarla a un archivo KML o KMZ; crear un enlace a ella en Google Maps.
+
+Guardar como geocerca
+
+La ruta creada puede ser guardada como una geocerca o una ruta para utilizarlas más tarde en las pestañas Geocercas o Rutas respectivamente, así como emplearlas para seguir unidades, ejecutar informes, configurar notificaciones, etc. Para esto se requiere el derecho de acceso al recurso Crear, modificar y eliminar geocercas. Además, en las propiedades del plan de facturación o de una cuenta deben estar conectados los siguientes servicios: Geocercas, para acceder a la pestaña Geocercas; Rutas, para acceder a la pestaña Rutas; Grupos de geocercas, para agregar la geocerca a un grupo.
+
+Dos opciones están disponibles: Guardar como geocerca; Guardar como ruta.
+
+Guardar como geocerca
+
+Para guardar la geocerca de esta forma, realice los siguientes pasos: Apriete el icono. Introduzca el nombre de la geocerca (de 1 a 1024 caracteres). Vea restricciones de caracteres. Escoja un recurso en el que debe guardarse la geocerca. Escoja un grupo al que debe pertenecer la geocerca (opcionalmente). Si es necesario, utilice la opción Guardar solo puntos clave: si está activada, la geocerca se guarda en forma de una línea que pasa por trayectoria más corta a través de los puntos de control de la ruta sin tomar en cuenta vías y ajustes de enrutamiento establecidos.

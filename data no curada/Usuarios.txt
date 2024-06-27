@@ -1,0 +1,35 @@
+Gestión de Usuarios en la Plataforma de Seguimiento
+La plataforma de seguimiento cuenta con una pestaña de usuarios para administrar los perfiles de los usuarios que acceden al sistema.
+
+Acciones en la Pestaña de Usuarios
+Iniciar sesión como usuario: Permite a un usuario superior acceder a la cuenta de un usuario inferior sin necesidad de sus credenciales.
+Propiedades del usuario: Permite modificar el acceso, contraseña y otros detalles del usuario.
+Copiar usuario: Facilita la creación de nuevos usuarios con los mismos derechos de acceso que otro usuario existente.
+Eliminar usuario: Elimina el perfil de usuario del sistema.
+Creación de un Nuevo Usuario
+Clic en "Crear": Abre la ventana de configuración del usuario.
+Pestaña "Básicas":
+Nombre: Introducir un nombre único, preferiblemente un correo electrónico.
+Contraseña: Crear una contraseña segura de al menos diez caracteres.
+Confirmar contraseña: Repetir la contraseña para verificar.
+Máscara IP (opcional): Especificar una dirección IP para restringir el acceso desde un solo lugar.
+Creador: Seleccionar el usuario que creó la cuenta (generalmente el usuario actual).
+Cuenta: Muestra la cuenta a la que pertenece el usuario (no se puede cambiar).
+Sistema de medidas: Elegir entre métrico o imperial.
+Permisos:
+Puede crear objetos: Permite crear unidades, usuarios, cuentas, recursos, grupos, rutas y repetidores.
+Puede cambiar contraseña: Permite al usuario cambiar su propia contraseña.
+Puede enviar SMS: Permite enviar mensajes SMS a conductores, usuarios, unidades y números personalizados.
+Habilitado: Permite al usuario iniciar sesión en la plataforma.
+Puede cambiar configuraciones: Permite modificar los parámetros y opciones de seguimiento.
+Pestaña "Acceso":
+Otorgar acceso: Seleccionar los objetos (unidades, grupos de unidades, usuarios, recursos) a los que el usuario tendrá acceso y elegir la plantilla "Acceso total".
+Pestaña "Avanzadas":
+Email: Introducir la dirección de correo electrónico para recibir notificaciones de restablecimiento de contraseña y advertencias de bloqueo de cuenta.
+Activar sobre bloqueo de la cuenta por email: Enviar notificaciones diarias cinco días antes de bloquear la cuenta por inactividad.
+Historiales:
+Tipo de mensajes: Seleccionar los tipos de registros a mostrar (inicio/cierre de sesión, cambios en la configuración, etc.).
+Periodo: Elegir el rango de fechas para el historial.
+Clic en "Mostrar": Ver el historial de actividad del usuario.
+Campos personalizados: Agregar información adicional sobre el usuario (por ejemplo, "posición en la compañía"). Marcar como "administrativo" si solo debe ser visible para usuarios con permisos especiales.
+Guardar configuración: Hacer clic en "OK" para finalizar la creación del usuario.

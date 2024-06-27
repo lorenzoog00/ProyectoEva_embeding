@@ -1,0 +1,10 @@
+
+La pestaña de tareas en la plataforma de seguimiento permite automatizar la generación y envío de informes por correo electrónico. Para crear una tarea de este tipo, se selecciona el recurso donde se guardará y se elige el tipo de tarea "enviar un informe por email".
+
+Es necesario seleccionar la plantilla de informe previamente creada en la pestaña de informes y el formato en que se enviará (HTML, PDF o Excel). En la sección de parámetros, se pueden configurar opciones como la compresión de archivos, la desactivación de enlaces a Google Maps y la inclusión de mapas adjuntos.
+
+Los intervalos de informes pueden ser "por anteriores" (última hora, día, etc.), "de hoy" (desde una fecha hasta el momento actual) o "intervalo especificado" (entre dos fechas). Se deben introducir las direcciones de correo electrónico de los destinatarios y seleccionar el objeto del informe (unidades, geocercas, etc.).
+
+En la sección de ejecución, se define el nombre de la tarea, una descripción opcional, la frecuencia de activación, la fecha y hora de inicio, el número máximo de ejecuciones y si la tarea se crea activada o desactivada. También se pueden establecer limitaciones de tiempo, como días u horas específicos en los que la tarea no se ejecutará.
+
+Una vez creada la tarea, se mostrará en la lista de trabajo con su nombre, icono y una breve descripción al pasar el cursor. Se puede activar o desactivar la tarea, ejecutarla como prueba, ver el número de ejecuciones, acceder a sus propiedades, copiarla o eliminarla.

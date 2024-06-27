@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Archivos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Selecciona los archivos para filtrar el DataFrame</h1>
+        <form action="{{ url_for('submit') }}" method="post">
+            {% for file in files %}
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="files" value="{{ file }}"> {{ file }}
+                    </label>
+                </div>
+            {% endfor %}
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>

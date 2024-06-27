@@ -1,0 +1,11 @@
+El estilo de conducción no solo afecta las condiciones del transporte de mercancías, sino también el estado del vehículo. La conducción agresiva es una causa común de accidentes de tráfico, lo que a su vez incrementa los costos de reparación y mantenimiento, además de aumentar el consumo de combustible.
+
+Para abordar este problema, la aplicación iDrive Safe permite evaluar la calidad de la conducción basándose en tres parámetros clave: frenadas bruscas, aceleraciones bruscas y giros peligrosos. La evaluación también puede adaptarse al tipo de vehículo: coche, furgoneta, autobús o camión. Cada empresa puede personalizar la configuración según sus necesidades específicas.
+
+iDrive Safe ofrece flexibilidad al permitir definir un nivel de tolerancia a las reglas: alta tolerancia, tolerancia normal y baja tolerancia. Para usar la aplicación, se seleccionan los vehículos a evaluar y se define el intervalo de tiempo deseado, estableciendo una duración mínima para excluir trayectos cortos. El sistema calcula y presenta los resultados en una lista, incluyendo la evaluación de la calidad de la conducción, la nota, la duración del trayecto y el kilometraje. Los parámetros, como el tipo de vehículo y el nivel de tolerancia, pueden ajustarse según sea necesario.
+
+Una vez obtenida la evaluación, se puede realizar un análisis detallado de los resultados. Al seleccionar un vehículo específico, se muestran sus trayectos en la parte superior de la pantalla, con un mapa en la parte inferior derecha y una lista de infracciones a la izquierda. Los trayectos se representan como columnas, donde el ancho indica la duración relativa del trayecto y la altura representa la nota de evaluación.
+
+Al hacer clic en una columna, se visualiza el trayecto en el mapa, con colores que indican la velocidad del vehículo y íconos que señalan las infracciones cometidas. La lista completa de infracciones para ese trayecto se muestra a la izquierda del mapa. Al hacer clic en un ícono de infracción en el mapa, la línea correspondiente se resalta en la lista de infracciones.
+
+iDrive Safe es una herramienta versátil compatible con una amplia gama de dispositivos GPS o GLONASS, y se recomienda una frecuencia de envío de mensajes de 5 a 10 segundos para un rendimiento óptimo.

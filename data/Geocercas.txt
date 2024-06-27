@@ -1,0 +1,42 @@
+
+Creación y Gestión de Geocercas en el Sistema de Seguimiento
+El sistema de seguimiento permite crear y organizar áreas de interés en el mapa, llamadas geocercas, para facilitar el monitoreo de vehículos y obtener información relevante sobre su ubicación.
+
+Creación de una Geocerca
+Clic en "Crear": Abre la ventana de configuración de la geocerca.
+Asignar nombre: Introducir un nombre descriptivo (por ejemplo, "Gasolinera 1").
+Elegir color y tamaño de fuente: Personalizar la apariencia del nombre en el mapa.
+Agregar descripción: Incluir detalles adicionales, como la dirección.
+Seleccionar tipo de geocerca:
+Polígono: Delimitar un área haciendo clic para crear puntos y doble clic para cerrar la figura.
+Línea: Cubrir caminos haciendo clic a lo largo de la ruta y ajustando el ancho de la línea.
+Círculo: Marcar un punto central y definir el radio del círculo.
+Elegir recurso: Seleccionar dónde se guardará la geocerca.
+Asignar a un grupo (opcional): Agregar la geocerca a un grupo existente o crear uno nuevo.
+Seleccionar imagen (opcional): Elegir una imagen representativa de los archivos de la computadora o de la biblioteca del programa.
+Elegir color de relleno: Personalizar el color del área de la geocerca.
+Configurar visibilidad:
+Mostrar forma en el mapa: Marcar la casilla para ocultar el contorno y solo mostrar el icono.
+Nivel de zoom: Especificar los niveles de zoom en los que se mostrará la geocerca (1-19).
+Guardar configuración: Hacer clic en "Guardar" para finalizar.
+Visualización y Detalles de Geocercas
+Casilla de verificación: Activar o desactivar la visualización de la geocerca en el mapa.
+Información al pasar el cursor: Al pasar el cursor sobre el nombre, se muestran detalles como descripción, área, perímetro y recurso.
+Número de unidades: El número debajo del icono del vehículo indica cuántas unidades están dentro de la geocerca.
+Copiar Geocercas
+Se puede copiar una geocerca existente para crear una nueva con la misma configuración pero en una ubicación diferente.
+
+Creación y Gestión de Grupos de Geocercas
+Clic en "Grupos": Acceder a la sección de grupos.
+Clic en "Crear": Abrir la ventana de configuración del grupo.
+Seleccionar recurso: Elegir dónde se guardará el grupo (si hay varios recursos).
+Asignar nombre: Introducir un nombre descriptivo (por ejemplo, "Estaciones de gasolina").
+Agregar descripción (opcional): Incluir detalles sobre el grupo.
+Agregar geocercas:
+Filtrar por "Objetos fuera de grupos" para ver las geocercas disponibles.
+Buscar geocercas por palabra clave.
+Seleccionar las geocercas y hacer clic en la flecha para agregarlas al grupo.
+Guardar configuración: Hacer clic en "OK" para crear el grupo.
+Visualización de Grupos
+Casilla de verificación: Activar o desactivar la visualización de las geocercas del grupo en el mapa.
+Número entre paréntesis: Indica cuántas geocercas contiene el grupo.

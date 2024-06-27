@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuesta a la Consulta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Respuesta a su Consulta</h1>
+        <p><strong>Consulta:</strong> {{ query }}</p>
+        <p><strong>Respuesta:</strong> {{ response }}</p>
+        <a class="big-button" href="{{ url_for('index') }}">Hacer otra consulta</a>
+    </div>
+</body>
+</html>

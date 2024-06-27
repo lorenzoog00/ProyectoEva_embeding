@@ -1,0 +1,38 @@
+Gestión de Unidades y Grupos en la Plataforma de Seguimiento
+La plataforma de seguimiento cuenta con una pestaña de unidades para administrar los dispositivos de seguimiento (unidades) y organizarlos en grupos.
+
+Opciones en la Pestaña de Unidades
+Unidades:
+Ordenar alfabéticamente: Permite ordenar la lista de unidades por nombre.
+Icono de propiedades: Abre la ventana de configuración de la unidad.
+Icono de copia: Permite duplicar una unidad existente.
+Icono de eliminar: Permite eliminar una unidad (si se tienen los permisos necesarios).
+Grupos:
+Expandir lista: Muestra las unidades que pertenecen a un grupo al hacer clic en el icono "+".
+Número de unidades: Indica cuántas unidades hay en el grupo.
+Icono de propiedades: Abre la ventana de configuración del grupo.
+Configuración de Unidades
+Clic en el icono de propiedades: Abre la ventana de configuración.
+Pestaña "Básicas":
+Nombre: Muestra el nombre de la unidad (se puede modificar).
+Icono: Permite cambiar el icono que representa la unidad en el mapa y en la pestaña de monitoreo. Se puede elegir de la biblioteca de iconos o cargar una imagen personalizada.
+Aceptar cambios: Hacer clic en "OK" para guardar la configuración.
+Eliminación de Unidades
+Precaución: Eliminar una unidad es irreversible. Si se elimina por error, contactar al equipo de soporte dentro de los 30 días para intentar restaurarla.
+Configuración de Grupos
+Clic en el icono de propiedades: Abre la ventana de configuración.
+Pestaña "Básicas":
+Nombre: Muestra el nombre del grupo (se puede modificar).
+Creador: Muestra quién creó el grupo (se puede modificar).
+Agregar unidades:
+Hacer doble clic en las unidades deseadas.
+Mantener presionada la tecla "Ctrl" y seleccionar varias unidades.
+Hacer clic en "Seleccionar todo" para agregar todas las unidades restantes.
+Pestaña "Iconos": Funciona igual que en la configuración de unidades.
+Aceptar cambios: Hacer clic en "OK" para guardar la configuración.
+Creación de un Nuevo Grupo
+Clic en "Crear": Abre la ventana de configuración.
+Asignar nombre: Introducir un nombre descriptivo (por ejemplo, "Nombre de Prueba").
+Asignar creador: Seleccionar el usuario que creó el grupo (generalmente el usuario actual).
+Agregar unidades: Seleccionar las unidades que formarán parte del grupo.
+Aceptar cambios: Hacer clic en "OK" para crear el grupo.

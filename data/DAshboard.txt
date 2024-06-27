@@ -1,0 +1,16 @@
+
+El dashboard en la plataforma de seguimiento ofrece una visión general del estado de la flota, presentando datos tanto en tiempo real como históricos. Es personalizable, permitiendo seleccionar qué paneles mostrar y su orden de visualización.
+
+Los paneles de datos en vivo incluyen:
+
+Estado de conexión: Muestra cuántas unidades están conectadas o desconectadas, facilitando la identificación de problemas de conectividad.
+Resumen de estados de movimiento: Presenta los diferentes estados de movimiento de las unidades (paradas, en movimiento, sin datos, etc.), permitiendo evaluar rápidamente la actividad de la flota.
+Geocercas con unidades: Indica cuántas unidades se encuentran dentro de cada geocerca, útil para controlar la ubicación de los vehículos.
+Últimas notificaciones: Muestra las notificaciones más recientes, manteniendo al usuario informado sobre eventos relevantes.
+Los paneles de datos históricos, por defecto, muestran información de la semana anterior, pero se puede ajustar el período de tiempo. Estos paneles incluyen:
+
+Kilometraje total: Muestra el kilometraje acumulado de las unidades.
+Consumo de combustible: Presenta el consumo de combustible por FLS o sensores, con gráficos personalizables para hasta 10 unidades.
+Excesos de velocidad: Muestra los excesos de velocidad totales e individuales, con filtros para diferentes rangos de velocidad.
+Kilometraje y consumo de combustible: Destaca las 10 unidades con mayor kilometraje y consumo de combustible.
+Es importante tener en cuenta que los paneles de datos en vivo siempre reflejan el estado actual de los dispositivos, independientemente del intervalo de tiempo seleccionado para los paneles de datos históricos.
