@@ -61,3 +61,83 @@ button {
 button:hover {
     background: #0056b3;
 }
+
+.big-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.big-button:hover {
+    background-color: #0056b3;
+}
+
+.response-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button-container .big-button {
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.button-container .big-button:last-child {
+    margin-right: 0;
+}
+
+.big-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.big-button:hover {
+    background-color: #0056b3;
+}
+
+.response-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button-container .big-button {
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.button-container .big-button:last-child {
+    margin-right: 0;
+}

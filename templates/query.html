@@ -3,17 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realizar Consulta</title>
+    <title>Consulta</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        #loading {
+            display: none;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 60px; /* Ajustar la distancia desde la parte superior del formulario */
+            left: 20%; /* Ajustar la distancia desde la izquierda del formulario */
+        }
+        .form-container {
+            position: relative;
+            margin-bottom: 20px; /* Para asegurarse de que haya suficiente espacio debajo del formulario */
+        }
+    </style>
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('query-form').style.display = 'none';
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Realizar Consulta</h1>
-        <form action="{{ url_for('query') }}" method="post">
-            <label for="query">Escriba su consulta:</label>
-            <textarea id="query" name="query" rows="4" cols="50" style="white-space: pre-wrap;"></textarea>
-            <button type="submit">Enviar</button>
-        </form>
+        <h1>Consulta sobre {{ files | join(', ') }}</h1>
+        <div class="form-container">
+            <form id="query-form" action="{{ url_for('query') }}" method="post" onsubmit="showLoading()">
+                <label for="query">Escriba su consulta:</label>
+                <textarea id="query" name="query" rows="4" cols="50"></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+            <div id="loading">
+                <img src="{{ url_for('static', filename='gifs/cargando.gif') }}" alt="Cargando...">
+            </div>
+        </div>
     </div>
 </body>
 </html>

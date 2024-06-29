@@ -1,0 +1,32 @@
+En la pestaña de informes, se pueden crear informes personalizados para analizar datos de seguimiento. Para crear un informe de estacionamiento, primero se selecciona el recurso donde se guardará y se le asigna un nombre. Luego, se elige el tipo de informe "grupo de unidades" para ejecutarlo en varias unidades.
+
+Los informes tienen tres secciones: contenido, ajustes y asignación. En este tutorial, nos enfocamos en el contenido y los ajustes.
+
+Se recomienda crear una tabla de estadísticas como portada, incluyendo información como nombre del informe, grupos de unidades, intervalo de tiempo y tiempo de ejecución.
+
+Luego, se agrega una tabla de estacionamientos y se seleccionan las columnas deseadas: "Comienzo de estacionamiento", "Fin de estacionamiento", "Duración de estacionamiento" y "Localización". Se puede cambiar el orden de las columnas arrastrándolas.
+
+En los ajustes de la tabla, se agrega una agrupación por unidad y fecha para organizar las filas. Se selecciona "Especificación" para separar cada estacionamiento en una fila y "Numeración de líneas" para facilitar la lectura.
+
+En los ajustes del informe, se agregan marcadores de estacionamiento y el recorrido de viaje al mapa.
+
+Finalmente, se guarda el informe y se verifica su creación en el panel de plantillas de informes.
+
+Los resultados se muestran en dos paneles: la lista de contenidos (tablas y gráficos) y el desglose de la tabla seleccionada.
+
+En la parte superior de las tablas, hay botones para navegar por las páginas (primera, anterior, siguiente, última), ingresar un número de página específico, y controlar cuántas filas se muestran por página. También hay opciones para exportar el informe a PDF, Excel u otros formatos (HTML, XML, CSV), imprimirlo o limpiarlo. El botón "Aspecto" permite cambiar entre una vista con mapa y otra con dos tablas.
+
+La tabla de estadísticas muestra etiquetas e información en dos columnas. La tabla de estacionamientos, creada en un tutorial anterior, muestra columnas como "Comienzo de estacionamiento", "Fin de estacionamiento", "Duración de estacionamiento" y "Localización". Cada fila se puede expandir para ver detalles adicionales.
+
+Las agrupaciones en la parte superior de la tabla ("Unidad", "Fecha", "Especificación") permiten organizar la información de diferentes maneras. La numeración de líneas ayuda a identificar cada fila.
+
+El mapa muestra iconos en las ubicaciones de los estacionamientos individuales.
+
+ Primero, se selecciona la plantilla de informe deseada, como el "Informe de estacionamiento" creado previamente. Luego, se elige el objeto sobre el cual se generará el informe, que puede ser una unidad individual o un grupo de unidades.
+
+El siguiente paso es seleccionar el intervalo de tiempo para el informe. Hay tres opciones:
+
+Intervalo especificado: Se elige manualmente la fecha y hora de inicio y fin del informe.
+De hoy: El informe abarca desde la fecha y hora especificadas hasta el momento actual.
+Por anteriores: Se selecciona una cantidad de tiempo (por ejemplo, 2) y la unidad de tiempo (minutos, horas, días, semanas, meses o años). Si se marca la casilla "intervalo actual", el informe incluirá también el período actual (por ejemplo, las últimas dos semanas).
+Finalmente, se hace clic en el botón "ejecutar" para generar el informe. El contenido del informe se mostrará en el panel de resultados de informes.

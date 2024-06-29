@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .info-icon {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .info-icon img {
+            width: 20px;
+            height: 20px;
+        }
+        .tooltip {
+            display: inline;
+            position: relative;
+        }
+        .tooltip:hover:after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 100%;
+            top: 0;
+            white-space: nowrap;
+            background: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,10 +40,15 @@
         <h1>Hola, {{ nombre_usuario }}</h1>
         <h2>Selecciona los archivos para filtrar el DataFrame</h2>
         <form action="{{ url_for('submit') }}" method="post">
-            {% for file in files %}
+            {% for file, display_file, image_file, tooltip in zip(files, display_files, image_files, tooltips) %}
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="files" value="{{ file }}"> {{ file }}
+                        <input type="checkbox" name="files" value="{{ file }}">
+                        <img src="{{ url_for('static', filename='logos/' ~ image_file) }}" alt="{{ display_file }}" width="20" height="20">
+                        {{ display_file }}
+                        <span class="tooltip" data-tooltip="{{ tooltip }}">
+                            <img src="{{ url_for('static', filename='logos/interrogacion.png') }}" class="info-icon" alt="Info">
+                        </span>
                     </label>
                 </div>
             {% endfor %}

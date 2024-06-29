@@ -5,13 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Respuesta a la Consulta</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function addNewQueryBox() {
+            const queryBox = document.createElement('div');
+            queryBox.classList.add('response-container');
+            queryBox.innerHTML = `
+                <h2>Nueva Consulta sobre {{ files | join(', ') }}</h2>
+                <form onsubmit="submitNewQuery(event, this)">
+                    <label for="query">Escriba su consulta:</label>
+                    <textarea id="query" name="query" rows="4" cols="50"></textarea>
+                    <button type="submit">Enviar</button>
+                    <div class="loading" style="display: none;">
+                        <img src="{{ url_for('static', filename='gifs/cargando.gif') }}" alt="Cargando...">
+                    </div>
+                </form>
+                <div class="new-response" style="display: none;">
+                    <h3>Respuesta a la Nueva Consulta</h3>
+                    <p><strong>Consulta:</strong> <span class="new-query"></span></p>
+                    <pre style="white-space: pre-wrap;"><strong>Respuesta:</strong> <span class="new-response-text"></span></pre>
+                </div>
+                <div class="button-container big-button-container">
+                    <a class="big-button" href="{{ url_for('index') }}">Hacer otra consulta</a>
+                    <button class="big-button" onclick="addNewQueryBox()">Hacer otra consulta de {{ files | join(', ') }}</button>
+                </div>
+            `;
+            document.getElementById('additional-queries').appendChild(queryBox);
+            updateButtonVisibility();
+        }
+
+        function submitNewQuery(event, form) {
+            event.preventDefault();
+            const query = form.query.value;
+            const loading = form.querySelector('.loading');
+            const responseContainer = form.nextElementSibling;
+
+            loading.style.display = 'block';
+
+            fetch('{{ url_for("query_additional") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    query: query,
+                }),
+            })
+            .then(response => response.text())
+            .then(data => {
+                loading.style.display = 'none';
+                responseContainer.innerHTML = data;
+                responseContainer.style.display = 'block';
+                updateButtonVisibility();
+            })
+            .catch(error => {
+                loading.style.display = 'none';
+                alert('Error: ' + error.message);
+            });
+        }
+
+        function updateButtonVisibility() {
+            const buttons = document.querySelectorAll('.big-button-container');
+            buttons.forEach((buttonContainer, index) => {
+                if (index === buttons.length - 1) {
+                    buttonContainer.style.display = 'flex';
+                } else {
+                    buttonContainer.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateButtonVisibility);
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Respuesta a su Consulta</h1>
-        <p><strong>Consulta:</strong> {{ query }}</p>
-        <pre style="white-space: pre-wrap;"><strong>Respuesta:</strong> {{ response }}</pre>
-        <a class="big-button" href="{{ url_for('index') }}">Hacer otra consulta</a>
+        <div class="response-container">
+            <h1>Respuesta a su Consulta</h1>
+            <p><strong>Consulta:</strong> {{ query }}</p>
+            <pre style="white-space: pre-wrap;"><strong>Respuesta:</strong> {{ response }}</pre>
+        </div>
+        <div class="button-container big-button-container">
+            <a class="big-button" href="{{ url_for('index') }}">Hacer otra consulta</a>
+            <button class="big-button" onclick="addNewQueryBox()">Hacer otra consulta de {{ files | join(', ') }}</button>
+        </div>
+        <div id="additional-queries"></div>
     </div>
 </body>
 </html>

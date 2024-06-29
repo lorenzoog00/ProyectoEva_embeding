@@ -1,0 +1,29 @@
+El comando "Enviar mensaje al conductor" permite enviar mensajes a los conductores asignados a una unidad. Para usar esta función, envíe el comando a la unidad correspondiente. Si el conductor responde, la respuesta aparecerá en una ventana emergente acompañada de un sonido. Los mensajes sin leer se muestran en un círculo rojo junto al botón de abrir la ventana de correspondencia con el conductor.
+
+Los mensajes recién recibidos se agregan a la parte superior de la lista y se indican con un fondo azul. Al hacer clic en un mensaje, el mapa se centrará en el lugar desde donde se envió. Haciendo clic en el nombre de la unidad, el mapa se centrará en su última ubicación. Puede eliminar mensajes específicos haciendo clic en la cruz junto a su título o eliminar todos los mensajes leídos mediante los botones en la parte inferior de la ventana. La posición y tamaño de la ventana se guardan para la próxima vez que se abra.
+
+Un botón en forma de triángulo verde permite la respuesta rápida del operador al conductor. Se puede ejecutar un informe que contenga todos los mensajes entre el operador y el conductor durante un período especificado. Es conveniente usar la aplicación Chatterbox para la comunicación con el conductor mediante comandos y SMS.
+
+La gestión de conductores se puede realizar desde la pestaña principal, incluyendo la visualización de información en la pestaña Seguimiento y en el mapa, la configuración de notificaciones y la inclusión de información en diferentes informes.
+
+En la pestaña Seguimiento y en el mapa, se puede mostrar el nombre, fotografía, teléfono del conductor, unidad asignada y recurso al que pertenece. La información se actualiza automáticamente al asignar un nuevo conductor.
+
+Se pueden configurar notificaciones sobre la asignación y separación de conductores, incluyendo la separación automática al activarse ciertas notificaciones, como al regresar al garaje. En los informes, se puede agregar una columna con el nombre del conductor en la mayoría de los informes. La filtración por conductor permite incluir solo intervalos en los que un conductor específico estuvo asignado a la unidad. Los informes avanzados incluyen asignaciones, actividad, calidad de conducción, violaciones, etc.
+
+Los grupos de conductores se utilizan para unir conductores según ciertos criterios. Se puede acceder a la lista de grupos mediante un botón en la parte superior del área de trabajo. Para crear un grupo de conductores, active el modo Grupos, apriete el botón Crear, seleccione un recurso, escriba el nombre y descripción del grupo, seleccione los conductores que formarán parte del grupo y apriete OK para guardar.
+
+La lista de grupos puede ordenarse alfabéticamente y se pueden usar filtros dinámicos o por propiedad para encontrar grupos. Se pueden realizar acciones como ver o modificar propiedades, copiar, eliminar grupos y mostrar conductores en el mapa.
+
+Para asignar y separar conductores, se requieren ciertos derechos de acceso y se puede hacer de manera manual o automática. Para la asignación y separación manual, haga clic en el icono de asignación junto al conductor en la lista, seleccione la unidad y apriete OK para confirmar. Para la asignación y separación automáticas, se requiere equipo especial como llaves electrónicas con etiquetas RFID. Cree un sensor de tipo Asignación de conductor en las propiedades de las unidades y una lista de asignación automática.
+
+Para ver la historia de asignaciones del conductor y registrar turnos, es necesario tener el derecho de acceso. La función Historia de asignaciones permite ver y gestionar la historia de asignaciones, incluyendo la eliminación de asignaciones incorrectas. Para crear registros manuales sobre la asignación de conductores en el pasado, use la opción Registrar turno.
+
+En algunos casos, varios conductores pueden estar asignados simultáneamente a una unidad, pero un conductor no puede estar asignado a varias unidades simultáneamente. Si asigna un conductor a otra unidad, esta asignación anula la anterior. Para evitar asignaciones simultáneas, active la opción Exclusivo en las propiedades de todos los conductores necesarios.
+
+Para gestionar conductores, el servicio Conductores debe estar activado y el usuario debe tener derechos de acceso adecuados. Se pueden realizar acciones como asignar un conductor a una unidad, ver o modificar la historia de asignaciones, enviar mensajes de texto al conductor, modificar propiedades, copiar y eliminar conductores.
+
+Para que un conductor se muestre en el mapa, márquelo en la lista y asegúrese de que la capa de conductores está activada. La ubicación del conductor se muestra como la ubicación de la unidad a la que está asignado. Si no está asignado a ninguna unidad, se muestra su última ubicación conocida.
+
+Para crear un conductor, haga clic en el botón Crear en la pestaña Conductores, seleccione el recurso, escriba el nombre y otras propiedades necesarias, y apriete OK para guardar. Las propiedades de conductores incluyen nombre, código de identificación único, número de teléfono en formato internacional y fotografía.
+
+Los campos personalizados permiten agregar información adicional del conductor y se muestran en la descripción emergente del conductor. La fotografía del conductor se muestra en la descripción emergente y se emplea como icono para designar al conductor en la lista y en el mapa. Para cargar la fotografía, haga clic en el área correspondiente y escoja el archivo en el disco. Se admiten formatos PNG, JPG, GIF y SVG. La opción Exclusivo impide asignar varios conductores a una unidad simultáneamente y se aplica solo a las asignaciones en tiempo real.
