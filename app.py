@@ -1,9 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+import os
+from flask import Flask, render_template, request, redirect, url_for, session, send_file
 from datetime import timedelta
 import pandas as pd
 import openai
 import funciones_consulta
 import login
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import simpleSplit
+import planes
+import re
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Cambia esto por una clave secreta segura
@@ -18,63 +24,10 @@ openai.api_key = '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'
 # Inicializar el archivo Excel
 login.init_excel()
 
-# Definir los archivos permitidos por cada plan
-FILES_BY_PLAN = {
-    'Bronce': [
-        'Conductores.txt',
-        'Dashboard.txt',
-        'Geocercas.txt'
-    ],
-    'Plata': [
-        'Conductores y remolques.txt',
-        'Dashboard.txt',
-        'Geocercas.txt',
-        'Herramientas.txt',
-        'Recorridos.txt',
-        'Remolques.txt',
-        'Informes.txt',
-        'Introducción a la plataforma.txt'
-    ],
-    'Oro': None  # Todos los archivos disponibles
-}
-
-# Definir el orden deseado de los archivos
-ORDERED_FILES = [
-    'Dashboard.txt',
-    'Seguimiento.txt',
-    'Recorridos.txt',
-    'Mensajes.txt',
-    'Informes.txt',
-    'Geocercas.txt',
-    'Rutas.txt',
-    'Conductores.txt',
-    'Remolques.txt',
-    'Tareas.txt',
-    'Notificaciones.txt',
-    'Usuarios.txt',
-    'Unidades.txt',
-    'Herramientas.txt',
-    'Introducción a la plataforma.txt'
-]
-
-# Definir la información adicional para cada archivo
-TOOLTIPS = {
-    'Dashboard.txt': 'Información sobre el Dashboard.',
-    'Seguimiento.txt': 'Información sobre Seguimiento.',
-    'Recorridos.txt': 'Información sobre Recorridos.',
-    'Mensajes.txt': 'Información sobre Mensajes.',
-    'Informes.txt': 'Información sobre Informes.',
-    'Geocercas.txt': 'Información sobre Geocercas.',
-    'Rutas.txt': 'Información sobre Rutas.',
-    'Conductores.txt': 'Información sobre Conductores.',
-    'Remolques.txt': 'Información sobre Remolques.',
-    'Tareas.txt': 'Información sobre Tareas.',
-    'Notificaciones.txt': 'Información sobre Notificaciones.',
-    'Usuarios.txt': 'Información sobre Usuarios.',
-    'Unidades.txt': 'Información sobre Unidades.',
-    'Herramientas.txt': 'Información sobre Herramientas.',
-    'Introducción a la plataforma.txt': 'Información sobre Introducción a la plataforma.'
-}
+def format_steps_in_bold(text):
+    pattern = r'(\d+\.\s)(.*?)(:)'
+    formatted_text = re.sub(pattern, lambda match: f"{match.group(1)}<b>{match.group(2)}</b>{match.group(3)}", text)
+    return formatted_text
 
 # Ruta para el login
 @app.route('/login', methods=['GET', 'POST'])
@@ -121,21 +74,21 @@ def index():
     tipo_plan = session.get('tipo_plan', 'Oro')  # Valor por defecto 'Oro' si no está en la sesión
     all_files = funciones_consulta.list_files(DATA_DIR)
     
-    if tipo_plan in FILES_BY_PLAN and FILES_BY_PLAN[tipo_plan] is not None:
-        allowed_files = FILES_BY_PLAN[tipo_plan]
+    if tipo_plan in planes.FILES_BY_PLAN and planes.FILES_BY_PLAN[tipo_plan] is not None:
+        allowed_files = planes.FILES_BY_PLAN[tipo_plan]
         files = [file for file in all_files if file in allowed_files]
     else:
         files = all_files
 
     # Ordenar los archivos según el orden deseado
-    files = sorted(files, key=lambda x: ORDERED_FILES.index(x) if x in ORDERED_FILES else len(ORDERED_FILES))
+    files = sorted(files, key=lambda x: planes.ORDERED_FILES.index(x) if x in planes.ORDERED_FILES else len(planes.ORDERED_FILES))
 
     # Quitar la extensión .txt para mostrar y obtener nombres de imágenes en minúsculas
     display_files = [file.replace('.txt', '') for file in files]
     image_files = [file.lower().replace('.txt', '') + '.png' for file in files]
 
     # Obtener tooltips para los archivos
-    tooltips = [TOOLTIPS[file] for file in files]
+    tooltips = [planes.TOOLTIPS[file] for file in files]
 
     return render_template('index.html', files=files, display_files=display_files, image_files=image_files, tooltips=tooltips, nombre_usuario=nombre_usuario, zip=zip)
 
@@ -150,6 +103,7 @@ def submit():
     filtered_df.to_csv("filtered_vectores.csv", index=False)
     selected_files_display = [file.replace('.txt', '') for file in selected_files]  # Quitar la extensión .txt para mostrar
     session['selected_files'] = selected_files_display  # Almacenar los archivos seleccionados en la sesión
+    session['queries'] = []  # Inicializar la lista de consultas
     return render_template('query.html', files=selected_files_display)
 
 @app.route('/query', methods=['POST'])
@@ -159,7 +113,11 @@ def query():
     filtered_df = pd.read_csv("filtered_vectores.csv")
     filtered_df["embedding"] = filtered_df["embedding"].apply(eval)  # Convertir las cadenas de texto en listas
     response = funciones_consulta.ask(user_query, filtered_df, model=GPT_MODEL, print_message=False, threshold=0.76)
-    return render_template('response.html', query=user_query, response=response, files=session['selected_files'])
+    formatted_response = format_steps_in_bold(response)
+    if 'queries' not in session:
+        session['queries'] = []
+    session['queries'].append({'query': user_query, 'response': formatted_response})
+    return render_template('response.html', query=user_query, response=formatted_response, files=session['selected_files'])
 
 @app.route('/query_additional', methods=['POST'])
 @login_required
@@ -168,13 +126,57 @@ def query_additional():
     filtered_df = pd.read_csv("filtered_vectores.csv")
     filtered_df["embedding"] = filtered_df["embedding"].apply(eval)  # Convertir las cadenas de texto en listas
     response = funciones_consulta.ask(user_query, filtered_df, model=GPT_MODEL, print_message=False, threshold=0.76)
-    return render_template('response_additional.html', query=user_query, response=response)
+    formatted_response = format_steps_in_bold(response)
+    session['queries'].append({'query': user_query, 'response': formatted_response})
+    return f"""
+    <div class="response-container">
+        <h2>Respuesta a la Nueva Consulta</h2>
+        <p><strong>Consulta:</strong> {user_query}</p>
+        <pre style="white-space: pre-wrap;"><strong>Respuesta:</strong> {formatted_response}</pre>
+    </div>
+    """
 
 @app.route('/query_page')
 @login_required
 def query_page():
     selected_files = session.get('selected_files', [])
     return render_template('query.html', files=selected_files)
+
+@app.route('/download_pdf')
+@login_required
+def download_pdf():
+    selected_files = session.get('selected_files', [])
+    queries = session.get('queries', [])
+
+    pdf_path = os.path.join("static", "consultas.pdf")
+    c = canvas.Canvas(pdf_path, pagesize=letter)
+    width, height = letter
+
+    c.drawString(100, height - 50, f"Consulta sobre {', '.join(selected_files)}")
+
+    y = height - 80
+    line_height = 12
+    max_width = width - 200  # Margen de 100 a cada lado
+
+    def draw_wrapped_text(text, x, y):
+        lines = simpleSplit(text, c._fontname, c._fontsize, max_width)
+        for line in lines:
+            c.drawString(x, y, line)
+            y -= line_height
+        return y
+
+    for query in queries:
+        y = draw_wrapped_text(f"Consulta: {query['query']}", 100, y)
+        y -= line_height
+        y = draw_wrapped_text(f"Respuesta: {query['response']}", 100, y)
+        y -= 2 * line_height  # Espacio extra entre consultas
+
+        if y < 50:  # Nueva página si el espacio es insuficiente
+            c.showPage()
+            y = height - 50
+
+    c.save()
+    return send_file(pdf_path, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
