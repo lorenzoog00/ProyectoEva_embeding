@@ -1,24 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta</title>
+    <title>Consulta - Quantum Services</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        #loading {
-            display: none;
-            width: 50px;
-            height: 50px;
-            position: absolute;
-            top: 60px; /* Ajustar la distancia desde la parte superior del formulario */
-            left: 20%; /* Ajustar la distancia desde la izquierda del formulario */
-        }
-        .form-container {
-            position: relative;
-            margin-bottom: 20px; /* Para asegurarse de que haya suficiente espacio debajo del formulario */
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <script>
         function showLoading() {
             document.getElementById('loading').style.display = 'block';
@@ -27,15 +14,26 @@
     </script>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+            </div>
+            <div>
+                <a href="{{ url_for('index') }}">Inicio</a>
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h1>Consulta sobre {{ files | join(', ') }}</h1>
         <div class="form-container">
             <form id="query-form" action="{{ url_for('query') }}" method="post" onsubmit="showLoading()">
                 <label for="query">Escriba su consulta:</label>
                 <textarea id="query" name="query" rows="4" cols="50"></textarea>
-                <button type="submit">Enviar</button>
+                <button type="submit" class="button">Enviar</button>
             </form>
-            <div id="loading">
+            <div id="loading" style="display: none;">
                 <img src="{{ url_for('static', filename='gifs/cargando.gif') }}" alt="Cargando...">
             </div>
         </div>

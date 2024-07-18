@@ -1,58 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido</title>
+    <title>Bienvenido - Quantum Services</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .info-icon {
-            margin-left: 5px;
-            cursor: pointer;
-        }
-        .info-icon img {
-            width: 20px;
-            height: 20px;
-        }
-        .tooltip {
-            display: inline;
-            position: relative;
-        }
-        .tooltip:hover:after {
-            content: attr(data-tooltip);
-            position: absolute;
-            left: 100%;
-            top: 0;
-            white-space: nowrap;
-            background: #333;
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            z-index: 10;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="navbar">
-            <a href="{{ url_for('logout') }}">Log out</a>
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+            </div>
+            <div>
+                <a href="{{ url_for('index') }}">Inicio</a>
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            </div>
         </div>
+    </nav>
+    <div class="container">
         <h1>Hola, {{ nombre_usuario }}</h1>
         <h2>Selecciona los archivos para filtrar el DataFrame</h2>
         <form action="{{ url_for('submit') }}" method="post">
             {% for file, display_file, image_file, tooltip in zip(files, display_files, image_files, tooltips) %}
                 <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="files" value="{{ file }}">
+                    <input type="checkbox" id="{{ file }}" name="files" value="{{ file }}">
+                    <label for="{{ file }}">
                         <img src="{{ url_for('static', filename='logos/' ~ image_file) }}" alt="{{ display_file }}" width="20" height="20">
                         {{ display_file }}
-                        <span class="tooltip" data-tooltip="{{ tooltip }}">
+                        <span class="tooltip">
                             <img src="{{ url_for('static', filename='logos/interrogacion.png') }}" class="info-icon" alt="Info">
+                            <span class="tooltiptext">{{ tooltip }}</span>
                         </span>
                     </label>
                 </div>
             {% endfor %}
-            <button type="submit">Enviar</button>
+            <button type="submit" class="button">Enviar</button>
         </form>
     </div>
 </body>

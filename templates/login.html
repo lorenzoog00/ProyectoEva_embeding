@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Quantum Services</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h1>Login</h1>
         <form action="{{ url_for('login_route') }}" method="post">
@@ -19,9 +27,9 @@
                 <input type="password" id="contrasena" name="contrasena" required>
             </div>
             {% if error %}
-                <p style="color:red;">{{ error }}</p>
+                <p class="error-message">{{ error }}</p>
             {% endif %}
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit" class="button">Iniciar Sesión</button>
         </form>
     </div>
 </body>

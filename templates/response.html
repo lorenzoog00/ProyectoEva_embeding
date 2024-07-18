@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respuesta a la Consulta</title>
+    <title>Respuesta a la Consulta - Quantum Services</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <script>
         function addNewQueryBox() {
             const queryBox = document.createElement('div');
@@ -14,7 +15,7 @@
                 <form onsubmit="submitNewQuery(event, this)">
                     <label for="query">Escriba su consulta:</label>
                     <textarea name="query" rows="4" cols="50"></textarea>
-                    <button type="submit">Enviar</button>
+                    <button type="submit" class="button">Enviar</button>
                     <div class="loading" style="display: none;">
                         <img src="{{ url_for('static', filename='gifs/cargando.gif') }}" alt="Cargando...">
                     </div>
@@ -55,11 +56,22 @@
     </script>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+            </div>
+            <div>
+                <a href="{{ url_for('index') }}">Inicio</a>
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <div class="response-container">
-            <h1>Respuesta a su Consulta</h1>
+            <h2>Respuesta a la Nueva Consulta</h2>
             <p><strong>Consulta:</strong> {{ query }}</p>
-            <pre style="white-space: pre-wrap;"><strong>Respuesta:</strong> {{ response|safe }}</pre>
+            <p class="response-text"><strong>Respuesta:</strong> {{ response|safe }}</p>
             <div class="download-container">
                 <p>Click para descargar en PDF las consultas:</p>
                 <a href="{{ url_for('download_pdf') }}">
@@ -69,8 +81,8 @@
         </div>
         <div id="additional-queries"></div>
         <div class="button-container">
-            <a class="big-button" href="{{ url_for('index') }}">Hacer otra consulta</a>
-            <button class="big-button" onclick="addNewQueryBox()">Hacer otra consulta de {{ files | join(', ') }}</button>
+            <a class="button" href="{{ url_for('index') }}">Hacer otra consulta</a>
+            <button class="button" onclick="addNewQueryBox()">Hacer otra consulta de {{ files | join(', ') }}</button>
         </div>
     </div>
 </body>

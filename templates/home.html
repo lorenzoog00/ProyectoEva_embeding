@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Quantum Services</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container navbar-container">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo" class="small-logo">
+    </div>
+    <div>
+      <a href="{{ url_for('home') }}">Inicio</a>
+      <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Hola, {{ nombre_usuario }}</h1>
+    <h2>Menú de opciones</h2>
+    <ul>
+      <li><a href="{{ url_for('index') }}">Consulta</a></li>
+      <li><a href="{{ url_for('data_analysis') }}">Análisis de datos</a> (Próximamente)</li>
+    </ul>
+  </div>
+</body>
+</html>

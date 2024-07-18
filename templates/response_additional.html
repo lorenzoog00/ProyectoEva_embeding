@@ -1,5 +1,5 @@
 <div class="response-container">
     <h2>Respuesta a la Nueva Consulta</h2>
     <p><strong>Consulta:</strong> {{ query }}</p>
-    <pre style="white-space: pre-wrap;"><strong>Respuesta:</strong> {{ response }}</pre>
+    <p class="response-text"><strong>Respuesta:</strong> {{ response|safe }}</p>
 </div>
