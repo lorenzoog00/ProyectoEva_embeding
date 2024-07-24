@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Quantum Services</title>
+    <title>Análisis de Datos - Quantum Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -57,54 +57,43 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             padding: 2rem;
         }
-        .welcome-message {
-            font-size: 1.5rem;
+        h1 {
+            color: var(--secondary-color);
+            font-size: 2rem;
             margin-bottom: 2rem;
-            text-align: center;
         }
         .options {
             display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            gap: 1.5rem;
             width: 100%;
-            max-width: 1000px;
+            max-width: 800px;
         }
         .option-button {
             background-color: var(--primary-color);
             color: var(--background-color);
-            padding: 2rem;
+            padding: 1.5rem;
             border: none;
             border-radius: 10px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: calc(50% - 1rem);
+            text-align: left;
             text-decoration: none;
         }
         .option-button:hover {
             background-color: var(--secondary-color);
-            transform: translateY(-5px);
-        }
-        .option-button img {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 1rem;
+            transform: translateY(-3px);
         }
         .option-button h2 {
-            margin: 0 0 1rem 0;
+            margin: 0 0 0.5rem 0;
         }
-        .option-button p {
-            font-size: 1rem;
-            margin: 0;
+        .option-button ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.5rem;
         }
         footer {
             background-color: var(--secondary-color);
@@ -121,7 +110,7 @@
             <div class="logo">
                 <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
             </div>
-            <span class="company-name">Quamtum Solutions</span>
+            <span class="company-name">QS</span>
         </div>
         <div class="nav-links">
             <a href="{{ url_for('home') }}">Inicio</a>
@@ -130,19 +119,26 @@
     </nav>
 
     <div class="container">
-        <div class="welcome-message">
-            <span id="greeting"></span>, {{ nombre_usuario }}
-        </div>
+        <h1>¿Qué tipo de análisis requiere?</h1>
         <div class="options">
-            <a href="{{ url_for('index') }}" class="option-button">
-                <img src="{{ url_for('static', filename='icons/consulta.png') }}" alt="Consulta icon">
-                <h2>Consulta</h2>
-                <p>Puedes consultar cualquier duda que se tenga sobre la plataforma de Quantum Services. Obtén respuestas rápidas y precisas sobre funcionalidades, procesos y mejores prácticas. Aprovecha nuestra base de conocimientos para optimizar tu experiencia con nuestros servicios.</p>
+            <a href="{{ url_for('analisis_baterias') }}" class="option-button">
+                <h2>Análisis de baterías</h2>
+                <ul>
+                    <li>Analiza la batería de cada sensor al momento</li>
+                    <li>Analiza el desempeño de la batería de los sensores dentro de un grupo de sensores en un intervalo de tiempo dado</li>
+                </ul>
             </a>
-            <a href="{{ url_for('analisis_datos') }}" class="option-button">
-                <img src="{{ url_for('static', filename='icons/analisis.png') }}" alt="Análisis icon">
-                <h2>Análisis de datos</h2>
-                <p>Análisis de datos personalizados para las necesidades de {{ nombre_usuario }}. Descubre insights valiosos, identifica tendencias y toma decisiones informadas basadas en tus datos específicos.</p>
+            <a href="{{ url_for('analisis_temperatura') }}" class="option-button">
+                <h2>Análisis del desempeño de la temperatura</h2>
+                <p>Analiza el desempeño de la temperatura en un tiempo dado</p>
+            </a>
+            <a href="{{ url_for('analisis_oscuridad') }}" class="option-button">
+                <h2>Análisis de la medición de oscuridad</h2>
+                <p>Analiza la medición de oscuridad en un tiempo dado</p>
+            </a>
+            <a href="{{ url_for('individual') }}" class="option-button">
+                <h2>Análisis Individual</h2>
+                <p>Realiza un análisis individual de cada sensor</p>
             </a>
         </div>
     </div>
@@ -150,26 +146,5 @@
     <footer>
         &copy; 2024 Quantum Services. Todos los derechos reservados.
     </footer>
-
-    <script>
-        function updateGreeting() {
-            const now = new Date();
-            const hour = now.getHours();
-            let greeting;
-
-            if (hour >= 0 && hour < 12) {
-                greeting = "Buenos días";
-            } else if (hour >= 12 && hour < 18.5) {
-                greeting = "Buenas tardes";
-            } else {
-                greeting = "Buenas noches";
-            }
-
-            document.getElementById('greeting').textContent = greeting;
-        }
-
-        updateGreeting();
-        setInterval(updateGreeting, 60000); // Actualiza cada minuto
-    </script>
 </body>
 </html>

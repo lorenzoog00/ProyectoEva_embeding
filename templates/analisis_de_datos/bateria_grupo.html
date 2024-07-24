@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desempeño de Baterías - Wialon</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: 'Arial', sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+            text-align: right;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container navbar-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+        </div>
+        <div>
+            <a href="{{ url_for('home') }}">Inicio</a>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Desempeño de Baterías</h1>
+    <p>Este informe se conforma de dos tablas:</p>
+    <p>La primera tabla muestra el nivel de batería de cada dispositivo con el último dato recibido del lapso de tiempo que se especificó en el reporte.</p>
+    <p>La segunda tabla es un informe del desempeño de la batería del grupo de unidades seleccionado.</p>    
+    <form id="reportForm">
+        <div class="form-group">
+            <label for="unitGroupSelect">Seleccione un grupo de unidades:</label>
+            <select id="unitGroupSelect" required></select>
+        </div>
+        
+        <div class="form-group">
+            <label for="startDateTime">Fecha y hora de inicio:</label>
+            <input type="text" id="startDateTime" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="endDateTime">Fecha y hora de fin:</label>
+            <input type="text" id="endDateTime" required>
+        </div>
+        
+        <div class="button-container">
+            <button type="submit" id="executeReportBtn">Ejecutar Informe</button>
+            <button type="button" id="graphicsBtn">Gráficas</button>
+        </div>
+    </form>
+
+    <div id="log" class="response-container"></div>
+</div>
+
+<script>
+    const RESOURCE_ID = 400730713;  // ID fijo del recurso
+    const TEMPLATE_ID = 30;  // ID fijo de la plantilla
+
+    function msg(text) { 
+        $("#log").prepend(text + "<br/>"); 
+    }
+
+    function listAvailableResources() {
+        var sess = wialon.core.Session.getInstance();
+        var resources = sess.getItems("avl_resource");
+        msg("Recursos disponibles:");
+        resources.forEach(function(resource) {
+            msg("ID: " + resource.getId() + ", Nombre: " + resource.getName());
+        });
+    }
+
+    function init() {
+        var res_flags = wialon.item.Item.dataFlag.base | wialon.item.Resource.dataFlag.reports;
+        var group_flags = wialon.item.Item.dataFlag.base;
+        
+        var sess = wialon.core.Session.getInstance();
+        sess.loadLibrary("resourceReports");
+        sess.updateDataFlags(
+            [
+                {type: "type", data: "avl_resource", flags: res_flags, mode: 0},
+                {type: "type", data: "avl_unit_group", flags: group_flags, mode: 0}
+            ],
+            function (code) {
+                if (code) { msg("Error al actualizar banderas de datos: " + wialon.core.Errors.getErrorText(code)); return; }
+
+                var groups = sess.getItems("avl_unit_group");
+                if (!groups || !groups.length){ msg("No se encontraron grupos de unidades"); return; }
+                var $groupSelect = $("#unitGroupSelect");
+                groups.forEach(function(group) {
+                    $groupSelect.append($("<option>").val(group.getId()).text(group.getName()));
+                });
+
+                msg("Recurso preseleccionado con ID: " + RESOURCE_ID + " (Tipo: " + typeof RESOURCE_ID + ")");
+                msg("Plantilla preseleccionada con ID: " + TEMPLATE_ID + " (Tipo: " + typeof TEMPLATE_ID + ")");
+
+                listAvailableResources();
+
+                // Intentar obtener el recurso
+                var res = sess.getItem(RESOURCE_ID);
+                if (res) {
+                    msg("Recurso encontrado: " + res.getName());
+                } else {
+                    msg("No se pudo encontrar el recurso con ID " + RESOURCE_ID);
+                }
+            }
+        );
+    }
+
+    function executeReport(e) {
+        e.preventDefault();
+        var id_group = $("#unitGroupSelect").val(),
+            startDate = flatpickr.parseDate($("#startDateTime").val(), "d/m/Y H:i"),
+            endDate = flatpickr.parseDate($("#endDateTime").val(), "d/m/Y H:i");
+        
+        if(!id_group){ msg("Seleccione un grupo de unidades"); return; }
+
+        var sess = wialon.core.Session.getInstance();
+        var res = sess.getItem(RESOURCE_ID);
+        if (!res) {
+            msg("No se pudo encontrar el recurso con ID " + RESOURCE_ID);
+            listAvailableResources();
+            return;
+        }
+
+        var from = Math.floor(startDate.getTime() / 1000);
+        var to = Math.floor(endDate.getTime() / 1000);
+
+        var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
+        var template = res.getReport(TEMPLATE_ID);
+        if (!template) {
+            msg("No se pudo encontrar la plantilla con ID " + TEMPLATE_ID);
+            return;
+        }
+
+        $("#executeReportBtn").prop("disabled", true);
+        msg("Ejecutando informe...");
+
+        res.execReport(template, id_group, 0, interval,
+            function(code, data) {
+                $("#executeReportBtn").prop("disabled", false);
+                if(code){ msg("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code)); return; }
+                if(!data.getTables().length){
+                    msg("<b>No se generaron datos</b>");
+                    return;
+                }
+                else showReportResult(data);
+            }
+        );
+    }
+
+    function showReportResult(result) {
+        var tables = result.getTables();
+        if (!tables) return;
+        $("#log").empty();  // Clear previous results
+        for(var i=0; i < tables.length; i++){
+            var html = "<b>" + tables[i].label + "</b><div class='wrap'><table class='styled-table'>";
+            
+            var headers = tables[i].header;
+            html += "<thead><tr>";
+            for (var j=0; j<headers.length; j++)
+                html += "<th>" + headers[j] + "</th>";
+            html += "</tr></thead><tbody>";
+            
+            result.getTableRows(i, 0, tables[i].rows,
+                function(html, code, rows) {
+                    if (code) {msg("Error al obtener filas de la tabla: " + wialon.core.Errors.getErrorText(code)); return;}
+                    for(var j in rows) {
+                        if (typeof rows[j].c == "undefined") continue;
+                        html += "<tr>";
+                        for (var k = 0; k < rows[j].c.length; k++)
+                            html += "<td>" + getTableValue(rows[j].c[k]) + "</td>";
+                        html += "</tr>";
+                    }
+                    html += "</tbody></table></div>";
+                    $("#log").append(html);
+                }.bind(this, html)
+            );
+        }
+    }
+
+    function getTableValue(data) {
+        if (typeof data == "object")
+            if (typeof data.t == "string") return data.t; else return "";
+        else return data;
+    }
+
+    $(document).ready(function () {
+        $("#reportForm").submit(executeReport);
+        $("#graphicsBtn").click(function() {
+            alert("Funcionalidad de gráficas aún no implementada");
+        });
+
+        flatpickr.localize(flatpickr.l10ns.es);
+        flatpickr("#startDateTime", {
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            time_24hr: true
+        });
+        flatpickr("#endDateTime", {
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            time_24hr: true
+        });
+
+        wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
+        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754F07FDF4CAEBAB0824271776462A032EE6EDDA634", "",
+            function (code) {
+                if (code) { msg("Error al iniciar sesión: " + wialon.core.Errors.getErrorText(code)); return; }
+                msg("Sesión iniciada correctamente");
+                init();
+            }
+        );
+    });
+</script>
+</body>
+</html>

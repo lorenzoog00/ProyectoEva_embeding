@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Datos de Grupo - Wialon</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container navbar-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+        </div>
+        <div>
+            <a href="{{ url_for('home') }}">Inicio</a>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Análisis de Datos de Grupo</h1>
+    
+    <form id="reportForm">
+        <div class="form-group">
+            <label for="resourceSelect">Seleccione recurso y template:</label>
+            <select id="resourceSelect" required></select>
+            <select id="templateSelect" required></select>
+        </div>
+        
+        <div class="form-group">
+            <label for="unitGroupSelect">Seleccione un grupo de unidades:</label>
+            <select id="unitGroupSelect" required></select>
+        </div>
+        
+        <div class="form-group">
+            <label for="intervalSelect">Seleccione intervalo de tiempo:</label>
+            <select id="intervalSelect" required>
+                <option value="today">Hoy (desde 00:00 hasta ahora)</option>
+                <option value="86400">Último día</option>
+                <option value="604800">Última semana</option>
+                <option value="2592000">Último mes</option>
+            </select>
+        </div>
+        
+        <div class="button-container">
+            <button type="submit" id="executeReportBtn">Ejecutar Informe</button>
+        </div>
+    </form>
+
+    <div id="log" class="response-container"></div>
+</div>
+
+<script>
+    function msg(text) { 
+        $("#log").prepend(text + "<br/>"); 
+    }
+
+    function init() {
+        var res_flags = wialon.item.Item.dataFlag.base | wialon.item.Resource.dataFlag.reports;
+        var group_flags = wialon.item.Item.dataFlag.base;
+        
+        var sess = wialon.core.Session.getInstance();
+        sess.loadLibrary("resourceReports");
+        sess.updateDataFlags(
+            [
+                {type: "type", data: "avl_resource", flags: res_flags, mode: 0},
+                {type: "type", data: "avl_unit_group", flags: group_flags, mode: 0}
+            ],
+            function (code) {
+                if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
+
+                var res = sess.getItems("avl_resource");
+                if (!res || !res.length){ msg("No se encontraron recursos"); return; }
+                var $resourceSelect = $("#resourceSelect");
+                res.forEach(function(resource) {
+                    $resourceSelect.append($("<option>").val(resource.getId()).text(resource.getName()));
+                });
+
+                getTemplates();
+                
+                $("#resourceSelect").change(getTemplates);
+
+                var groups = sess.getItems("avl_unit_group");
+                if (!groups || !groups.length){ msg("No se encontraron grupos de unidades"); return; }
+                var $groupSelect = $("#unitGroupSelect");
+                groups.forEach(function(group) {
+                    $groupSelect.append($("<option>").val(group.getId()).text(group.getName()));
+                });
+            }
+        );
+    }
+
+    function getTemplates() {
+        $("#templateSelect").empty().append("<option></option>");
+        var res = wialon.core.Session.getInstance().getItem($("#resourceSelect").val());
+        if (!wialon.util.Number.and(res.getUserAccess(), wialon.item.Item.accessFlag.execReports)){
+            $("#executeReportBtn").prop("disabled", true);
+            msg("No tiene suficientes permisos para ejecutar informes");
+            return;
+        } else {
+            $("#executeReportBtn").prop("disabled", false);
+        }
+
+        var templ = res.getReports();
+        for(var i in templ){
+            if (templ[i].ct != "avl_unit_group") continue;
+            $("#templateSelect").append($("<option>").val(templ[i].id).text(templ[i].n));
+        }
+    }
+
+    function executeReport(e) {
+        e.preventDefault();
+        var id_res = $("#resourceSelect").val(),
+            id_templ = $("#templateSelect").val(),
+            id_group = $("#unitGroupSelect").val(),
+            intervalValue = $("#intervalSelect").val();
+        
+        if(!id_res){ msg("Seleccione un recurso"); return; }
+        if(!id_templ){ msg("Seleccione un template de informe"); return; }
+        if(!id_group){ msg("Seleccione un grupo de unidades"); return; }
+
+        var sess = wialon.core.Session.getInstance();
+        var res = sess.getItem(id_res);
+        var to = sess.getServerTime();
+        var from;
+
+        if (intervalValue === "today") {
+            var todayStart = new Date(to * 1000);
+            todayStart.setHours(0, 0, 0, 0);
+            todayStart.setHours(todayStart.getHours() - 6); // Ajustar a -6 horas
+            from = Math.floor(todayStart.getTime() / 1000);
+        } else {
+            from = to - parseInt(intervalValue, 10);
+        }
+
+        var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
+        var template = res.getReport(id_templ);
+        $("#executeReportBtn").prop("disabled", true);
+
+        res.execReport(template, id_group, 0, interval,
+            function(code, data) {
+                $("#executeReportBtn").prop("disabled", false);
+                if(code){ msg(wialon.core.Errors.getErrorText(code)); return; }
+                if(!data.getTables().length){
+                    msg("<b>No se generaron datos</b>");
+                    return;
+                }
+                else showReportResult(data);
+            }
+        );
+    }
+
+    function showReportResult(result) {
+        var tables = result.getTables();
+        if (!tables) return;
+        for(var i=0; i < tables.length; i++){
+            var html = "<b>" + tables[i].label + "</b><div class='wrap'><table style='width:100%'>";
+            
+            var headers = tables[i].header;
+            html += "<tr>";
+            for (var j=0; j<headers.length; j++)
+                html += "<th>" + headers[j] + "</th>";
+            html += "</tr>";
+            
+            result.getTableRows(i, 0, tables[i].rows,
+                function(html, code, rows) {
+                    if (code) {msg(wialon.core.Errors.getErrorText(code)); return;}
+                    for(var j in rows) {
+                        if (typeof rows[j].c == "undefined") continue;
+                        html += "<tr" + (j%2==1 ? " class='odd'" : "") + ">";
+                        for (var k = 0; k < rows[j].c.length; k++)
+                            html += "<td>" + getTableValue(rows[j].c[k]) + "</td>";
+                        html += "</tr>";
+                    }
+                    html += "</table>";
+                    msg(html + "</div>");
+                }.bind(this, html)
+            );
+        }
+    }
+
+    function getTableValue(data) {
+        if (typeof data == "object")
+            if (typeof data.t == "string") return data.t; else return "";
+        else return data;
+    }
+
+    $(document).ready(function () {
+        $("#reportForm").submit(executeReport);
+
+        wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
+        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754F07FDF4CAEBAB0824271776462A032EE6EDDA634", "",
+            function (code) {
+                if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
+                msg("Sesión iniciada correctamente");
+                init();
+            }
+        );
+    });
+</script>
+</body>
+</html>

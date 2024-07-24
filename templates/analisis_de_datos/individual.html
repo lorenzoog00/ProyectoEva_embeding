@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Datos Individual - Wialon</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container navbar-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+        </div>
+        <div>
+            <a href="{{ url_for('home') }}">Inicio</a>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        </div>
+    </div>
+</nav>
+
+    <div class="container">
+        <h1>Análisis de Datos Individual</h1>
+        
+        <form id="reportForm">
+            <div class="form-group">
+                <label for="resourceSelect">Seleccione recurso y template:</label>
+                <select id="resourceSelect" required></select>
+                <select id="templateSelect" required></select>
+            </div>
+            
+            <div class="form-group">
+                <label for="unitSelect">Seleccione una unidad:</label>
+                <select id="unitSelect" required></select>
+            </div>
+            
+            <div class="form-group">
+                <label for="intervalSelect">Seleccione intervalo de tiempo:</label>
+                <select id="intervalSelect" required>
+                    <option value="today">Hoy (desde 00:00 hasta ahora)</option>
+                    <option value="86400" title="60 sec * 60 minutes * 24 hours = 86400 sec = 1 day">Último día</option>
+                    <option value="604800" title="86400 sec * 7 days = 604800 sec = 1 week">Última semana</option>
+                    <option value="2592000" title="86400 sec * 30 days = 2592000 sec = 1 month">Último mes</option>
+                </select>
+            </div>
+            
+            <div class="button-container">
+                <button type="submit" id="executeReportBtn">Ejecutar Informe</button>
+            </div>
+        </form>
+
+        <div id="log" class="response-container"></div>
+    </div>
+
+    <script>
+        function msg(text) { 
+            $("#log").prepend(text + "<br/>"); 
+        }
+
+        function init() {
+            var res_flags = wialon.item.Item.dataFlag.base | wialon.item.Resource.dataFlag.reports;
+            var unit_flags = wialon.item.Item.dataFlag.base;
+            
+            var sess = wialon.core.Session.getInstance();
+            sess.loadLibrary("resourceReports");
+            sess.updateDataFlags(
+                [
+                    {type: "type", data: "avl_resource", flags: res_flags, mode: 0},
+                    {type: "type", data: "avl_unit", flags: unit_flags, mode: 0}
+                ],
+                function (code) {
+                    if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
+
+                    var res = sess.getItems("avl_resource");
+                    if (!res || !res.length){ msg("No se encontraron recursos"); return; }
+                    var $resourceSelect = $("#resourceSelect");
+                    res.forEach(function(resource) {
+                        $resourceSelect.append($("<option>").val(resource.getId()).text(resource.getName()));
+                    });
+
+                    getTemplates();
+                    
+                    $("#resourceSelect").change(getTemplates);
+
+                    var units = sess.getItems("avl_unit");
+                    if (!units || !units.length){ msg("No se encontraron unidades"); return; }
+                    var $unitSelect = $("#unitSelect");
+                    units.forEach(function(unit) {
+                        $unitSelect.append($("<option>").val(unit.getId()).text(unit.getName()));
+                    });
+                }
+            );
+        }
+
+        function getTemplates() {
+            $("#templateSelect").empty().append("<option></option>");
+            var res = wialon.core.Session.getInstance().getItem($("#resourceSelect").val());
+            if (!wialon.util.Number.and(res.getUserAccess(), wialon.item.Item.accessFlag.execReports)){
+                $("#executeReportBtn").prop("disabled", true);
+                msg("No tiene suficientes permisos para ejecutar informes");
+                return;
+            } else {
+                $("#executeReportBtn").prop("disabled", false);
+            }
+
+            var templ = res.getReports();
+            for(var i in templ){
+                if (templ[i].ct != "avl_unit") continue;
+                $("#templateSelect").append($("<option>").val(templ[i].id).text(templ[i].n));
+            }
+        }
+
+        function executeReport(e) {
+            e.preventDefault();
+            var id_res = $("#resourceSelect").val(),
+                id_templ = $("#templateSelect").val(),
+                id_unit = $("#unitSelect").val(),
+                intervalValue = $("#intervalSelect").val();
+            if(!id_res){ msg("Seleccione un recurso"); return; }
+            if(!id_templ){ msg("Seleccione un template de informe"); return; }
+            if(!id_unit){ msg("Seleccione una unidad"); return; }
+
+            var sess = wialon.core.Session.getInstance();
+            var res = sess.getItem(id_res);
+            var to = sess.getServerTime();
+            var from;
+
+            if (intervalValue === "today") {
+                var todayStart = moment().tz("America/Mexico_City").startOf('day');
+                from = todayStart.unix();
+            } else {
+                from = to - parseInt(intervalValue, 10);
+            }
+
+            var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
+            var template = res.getReport(id_templ);
+            $("#executeReportBtn").prop("disabled", true);
+
+            res.execReport(template, id_unit, 0, interval,
+                function(code, data) {
+                    $("#executeReportBtn").prop("disabled", false);
+                    if(code){ msg(wialon.core.Errors.getErrorText(code)); return; }
+                    if(!data.getTables().length){
+                        msg("<b>No se generaron datos</b>");
+                        return;
+                    }
+                    else showReportResult(data);
+                }
+            );
+        }
+
+        function showReportResult(result) {
+    var tables = result.getTables();
+    if (!tables) return;
+    for(var i=0; i < tables.length; i++){
+        var html = "<b>" + tables[i].label + "</b><div class='wrap'><table class='styled-table' style='width:100%'>";
+        
+        var headers = tables[i].header;
+        html += "<tr>";
+        for (var j=0; j<headers.length; j++)
+            html += "<th>" + headers[j] + "</th>";
+        html += "</tr>";
+        
+        result.getTableRows(i, 0, tables[i].rows,
+            function(html, code, rows) {
+                if (code) {msg(wialon.core.Errors.getErrorText(code)); return;}
+                for(var j in rows) {
+                    if (typeof rows[j].c == "undefined") continue;
+                    html += "<tr" + (j%2==1 ? " class='odd'" : "") + ">";
+                    for (var k = 0; k < rows[j].c.length; k++) {
+                        var value = getTableValue(rows[j].c[k]);
+                        // Convertir el tiempo a la zona horaria de la Ciudad de México
+                        if (k == 1) { // Suponiendo que el tiempo está en la segunda columna
+                            value = moment.tz(value, "X", "America/Mexico_City").format('DD.MM.YYYY HH:mm:ss');
+                        }
+                        html += "<td>" + value + "</td>";
+                    }
+                    html += "</tr>";
+                }
+                html += "</table>";
+                msg(html + "</div>");
+            }.bind(this, html)
+        );
+    }
+}
+
+function getTableValue(data) {
+    if (typeof data == "object")
+        if (typeof data.t == "string") return data.t; else return data.v; // Ajustar aquí si es necesario
+    else return data;
+}
+
+function getTableValue(data) {
+    if (typeof data == "object")
+        if (typeof data.t == "string") return data.t; else return data.v; // Ajustar aquí si es necesario
+    else return data;
+}
+
+        $(document).ready(function () {
+            $("#reportForm").submit(executeReport);
+
+            wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
+            wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754F07FDF4CAEBAB0824271776462A032EE6EDDA634", "",
+                function (code) {
+                    if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
+                    msg("Sesión iniciada correctamente");
+                    init();
+                }
+            );
+        });
+    </script>
+</body>
+</html>

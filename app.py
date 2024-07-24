@@ -8,6 +8,9 @@ import login
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import simpleSplit
+import wialon
+import pandas as pd
+from graficas import generar_grafico_bateria
 import planes
 import re
 
@@ -51,7 +54,7 @@ def login_route():
             df = pd.read_excel(login.excel_file)
             user = df[df['nombre_usuario'] == nombre_usuario].iloc[0]
             session['tipo_plan'] = user['tipo_plan']
-            return redirect(url_for('index'))
+            return redirect(url_for('home'))
         else:
             return render_template('login.html', error=message)
     return render_template('login.html')
@@ -62,6 +65,13 @@ def logout():
     return redirect(url_for('login_route'))
 
 @app.route('/')
+@app.route('/home')
+@login_required
+def home():
+    nombre_usuario = session.get('nombre_usuario', 'Usuario')
+    return render_template('home.html', nombre_usuario=nombre_usuario)
+
+@app.route('/index')
 @login_required
 def index():
     nombre_usuario = session.get('nombre_usuario', 'Usuario')
@@ -159,6 +169,81 @@ def download_pdf():
 
     c.save()
     return send_file(pdf_path, as_attachment=True)
+
+
+@app.route('/analisis_datos')
+@login_required
+def analisis_datos():
+    return render_template('analisis_de_datos/menu_analisis.html')
+
+@app.route('/analisis_baterias', methods=['GET', 'POST'])
+@login_required
+def analisis_baterias():
+    if request.method == 'POST':
+        # Obtener datos del formulario
+        resource_id = request.form.get('resource_id')
+        template_id = request.form.get('template_id')
+        group_id = request.form.get('group_id')
+        start_date = request.form.get('start_date')
+        end_date = request.form.get('end_date')
+
+        # Inicializar la sesión de Wialon
+        wialon_api = wialon.Wialon()
+        result = wialon_api.token_login(token="YOUR_WIALON_TOKEN")
+        if result['error'] != 0:
+            return "Error al iniciar sesión en Wialon"
+
+        # Ejecutar el informe
+        params = {
+            'reportResourceId': int(resource_id),
+            'reportTemplateId': int(template_id),
+            'reportObjectId': int(group_id),
+            'reportObjectSecId': 0,
+            'interval': {
+                'from': int(start_date),
+                'to': int(end_date),
+                'flags': 0
+            }
+        }
+        result = wialon_api.call('report/exec_report', params)
+        if result['error'] != 0:
+            return "Error al ejecutar el informe"
+
+        # Obtener los datos del informe
+        report_data = wialon_api.call('report/get_result_rows', {'tableIndex': 0, 'indexFrom': 0, 'indexTo': 0})
+        if isinstance(report_data, dict) and 'error' in report_data:
+            return "Error al obtener los datos del informe"
+
+        # Procesar los datos
+        df = pd.DataFrame(report_data)
+        
+        # Generar el gráfico
+        generar_grafico_bateria(df)
+
+        # Renderizar la plantilla con los datos y el gráfico
+        return render_template('analisis_de_datos/bateria_grupo.html', 
+                               data=df.to_dict('records'), 
+                               grafico='grafico_bateria.png')
+    
+    # Si es una solicitud GET, solo renderiza el formulario
+    return render_template('analisis_de_datos/bateria_grupo.html')
+
+@app.route('/analisis_temperatura')
+@login_required
+def analisis_temperatura():
+    # Aquí irá la lógica para el análisis de temperatura
+    return "Página de análisis de temperatura en construcción"
+
+@app.route('/analisis_oscuridad')
+@login_required
+def analisis_oscuridad():
+    # Aquí irá la lógica para el análisis de oscuridad
+    return "Página de análisis de oscuridad en construcción"
+
+@app.route('/individual')
+@login_required
+def individual():
+    return render_template('analisis_de_datos/individual.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
