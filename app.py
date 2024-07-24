@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, session, send_file
+from flask import Flask, render_template, request, redirect, url_for, session, send_file, jsonify
 from datetime import timedelta
 import pandas as pd
 import openai
@@ -10,6 +10,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import simpleSplit
 import wialon
 import pandas as pd
+from bateria_master import procesar_analisis_baterias
 from graficas import generar_grafico_bateria
 import planes
 import re
@@ -180,52 +181,7 @@ def analisis_datos():
 @login_required
 def analisis_baterias():
     if request.method == 'POST':
-        # Obtener datos del formulario
-        resource_id = request.form.get('resource_id')
-        template_id = request.form.get('template_id')
-        group_id = request.form.get('group_id')
-        start_date = request.form.get('start_date')
-        end_date = request.form.get('end_date')
-
-        # Inicializar la sesión de Wialon
-        wialon_api = wialon.Wialon()
-        result = wialon_api.token_login(token="YOUR_WIALON_TOKEN")
-        if result['error'] != 0:
-            return "Error al iniciar sesión en Wialon"
-
-        # Ejecutar el informe
-        params = {
-            'reportResourceId': int(resource_id),
-            'reportTemplateId': int(template_id),
-            'reportObjectId': int(group_id),
-            'reportObjectSecId': 0,
-            'interval': {
-                'from': int(start_date),
-                'to': int(end_date),
-                'flags': 0
-            }
-        }
-        result = wialon_api.call('report/exec_report', params)
-        if result['error'] != 0:
-            return "Error al ejecutar el informe"
-
-        # Obtener los datos del informe
-        report_data = wialon_api.call('report/get_result_rows', {'tableIndex': 0, 'indexFrom': 0, 'indexTo': 0})
-        if isinstance(report_data, dict) and 'error' in report_data:
-            return "Error al obtener los datos del informe"
-
-        # Procesar los datos
-        df = pd.DataFrame(report_data)
-        
-        # Generar el gráfico
-        generar_grafico_bateria(df)
-
-        # Renderizar la plantilla con los datos y el gráfico
-        return render_template('analisis_de_datos/bateria_grupo.html', 
-                               data=df.to_dict('records'), 
-                               grafico='grafico_bateria.png')
-    
-    # Si es una solicitud GET, solo renderiza el formulario
+        return procesar_analisis_baterias()
     return render_template('analisis_de_datos/bateria_grupo.html')
 
 @app.route('/analisis_temperatura')

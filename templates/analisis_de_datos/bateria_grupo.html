@@ -85,10 +85,14 @@
             <input type="text" id="endDateTime" required>
         </div>
         
+        <input type="hidden" name="action" id="action" value="tablas">
         <div class="button-container">
-            <button type="submit" id="executeReportBtn">Ejecutar Informe</button>
-            <button type="button" id="graphicsBtn">Gráficas</button>
+            <button type="submit" onclick="setAction('tablas')">Ejecutar Informe</button>
+            <button type="button" onclick="setAction('graficas')">Gráficas</button>
         </div>
+    </form>
+    <div id="resultContainer"></div>
+
     </form>
 
     <div id="log" class="response-container"></div>
@@ -177,7 +181,7 @@
         $("#executeReportBtn").prop("disabled", true);
         msg("Ejecutando informe...");
 
-        res.execReport(template, id_group, 0, interval,
+        res.execReport(template, id_group, 0 , interval,
             function(code, data) {
                 $("#executeReportBtn").prop("disabled", false);
                 if(code){ msg("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code)); return; }
@@ -253,6 +257,29 @@
             }
         );
     });
+
+function setAction(action) {
+    document.getElementById('action').value = action;
+}
+
+$("#reportForm").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: '/analisis_baterias',
+        type: 'POST',
+        data: $(this).serialize(),
+        success: function(response) {
+            if ($("#action").val() === 'tablas') {
+                $("#resultContainer").html(response);
+            } else {
+                // Mostrar gráficas
+                $("#resultContainer").empty();
+                $("#resultContainer").append('<img src="data:image/png;base64,' + response.grafica1 + '" />');
+                $("#resultContainer").append('<img src="data:image/png;base64,' + response.grafica2 + '" />');
+            }
+        },
+    });
+});
 </script>
 </body>
 </html>
