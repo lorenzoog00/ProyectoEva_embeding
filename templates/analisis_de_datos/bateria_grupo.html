@@ -65,10 +65,9 @@
 </nav>
 
 <div class="container">
-    <h1>Desempeño de Baterías</h1>
-    <p>Este informe se conforma de dos tablas:</p>
-    <p>La primera tabla muestra el nivel de batería de cada dispositivo con el último dato recibido del lapso de tiempo que se especificó en el reporte.</p>
-    <p>La segunda tabla es un informe del desempeño de la batería del grupo de unidades seleccionado.</p>    
+    <h1>Nivel de batería</h1>
+    <p>Este informe se conforma de una tabla:</p>
+    <p>Muestra el nivel de batería de cada dispositivo con el último dato recibido del lapso de tiempo que se especificó en el reporte.</p>
     <form id="reportForm">
         <div class="form-group">
             <label for="unitGroupSelect">Seleccione un grupo de unidades:</label>
@@ -88,7 +87,7 @@
         <input type="hidden" name="action" id="action" value="tablas">
         <div class="button-container">
             <button type="submit" onclick="setAction('tablas')">Ejecutar Informe</button>
-            <button type="button" onclick="setAction('graficas')">Gráficas</button>
+            <button type="submit" onclick="setAction('graficas')">Gráficas</button>
         </div>
     </form>
     <div id="resultContainer"></div>
@@ -189,7 +188,10 @@
                     msg("<b>No se generaron datos</b>");
                     return;
                 }
-                else showReportResult(data);
+                else {
+                    showReportResult(data);  // Mostrar las tablas como antes
+                    sendDataToBackend(data);  // Enviar datos al backend
+                }
             }
         );
     }
@@ -247,6 +249,53 @@
             dateFormat: "d/m/Y H:i",
             time_24hr: true
         });
+        function sendDataToBackend(reportData) {
+        var tables = reportData.getTables();
+        var processedData = [];
+        
+        for(var i=0; i < tables.length; i++){
+            var tableData = {
+                label: tables[i].label,
+                headers: tables[i].header,
+                rows: []
+            };
+            
+            reportData.getTableRows(i, 0, tables[i].rows,
+                function(tableData, code, rows) {
+                    if (code) {
+                        msg("Error al obtener filas de la tabla: " + wialon.core.Errors.getErrorText(code));
+                        return;
+                    }
+                    for(var j in rows) {
+                        if (typeof rows[j].c == "undefined") continue;
+                        var row = rows[j].c.map(getTableValue);
+                        tableData.rows.push(row);
+                    }
+                    processedData.push(tableData);
+                    
+                    // Si es la última tabla, enviamos los datos al backend
+                    if (i === tables.length - 1) {
+                        $.ajax({
+                            url: '/procesar_datos_wialon',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                reportData: processedData
+                            }),
+                            success: function(response) {
+                                console.log("Datos enviados al backend con éxito");
+                                // Aquí puedes hacer algo con la respuesta si lo necesitas
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error al enviar datos al backend:", error);
+                            }
+                        });
+                    }
+                }.bind(this, tableData)
+            );
+        }
+    }
+
 
         wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
         wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754F07FDF4CAEBAB0824271776462A032EE6EDDA634", "",
@@ -264,20 +313,29 @@ function setAction(action) {
 
 $("#reportForm").submit(function(e) {
     e.preventDefault();
+    var formData = $(this).serializeArray();
+    var jsonData = {};
+    $.each(formData, function(_, field) {
+        jsonData[field.name] = field.value;
+    });
+
     $.ajax({
         url: '/analisis_baterias',
         type: 'POST',
-        data: $(this).serialize(),
+        contentType: 'application/json',
+        data: JSON.stringify(jsonData),
         success: function(response) {
-            if ($("#action").val() === 'tablas') {
+            if (jsonData.action === 'tablas') {
                 $("#resultContainer").html(response);
-            } else {
-                // Mostrar gráficas
+            } else if (jsonData.action === 'graficas') {
                 $("#resultContainer").empty();
                 $("#resultContainer").append('<img src="data:image/png;base64,' + response.grafica1 + '" />');
                 $("#resultContainer").append('<img src="data:image/png;base64,' + response.grafica2 + '" />');
             }
         },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud:", error);
+        }
     });
 });
 </script>
