@@ -91,6 +91,7 @@
         </div>
     </form>
     <div id="resultContainer"></div>
+    <button id="downloadBtn" style="display: none;">Descargar Imagen</button>
 
     <div id="log" class="response-container"></div>
 </div>
@@ -256,7 +257,6 @@
                 }
                 processedData.push(tableData);
                 
-                // Si es la última tabla, enviamos los datos al backend
                 if (processedData.length === tables.length) {
                     $.ajax({
                         url: '/analisis_baterias',
@@ -269,8 +269,13 @@
                         success: function(response) {
                             console.log("Datos enviados al backend con éxito");
                             $("#resultContainer").empty();
+                            $("#log").empty();  // Limpiar el cuadro de texto
                             if (response.grafica1) {
-                                $("#resultContainer").append('<img src="data:image/png;base64,' + response.grafica1 + '" />');
+                                var img = $('<img>').attr('src', 'data:image/png;base64,' + response.grafica1);
+                                $("#resultContainer").append(img);
+                                $("#downloadBtn").show().off('click').on('click', function() {
+                                    downloadImage(response.grafica1, 'grafica_baterias.png');
+                                });
                             } else {
                                 $("#resultContainer").html('<p>No se pudo generar la gráfica</p>');
                             }
@@ -285,6 +290,14 @@
             );
         }
     }
+    function downloadImage(base64Data, filename) {
+    var link = document.createElement('a');
+    link.href = 'data:image/png;base64,' + base64Data;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
     $(document).ready(function () {
         $("#reportForm").submit(executeReport);
