@@ -121,6 +121,19 @@
             }
         );
     }
+    function setLocaleTimeZone(callback) {
+    var sess = wialon.core.Session.getInstance();
+    sess.execute("render/set_locale", { "tzOffset": -21600000 }, function(code) {
+        if (code) {
+            msg("Error al establecer la zona horaria: " + wialon.core.Errors.getErrorText(code));
+        } else {
+            msg("Zona horaria establecida correctamente");
+            if (callback) {
+                callback();
+            }
+        }
+    });
+}
 
     function executeReport(e) {
         e.preventDefault();
@@ -129,6 +142,8 @@
             endDate = flatpickr.parseDate($("#endDateTime").val(), "d/m/Y H:i");
         
         if(!id_group){ msg("Seleccione un grupo de unidades"); return; }
+
+        
 
         var sess = wialon.core.Session.getInstance();
         var res = sess.getItem(RESOURCE_ID);
