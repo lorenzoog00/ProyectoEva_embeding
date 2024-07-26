@@ -235,3 +235,43 @@ input[type="text"], input[type="password"], textarea {
 .styled-table td {
     text-align: right;
 }
+.result-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.graph-container {
+    flex: 0 0 auto;
+}
+
+.simbologia-container {
+    flex: 1 1 auto;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.simbologia-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.simbologia-table th,
+.simbologia-table td {
+    border: 1px solid #ddd;
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.simbologia-table th {
+    background-color: #f2f2f2;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}

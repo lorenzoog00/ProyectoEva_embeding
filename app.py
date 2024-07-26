@@ -11,6 +11,7 @@ from reportlab.lib.utils import simpleSplit
 import wialon
 import pandas as pd
 from bateria_master import procesar_analisis_baterias
+from analisis_temperatura import analisisDeTodos
 from graficas import generar_grafico_bateria
 import planes
 import re
@@ -184,11 +185,12 @@ def analisis_baterias():
         return procesar_analisis_baterias()
     return render_template('analisis_de_datos/bateria_grupo.html')
 
-@app.route('/analisis_temperatura')
+@app.route('/analisis_temperatura', methods=['GET', 'POST'])
 @login_required
 def analisis_temperatura():
-    # Aquí irá la lógica para el análisis de temperatura
-    return "Página de análisis de temperatura en construcción"
+    if request.method == 'POST':
+        return analisisDeTodos()
+    return render_template('analisis_de_datos/analisis_temperatura.html')
 
 @app.route('/analisis_oscuridad')
 @login_required
