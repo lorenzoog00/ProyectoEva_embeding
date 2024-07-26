@@ -10,46 +10,6 @@
     <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
-    <style>
-        .styled-table {
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.9em;
-            font-family: 'Arial', sans-serif;
-            min-width: 400px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-        }
-        .styled-table thead tr {
-            background-color: #009879;
-            color: #ffffff;
-            text-align: left;
-        }
-        .styled-table th,
-        .styled-table td {
-            padding: 12px 15px;
-            text-align: right;
-        }
-        .styled-table tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
-        .styled-table tbody tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-        .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid #009879;
-        }
-        .styled-table tbody tr.active-row {
-            font-weight: bold;
-            color: #009879;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar">
@@ -80,6 +40,8 @@
                 <option value="Sensor de luz">Sensor de luz</option>
                 <option value="Bateria">Batería</option>
                 <option value="Sensor de humedad">Sensor de humedad</option>
+                <option value="Temperatura">Sensor de temperatura</option>
+
             </select>
         </div>
         
@@ -101,6 +63,8 @@
     </form>
     <div id="resultContainer"></div>
     <button id="downloadBtn" style="display: none;">Descargar Imagen</button>
+    <button id="descargarValoresBtn" class="download-button" onclick="descargarValoresIndividuales()">Descargar Valores Individuales</button>
+
 
     <div id="log" class="response-container"></div>
 </div>
@@ -205,6 +169,27 @@
             }
         );
     }
+    function descargarValoresIndividuales() {
+            fetch('/descargar_valores_individuales', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ /* datos necesarios */ })
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'valores_individuales.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error:', error));
+        }
 
     function showReportResult(result) {
         var tables = result.getTables();
@@ -288,6 +273,9 @@
         var img = $('<img>').attr('src', 'data:image/png;base64,' + response.grafica);
         graphContainer.append(img);
         resultContainer.append(graphContainer);
+
+        //Para mostrar simbologia
+        
         
         // Contenedor de la simbología
         var simbologiaContainer = $('<div>').addClass('simbologia-container');

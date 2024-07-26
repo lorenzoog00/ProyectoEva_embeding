@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, s
 from datetime import timedelta
 import pandas as pd
 import openai
+from analisis_temperatura import descargar_valores_individuales
 import funciones_consulta
 import login
 from reportlab.lib.pagesizes import letter
@@ -191,6 +192,11 @@ def analisis_temperatura():
     if request.method == 'POST':
         return analisisDeTodos()
     return render_template('analisis_de_datos/analisis_temperatura.html')
+
+@app.route('/descargar_valores_individuales', methods=['POST'])
+def ruta_descargar_valores_individuales():
+    data = request.json
+    return descargar_valores_individuales(data['datos_individuales'])
 
 @app.route('/analisis_oscuridad')
 @login_required
