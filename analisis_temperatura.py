@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.dates import DateFormatter
 from matplotlib.lines import Line2D
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import io
 import numpy as np
 import base64
@@ -27,57 +28,50 @@ def analisisDeTodos():
         # Ordenar el DataFrame por tiempo
         df = df.sort_values('Tiempo')
 
-        # Usar 'agg.backend_inline' para evitar problemas con hilos
-        import matplotlib
-        matplotlib.use('agg')
+        # Configurar el estilo de seaborn
+        sns.set_style("whitegrid")
         
         # Crear el gráfico
-        fig, ax = plt.subplots(figsize=(3, 3))
+        fig, ax = plt.subplots(figsize=(20, 10))
         
         # Obtener una lista de agrupaciones únicas
         agrupaciones = df['Grouping'].unique()
         
-        # Crear una paleta de colores para todas las agrupaciones
-        palette = plt.cm.get_cmap('tab20')(np.linspace(0, 1, len(agrupaciones)))
+        # Crear una paleta de colores personalizada
+        colors = ['#FF5100', '#3F3F3E', '#898A8D', '#F39149']
+        palette = colors + sns.color_palette("husl", n_colors=max(0, len(agrupaciones)-len(colors)))
         
         # Crear una línea para cada agrupación
         for agrupacion, color in zip(agrupaciones, palette):
             datos_agrupacion = df[df['Grouping'] == agrupacion]
-            ax.plot(datos_agrupacion['Tiempo'], datos_agrupacion['Valor'], label=agrupacion, linewidth=1, color=color)
+            sns.lineplot(x='Tiempo', y='Valor', data=datos_agrupacion, label=agrupacion, linewidth=2, color=color, ax=ax)
         
         # Personalizar el gráfico
         fecha_inicio = df['Tiempo'].min()
         fecha_fin = df['Tiempo'].max()
-        titulo = f'Desempeño de {sensor_elegido}\n{fecha_inicio.strftime("%d/%m/%Y")} - {fecha_fin.strftime("%d/%m/%Y")}'
-        ax.set_title(titulo, fontsize=6, fontweight='bold', color='#3F3F3E')
-        ax.set_xlabel('Tiempo', fontsize=5, fontweight='bold', color='#3F3F3E')
-        ax.set_ylabel(f'Valor', fontsize=5, fontweight='bold', color='#3F3F3E')
+        titulo = f'Desempeño de {sensor_elegido} por Sensor\nDel {fecha_inicio.strftime("%d/%m/%Y")} al {fecha_fin.strftime("%d/%m/%Y")}'
+        ax.set_title(titulo, fontsize=20, fontweight='bold', color='#3F3F3E')
+        ax.set_xlabel('Tiempo', fontsize=14, fontweight='bold', color='#3F3F3E')
+        ax.set_ylabel(f'Valor de {sensor_elegido}', fontsize=14, fontweight='bold', color='#3F3F3E')
         
         # Cambiar el color de fondo
         ax.set_facecolor('#F8F8F8')
         fig.patch.set_facecolor('#FFFFFF')
         
         # Formatear el eje x para mostrar fechas de manera más legible
-        ax.xaxis.set_major_formatter(DateFormatter("%d/%m"))
+        ax.xaxis.set_major_formatter(DateFormatter("%d/%m/%Y"))
         fig.autofmt_xdate()  # Rotar y alinear las etiquetas de fecha
         
-        # Ajustar el tamaño de las etiquetas de los ejes
-        ax.tick_params(axis='both', which='major', labelsize=4)
+        # Crear una leyenda personalizada
+        legend_elements = [Line2D([0], [0], color=color, lw=2, label=agrupacion) 
+                           for agrupacion, color in zip(agrupaciones, palette)]
         
-        # Ajustar el rango del eje y para que comience desde 0
-        ax.set_ylim(bottom=0)
+        # Añadir la leyenda personalizada
+        ax.legend(handles=legend_elements, title='Sensores', bbox_to_anchor=(1.05, 1), 
+                  loc='upper left', title_fontsize='13', fontsize='11')
         
-        # Ajustar el diseño para que quepa todo
+        # Ajustar el diseño para que quepa la leyenda
         plt.tight_layout()
-        
-        # Crear una tabla con la simbología
-        simbologia = pd.DataFrame({
-            'Sensor': agrupaciones,
-            'Color': [matplotlib.colors.rgb2hex(color) for color in palette]
-        })
-        
-        # Ordenar la simbología alfabéticamente
-        simbologia = simbologia.sort_values('Sensor')
         
         # Guardar la gráfica en un buffer
         buf = io.BytesIO()
@@ -89,7 +83,7 @@ def analisisDeTodos():
         
         return jsonify({
             "grafica": img_base64,
-            "simbologia": simbologia.to_dict(orient='records')
+            "simbologia": [{"Sensor": agrupacion, "Color": color} for agrupacion, color in zip(agrupaciones, palette)]
         })
     
     return jsonify({"mensaje": "Acción no reconocida"})
