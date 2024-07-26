@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file, render_template
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -141,22 +141,25 @@ def analisisDeTodos():
             "valor_medio_total": round(valor_medio_total, 2),
             "datos_individuales": datos_individuales
         })
-    
+
     return jsonify({"mensaje": "Acción no reconocida"})
 
-from flask import send_file
-import csv
-
-def descargar_valores_individuales(datos):
-    # Crear un archivo CSV temporal
-    with open('valores_individuales.csv', 'w', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=datos[0].keys())
-        writer.writeheader()
-        for row in datos:
-            writer.writerow(row)
+def descargar_valores_individuales():
+    data = request.get_json()
+    if 'datos_individuales' not in data:
+        return "No datos_individuales data found", 400
     
-    # Enviar el archivo como respuesta
-    return send_file('valores_individuales.csv',
-                     mimetype='text/csv',
-                     attachment_filename='valores_individuales.csv',
-                     as_attachment=True)
+    datos_individuales = data['datos_individuales']
+    
+    # Convertir los datos a un DataFrame de pandas
+    df = pd.DataFrame(datos_individuales)
+    
+    # Crear un archivo Excel en un buffer
+    excel_buffer = io.BytesIO()
+    with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Datos Individuales')
+        writer.close()  # Asegurar que los datos se escriben en el buffer
+    
+    excel_buffer.seek(0)
+    
+    return send_file(excel_buffer, download_name='valores_individuales.xlsx', as_attachment=True, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')

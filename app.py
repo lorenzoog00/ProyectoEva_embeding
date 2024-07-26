@@ -196,7 +196,7 @@ def analisis_temperatura():
 @app.route('/descargar_valores_individuales', methods=['POST'])
 def ruta_descargar_valores_individuales():
     data = request.json
-    return descargar_valores_individuales(data['datos_individuales'])
+    return descargar_valores_individuales()
 
 @app.route('/analisis_oscuridad')
 @login_required

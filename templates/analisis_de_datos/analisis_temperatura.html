@@ -63,7 +63,7 @@
     </form>
     <div id="resultContainer"></div>
     <button id="downloadBtn" style="display: none;">Descargar Imagen</button>
-    <button id="descargarValoresBtn" class="download-button" onclick="descargarValoresIndividuales()">Descargar Valores Individuales</button>
+    <button id="descargarValoresPDFBtn" class="download-button" style="display: none;" onclick="descargarValoresPDF()">Descargar valores individuales en Excel</button>
 
 
     <div id="log" class="response-container"></div>
@@ -141,7 +141,8 @@
             startDate = flatpickr.parseDate($("#startDateTime").val(), "d/m/Y H:i"),
             endDate = flatpickr.parseDate($("#endDateTime").val(), "d/m/Y H:i");
         
-        if(!id_group){ msg("Seleccione un grupo de unidades"); return; }
+        if(!id_group){ msg("Seleccione un grupo de unidades"); return; 
+}
 
         
 
@@ -184,28 +185,7 @@
             }
         );
     }
-    function descargarValoresIndividuales() {
-            fetch('/descargar_valores_individuales', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ /* datos necesarios */ })
-            })
-            .then(response => response.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'valores_individuales.csv';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
+    
     function showReportResult(result) {
         var tables = result.getTables();
         if (!tables) return;
@@ -237,93 +217,132 @@
     }
 
     function getTableValue(data) {
+
         if (typeof data == "object")
             if (typeof data.t == "string") return data.t; else return "";
         else return data;
     }
 
-    function sendDataToBackend(reportData) {
-        var tables = reportData.getTables();
-        var processedData = [];
-        
-        for(var i=0; i < tables.length; i++){
-            var tableData = {
-                label: tables[i].label,
-                headers: tables[i].header,
-                rows: []
-            };
-            
-            reportData.getTableRows(i, 0, tables[i].rows,
-                function(tableData, code, rows) {
-                    if (code) {
-                        msg("Error al obtener filas de la tabla: " + wialon.core.Errors.getErrorText(code));
-                        return;
-                    }
-                    for(var j in rows) {
-                        if (typeof rows[j].c == "undefined") continue;
-                        var row = rows[j].c.map(getTableValue);
-                        tableData.rows.push(row);
-                    }
-                    processedData.push(tableData);
-                    
-                    if (processedData.length === tables.length) {
-                        $.ajax({
-                            url: '/analisis_temperatura',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                action: 'graficas',
-                                reportData: processedData,
-                                sensorElegido: $("#sensorSelect").val()
-                            }),
-                            success: function(response) {
-    console.log("Datos enviados al backend con éxito");
-    $("#resultContainer").empty();
-    $("#log").empty();  // Limpiar el cuadro de texto
-    if (response.grafica) {
-        var resultContainer = $('<div>').addClass('result-container');
-        
-        // Contenedor de la gráfica
-        var graphContainer = $('<div>').addClass('graph-container');
-        var img = $('<img>').attr('src', 'data:image/png;base64,' + response.grafica);
-        graphContainer.append(img);
-        resultContainer.append(graphContainer);
+    let statsGlobal = null;
+let datosIndividualesGlobal = null;
 
-        //Para mostrar simbologia
-        
-        
-        // Contenedor de la simbología
-        var simbologiaContainer = $('<div>').addClass('simbologia-container');
-        var simbologiaTable = $('<table>').addClass('simbologia-table');
-        simbologiaTable.append('<tr><th>Sensor</th><th>Color</th></tr>');
-        response.simbologia.forEach(function(item) {
-            var row = $('<tr>');
-            row.append($('<td>').text(item.Sensor));
-            row.append($('<td>').html('<div class="color-box" style="background-color: ' + item.Color + ';"></div>' + item.Color));
-            simbologiaTable.append(row);
-        });
-        simbologiaContainer.append(simbologiaTable);
-        resultContainer.append(simbologiaContainer);
-        
-        $("#resultContainer").append(resultContainer);
-        
-        $("#downloadBtn").show().off('click').on('click', function() {
-            downloadImage(response.grafica, 'grafica_sensores.png');
-        });
-    } else {
-        $("#resultContainer").html('<p>No se pudo generar la gráfica</p>');
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.error("Error al enviar datos al backend:", error);
-                                $("#resultContainer").html('<p>Error al procesar la solicitud</p>');
+function showButtons() {
+    $("#downloadBtn").show();
+    $("#descargarValoresPDFBtn").show();
+}
+
+function descargarValoresExcel() {
+    fetch('/descargar_valores_individuales', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            datos_individuales: datosIndividualesGlobal,
+            estadisticas: statsGlobal
+        })
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'valores_individuales.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function sendDataToBackend(reportData) {
+    var tables = reportData.getTables();
+    var processedData = [];
+
+    for (var i = 0; i < tables.length; i++) {
+        var tableData = {
+            label: tables[i].label,
+            headers: tables[i].header,
+            rows: []
+        };
+
+        reportData.getTableRows(i, 0, tables[i].rows,
+            function (tableData, code, rows) {
+                if (code) {
+                    msg("Error al obtener filas de la tabla: " + wialon.core.Errors.getErrorText(code));
+                    return;
+                }
+                for (var j in rows) {
+                    if (typeof rows[j].c == "undefined") continue;
+                    var row = rows[j].c.map(getTableValue);
+                    tableData.rows.push(row);
+                }
+                processedData.push(tableData);
+
+                if (processedData.length === tables.length) {
+                    $.ajax({
+                        url: '/analisis_temperatura',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            action: 'graficas',
+                            reportData: processedData,
+                            sensorElegido: $("#sensorSelect").val()
+                        }),
+                        success: function (response) {
+                            console.log("Datos enviados al backend con éxito");
+                            $("#resultContainer").empty();
+                            $("#log").empty();  // Limpiar el cuadro de texto
+                            if (response.grafica) {
+                                var resultContainer = $('<div>').addClass('result-container');
+
+                                // Contenedor de la gráfica
+                                var graphContainer = $('<div>').addClass('graph-container');
+                                var img = $('<img>').attr('src', 'data:image/png;base64,' + response.grafica);
+                                graphContainer.append(img);
+                                resultContainer.append(graphContainer);
+
+                                // Contenedor de la simbología
+                                const simbologiaContainer = $('<div>').addClass('simbologia-container');
+                                const simbologiaTable = $('<table>').addClass('simbologia-table');
+                                simbologiaTable.append('<tr><th>Sensor</th><th>Color</th></tr>');
+                                response.simbologia.forEach(item => {
+                                    const row = $('<tr>');
+                                    row.append($('<td>').text(item.Sensor));
+                                    row.append($('<td>').html('<div class="color-box" style="background-color: ' + item.Color + ';"></div>' + item.Color));
+                                    simbologiaTable.append(row);
+                                });
+                                simbologiaContainer.append(simbologiaTable);
+                                resultContainer.append(simbologiaContainer);
+
+                                $("#resultContainer").append(resultContainer);
+                                // Mostrar los botones
+                                showButtons();
+                                // Guardar los datos individuales en una variable global para usarlos en descargarExcel
+                                statsGlobal = response.estadisticas;
+                                datosIndividualesGlobal = response.datos_individuales;
+                                $("#downloadBtn").show().off('click').on('click', function () {
+                                    downloadImage(response.grafica, 'grafica_sensores.png');
+                                });
+                                $("#descargarValoresPDFBtn").show().off('click').on('click', function () {
+                                    descargarValoresExcel();
+                                });
+                            } else {
+                                $("#resultContainer").html('<p>No se pudo generar la gráfica</p>');
                             }
-                        });
-                    }
-                }.bind(this, tableData)
-            );
-        }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error al enviar datos al backend:", error);
+                            $("#resultContainer").html('<p>Error al procesar la solicitud</p>');
+                        }
+                    });
+                }
+            }.bind(this, tableData)
+        );
     }
+}
+
 
     function downloadImage(base64Data, filename) {
         var link = document.createElement('a');
@@ -350,7 +369,7 @@
         });
 
         wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754F07FDF4CAEBAB0824271776462A032EE6EDDA634", "",
+        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754DA7B0B72BA3DBE72DC954157715425D0341E5C12", "",
             function (code) {
                 if (code) { msg("Error al iniciar sesión: " + wialon.core.Errors.getErrorText(code)); return; }
                 msg("Sesión iniciada correctamente");
@@ -362,6 +381,9 @@
     function setAction(action) {
         document.getElementById('action').value = action;
     }
+
+    const sensorElegido = $("#sensorSelect").val();
+
 </script>
 </body>
 </html>
