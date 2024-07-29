@@ -5,6 +5,7 @@ import pandas as pd
 import openai
 from analisis_temperatura import descargar_valores_individuales
 import funciones_consulta
+from login import format_steps_in_bold, authenticate_user, login_required, init_excel
 import login
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -15,7 +16,6 @@ from bateria_master import procesar_analisis_baterias
 from analisis_temperatura import analisisDeTodos
 from graficas import generar_grafico_bateria
 import planes
-import re
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Cambia esto por una clave secreta segura
@@ -28,21 +28,7 @@ DATA_DIR = 'data'
 openai.api_key = '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'
 
 # Inicializar el archivo Excel
-login.init_excel()
-
-def format_steps_in_bold(text):
-    pattern = r'(\d+\.\s)(.*?)(:)'
-    formatted_text = re.sub(pattern, lambda match: f"{match.group(1)}<b>{match.group(2)}</b>{match.group(3)}", text)
-    return formatted_text
-
-# Decorador para verificar si el usuario está autenticado
-def login_required(f):
-    def decorated_function(*args, **kwargs):
-        if 'logged_in' not in session:
-            return redirect(url_for('login_route'))
-        return f(*args, **kwargs)
-    decorated_function.__name__ = f.__name__
-    return decorated_function
+init_excel()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_route():
@@ -50,7 +36,7 @@ def login_route():
         session.permanent = True
         nombre_usuario = request.form['nombre_usuario']
         contrasena = request.form['contrasena']
-        success, message = login.authenticate_user(nombre_usuario, contrasena)
+        success, message = authenticate_user(nombre_usuario, contrasena)
         if success:
             session['logged_in'] = True
             session['nombre_usuario'] = nombre_usuario

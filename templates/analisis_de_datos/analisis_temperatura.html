@@ -342,7 +342,30 @@ function sendDataToBackend(reportData) {
         );
     }
 }
+// Función para establecer la configuración local (incluyendo zona horaria)
+function setLocale() {
+    var params = {
+        "tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
+        "language": "es",  // Código de idioma de dos letras
+        "flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
+        "formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
+    };
 
+    // Hacer la solicitud a la API de Wialon
+    wialon.core.Remote.getInstance().remoteCall('render/set_locale', params, function(code, result) {
+        if (code) {
+            console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
+        } else {
+            console.log("Configuración local establecida correctamente");
+        }
+    });
+}
+// Llamar a esta función justo después de la autenticación exitosa
+function onLoginSuccess() {
+    setLocale();
+    // Aquí puedes continuar con la inicialización de tu aplicación
+    init();
+}
 
     function downloadImage(base64Data, filename) {
         var link = document.createElement('a');
@@ -373,6 +396,7 @@ function sendDataToBackend(reportData) {
             function (code) {
                 if (code) { msg("Error al iniciar sesión: " + wialon.core.Errors.getErrorText(code)); return; }
                 msg("Sesión iniciada correctamente");
+                onLoginSuccess();
                 init();
             }
         );

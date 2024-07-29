@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -130,8 +128,9 @@
             var from;
 
             if (intervalValue === "today") {
-                var todayStart = moment().tz("America/Mexico_City").startOf('day');
-                from = todayStart.unix();
+                var todayStart = new Date();
+                todayStart.setHours(0, 0, 0, 0);
+                from = Math.floor(todayStart.getTime() / 1000);
             } else {
                 from = to - parseInt(intervalValue, 10);
             }
@@ -152,62 +151,76 @@
                 }
             );
         }
+// Función para establecer la configuración local (incluyendo zona horaria)
+function setLocale() {
+    var params = {
+        "tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
+        "language": "es",  // Código de idioma de dos letras
+        "flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
+        "formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
+    };
 
+    // Hacer la solicitud a la API de Wialon
+    wialon.core.Remote.getInstance().remoteCall('render/set_locale', params, function(code, result) {
+        if (code) {
+            console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
+        } else {
+            console.log("Configuración local establecida correctamente");
+        }
+    });
+}
+// Llamar a esta función justo después de la autenticación exitosa
+function onLoginSuccess() {
+    setLocale();
+    // Aquí puedes continuar con la inicialización de tu aplicación
+    init();
+}
         function showReportResult(result) {
-    var tables = result.getTables();
-    if (!tables) return;
-    for(var i=0; i < tables.length; i++){
-        var html = "<b>" + tables[i].label + "</b><div class='wrap'><table class='styled-table' style='width:100%'>";
-        
-        var headers = tables[i].header;
-        html += "<tr>";
-        for (var j=0; j<headers.length; j++)
-            html += "<th>" + headers[j] + "</th>";
-        html += "</tr>";
-        
-        result.getTableRows(i, 0, tables[i].rows,
-            function(html, code, rows) {
-                if (code) {msg(wialon.core.Errors.getErrorText(code)); return;}
-                for(var j in rows) {
-                    if (typeof rows[j].c == "undefined") continue;
-                    html += "<tr" + (j%2==1 ? " class='odd'" : "") + ">";
-                    for (var k = 0; k < rows[j].c.length; k++) {
-                        var value = getTableValue(rows[j].c[k]);
-                        // Convertir el tiempo a la zona horaria de la Ciudad de México
-                        if (k == 1) { // Suponiendo que el tiempo está en la segunda columna
-                            value = moment.tz(value, "X", "America/Mexico_City").format('DD.MM.YYYY HH:mm:ss');
+            var tables = result.getTables();
+            if (!tables) return;
+            for(var i=0; i < tables.length; i++){
+                var html = "<b>" + tables[i].label + "</b><div class='wrap'><table class='styled-table' style='width:100%'>";
+                
+                var headers = tables[i].header;
+                html += "<tr>";
+                for (var j=0; j<headers.length; j++)
+                    html += "<th>" + headers[j] + "</th>";
+                html += "</tr>";
+                
+                result.getTableRows(i, 0, tables[i].rows,
+                    function(html, code, rows) {
+                        if (code) {msg(wialon.core.Errors.getErrorText(code)); return;}
+                        for(var j in rows) {
+                            if (typeof rows[j].c == "undefined") continue;
+                            html += "<tr" + (j%2==1 ? " class='odd'" : "") + ">";
+                            for (var k = 0; k < rows[j].c.length; k++) {
+                                var value = getTableValue(rows[j].c[k]);
+                                html += "<td>" + value + "</td>";
+                            }
+                            html += "</tr>";
                         }
-                        html += "<td>" + value + "</td>";
-                    }
-                    html += "</tr>";
-                }
-                html += "</table>";
-                msg(html + "</div>");
-            }.bind(this, html)
-        );
-    }
-}
+                        html += "</table>";
+                        msg(html + "</div>");
+                    }.bind(this, html)
+                );
+            }
+        }
 
-function getTableValue(data) {
-    if (typeof data == "object")
-        if (typeof data.t == "string") return data.t; else return data.v; // Ajustar aquí si es necesario
-    else return data;
-}
-
-function getTableValue(data) {
-    if (typeof data == "object")
-        if (typeof data.t == "string") return data.t; else return data.v; // Ajustar aquí si es necesario
-    else return data;
-}
+        function getTableValue(data) {
+            if (typeof data == "object")
+                if (typeof data.t == "string") return data.t; else return data.v;
+            else return data;
+        }
 
         $(document).ready(function () {
             $("#reportForm").submit(executeReport);
 
             wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-            wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754F07FDF4CAEBAB0824271776462A032EE6EDDA634", "",
+            wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754DA7B0B72BA3DBE72DC954157715425D0341E5C12", "",
                 function (code) {
                     if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
                     msg("Sesión iniciada correctamente");
+                    onLoginSuccess();
                     init();
                 }
             );

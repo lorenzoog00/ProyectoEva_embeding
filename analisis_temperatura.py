@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.dates import DateFormatter, HourLocator, DayLocator
 from matplotlib.lines import Line2D
+import matplotlib
+matplotlib.use('Agg')
 import io
 import base64
 from datetime import datetime, timedelta
@@ -14,9 +16,10 @@ def analisisDeTodos():
     if data['action'] == 'graficas':
         report_data = data['reportData']
         sensor_elegido = data['sensorElegido']
-        
         # Convertir los datos recibidos en un DataFrame
         df = pd.DataFrame(report_data[0]['rows'], columns=report_data[0]['headers'])
+        # Renombrar la columna 'Agrupación' a 'Grouping' para mantener consistencia con el resto del código
+        df = df.rename(columns={'Agrupación': 'Grouping'})
         
         # Convertir la columna 'Tiempo' a datetime
         df['Tiempo'] = pd.to_datetime(df['Tiempo'], format='%d.%m.%Y %H:%M:%S')

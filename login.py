@@ -1,4 +1,6 @@
 import pandas as pd
+import re
+from flask import request, redirect, url_for, session, send_file
 
 # Ruta del archivo Excel
 excel_file = 'usuarios.xlsx'
@@ -29,5 +31,18 @@ def authenticate_user(nombre_usuario, contrasena):
         print(f"PermissionError: {e}")
         raise
 
+def format_steps_in_bold(text):
+    pattern = r'(\d+\.\s)(.*?)(:)'
+    formatted_text = re.sub(pattern, lambda match: f"{match.group(1)}<b>{match.group(2)}</b>{match.group(3)}", text)
+    return formatted_text
+
+# Decorador para verificar si el usuario está autenticado
+def login_required(f):
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            return redirect(url_for('login_route'))
+        return f(*args, **kwargs)
+    decorated_function.__name__ = f.__name__
+    return decorated_function
 # Inicializar el archivo Excel al importar el módulo
 init_excel()
