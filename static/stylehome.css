@@ -19,42 +19,6 @@ body {
     min-height: 100vh;
 }
 
-.navbar {
-    background-color: #003366; /* Azul oscuro */
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    height: 40px;
-    margin-right: 10px;
-}
-
-.company-name {
-    color: var(--card-background);
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.nav-links a {
-    color: var(--card-background);
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--accent-color);
-}
-
 .dashboard-container {
     flex-grow: 1;
     padding: 2rem;

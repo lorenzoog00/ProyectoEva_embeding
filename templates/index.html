@@ -5,20 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido - Quantum Services</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
-            </div>
-            <div>
-                <a href="{{ url_for('home') }}">Inicio</a>
-                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-            </div>
-        </div>
-    </nav>
+    {% include 'navbar.html' %}
+
     <div class="container">
         <h1>Hola, {{ nombre_usuario }}</h1>
         <h2>Selecciona los archivos para filtrar el DataFrame</h2>

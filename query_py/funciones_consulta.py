@@ -6,12 +6,9 @@ import tiktoken
 import numpy as np
 import scipy.spatial as spatial
 import re
-EMBEDDING_MODEL = 'text-embedding-ada-002'
-GPT_MODEL = 'gpt-3.5-turbo'
-DATA_DIR = 'data'
-openai.api_key = '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'
+from config import GPT_MODEL, EMBEDDING_MODEL, OPENAI_API  # Importar configuración desde config.py
 
-
+openai.api_key = OPENAI_API
 # Función para listar los archivos en el directorio de datos
 def list_files(directory: str) -> list:
     return [f for f in os.listdir(directory) if f.endswith(".txt")]

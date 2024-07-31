@@ -193,7 +193,7 @@
         $("#reportForm").submit(executeReport);
 
         wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754F07FDF4CAEBAB0824271776462A032EE6EDDA634", "",
+        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a75441961C3F9F115C67B9F6E59ABFC3C6A6AD5D2076", "",
             function (code) {
                 if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
                 msg("Sesión iniciada correctamente");

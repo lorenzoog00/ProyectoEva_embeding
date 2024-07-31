@@ -1,0 +1,75 @@
+:root {
+    --primary-color: #FF6600;
+    --secondary-color: #003366;
+    --accent-color: #00CCFF;
+    --background-color: #FFFFFF;
+    --text-color: #333333;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+}
+
+.container {
+    padding: 2rem;
+    text-align: center;
+    max-width: 100%; /* Asegura que no se desborde el contenido */
+    box-sizing: border-box; /* Asegura que el padding esté incluido en el ancho */
+}
+
+h1 {
+    color: var(--secondary-color);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box; /* Asegura que el padding esté incluido en el ancho */
+}
+
+.option-button {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+}
+
+.option-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.option-button h2 {
+    margin: 0 0 0.5rem 0;
+}
+
+.option-button ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.5rem;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}

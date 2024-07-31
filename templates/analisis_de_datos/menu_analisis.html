@@ -3,121 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis de Datos - Quantum Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #FF6600;
-            --secondary-color: #003366;
-            --accent-color: #00CCFF;
-            --background-color: #FFFFFF;
-            --text-color: #333333;
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .navbar {
-            background-color: var(--secondary-color);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-        .company-name {
-            color: var(--background-color);
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .nav-links a {
-            color: var(--background-color);
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-        .container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-        h1 {
-            color: var(--secondary-color);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 800px;
-        }
-        .option-button {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-            padding: 1.5rem;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            text-align: left;
-            text-decoration: none;
-        }
-        .option-button:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-        }
-        .option-button h2 {
-            margin: 0 0 0.5rem 0;
-        }
-        .option-button ul {
-            margin: 0.5rem 0 0 0;
-            padding-left: 1.5rem;
-        }
-        footer {
-            background-color: var(--secondary-color);
-            color: var(--background-color);
-            text-align: center;
-            padding: 1rem;
-            margin-top: auto;
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo-container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
-            </div>
-            <span class="company-name">QS</span>
-        </div>
-        <div class="nav-links">
-            <a href="{{ url_for('home') }}">Inicio</a>
-            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-        </div>
-    </nav>
+    <title>Análisis de Datos - Quamtum Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu_analisis.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}"> <!-- CSS del Navbar -->
 
+<body>
+    {% include 'navbar.html' %}
     <div class="container">
         <h1>¿Qué tipo de análisis requiere?</h1>
         <div class="options">

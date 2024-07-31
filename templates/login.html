@@ -3,20 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Quantum Services</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Login - Quamtum Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
-            </div>
-        </div>
-    </nav>
     <div class="container">
-        <h1>Login</h1>
+        <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quamtum Services Logo" style="height: 60px; margin-bottom: 1.5rem;">
+        <h1>Bienvenidos a EVA</h1>
+        <p class="welcome-message">Tu asistente personal con IA de Quamtum Services</p>
         <form action="{{ url_for('login_route') }}" method="post">
             <div>
                 <label for="nombre_usuario">Nombre de Usuario:</label>
@@ -29,8 +23,11 @@
             {% if error %}
                 <p class="error-message">{{ error }}</p>
             {% endif %}
-            <button type="submit" class="button">Iniciar Sesión</button>
+            <button type="submit">Iniciar Sesión</button>
         </form>
+        <footer>
+            <p>¿Olvidaste tu contraseña? <a href="#">Recuperar contraseña</a></p>
+        </footer>
     </div>
 </body>
 </html>

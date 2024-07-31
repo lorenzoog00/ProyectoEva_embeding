@@ -1,4 +1,3 @@
-/* Estilos generales */
 :root {
     --primary-color: #FF6600; /* Naranja */
     --secondary-color: #003366; /* Azul oscuro */
@@ -20,34 +19,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-}
-
-/* Encabezado */
-.navbar {
-    background-color: var(--secondary-color);
-    padding: 10px 0;
-}
-
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo img {
-    height: 40px;
-}
-
-.navbar a {
-    color: var(--background-color);
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.navbar a:hover {
-    color: var(--primary-color);
 }
 
 /* Títulos */
@@ -185,14 +156,6 @@ input[type="text"], input[type="password"], textarea {
     .container {
         padding: 10px;
     }
-
-    .navbar-container {
-        flex-direction: column;
-    }
-
-    .navbar a {
-        margin: 5px 0;
-    }
 }
 
 /* Botones en la parte inferior */
@@ -201,79 +164,6 @@ input[type="text"], input[type="password"], textarea {
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
-}
-.styled-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: 'Arial', sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-.styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-}
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px;
-}
-.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-}
-.styled-table td {
-    text-align: right;
-}
-.result-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.graph-container {
-    flex: 0 0 auto;
-}
-
-.simbologia-container {
-    flex: 1 1 auto;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.simbologia-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-}
-
-.simbologia-table th,
-.simbologia-table td {
-    border: 1px solid #ddd;
-    padding: 4px 8px;
-    text-align: left;
-}
-
-.simbologia-table th {
-    background-color: #f2f2f2;
-}
-
-.color-box {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
 }
 .styled-table {
     border-collapse: collapse;
@@ -379,7 +269,8 @@ input[type="text"], input[type="password"], textarea {
 .sensor-data li {
     margin-bottom: 5px;
 }
-modal-navigation {
+
+.modal-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -405,4 +296,3 @@ modal-navigation {
 .sensor-data.active {
     display: block; /* Mostrar solo el sensor activo */
 }
-

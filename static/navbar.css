@@ -1,0 +1,63 @@
+/* Estilos para el Navbar */
+.navbar {
+    background-color: #003366; /* Azul oscuro */
+    padding: 10px 20px; /* Padding lateral para dar espacio */
+    overflow: hidden; /* Asegura que no haya desbordamiento */
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos entre los extremos */
+    align-items: center;
+    max-width: 100%; /* Asegura que el contenedor no se desborde */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si es necesario */
+    box-sizing: border-box; /* Asegura que el padding esté incluido en el ancho */
+}
+
+.logo img {
+    height: 70px; /* Ajuste del tamaño del logo */
+    border-radius: 10px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los enlaces se ajusten si es necesario */
+}
+
+.nav-links a {
+    color: #FFFFFF; /* Blanco */
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #FF6600; /* Naranja */
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0; /* Reduce el padding en pantallas pequeñas */
+    }
+
+    .nav-links {
+        margin-top: 10px; /* Añade un margen superior para separar los enlaces del logo */
+        width: 100%; /* Asegura que los enlaces ocupen el ancho completo */
+        justify-content: center; /* Centra los enlaces dentro del contenedor */
+    }
+
+    .nav-links a {
+        margin: 10px 0; /* Añade margen entre los enlaces en pantalla pequeña */
+        font-size: medium; /* Reduce el tamaño de la fuente para pantallas pequeñas */
+    }
+
+    .logo img {
+        height: 50px; /* Reduce el tamaño del logo en pantallas pequeñas */
+    }
+}
