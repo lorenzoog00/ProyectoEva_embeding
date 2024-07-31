@@ -14,7 +14,7 @@ import wialon
 import pandas as pd
 from bateria_master import procesar_analisis_baterias
 from analisis_temperatura import analisisDeTodos
-from graficas import generar_grafico_bateria
+from dashboard_reconocimiento import get_active_columns_for_user
 import planes
 
 app = Flask(__name__)
@@ -59,6 +59,14 @@ def logout():
 def home():
     nombre_usuario = session.get('nombre_usuario', 'Usuario')
     return render_template('home.html', nombre_usuario=nombre_usuario)
+
+@app.route('/api/active-graphs')
+@login_required
+def active_graphs():
+    nombre_usuario = session.get('nombre_usuario', 'Usuario')
+    excel_path = 'usuarios.xlsx'  # Reemplaza con la ruta real de tu archivo Excel
+    active_columns = get_active_columns_for_user(excel_path, nombre_usuario)
+    return jsonify(active_columns)
 
 @app.route('/index')
 @login_required

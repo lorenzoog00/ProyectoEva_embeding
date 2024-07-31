@@ -70,7 +70,6 @@ def analisisDeTodos():
             ax.set_ylabel('Temperatura (°C)', fontsize=6, fontweight='bold', color='#3F3F3E')
         elif sensor_elegido == 'Bateria':
             ax.set_ylabel('Batería (%)', fontsize=6, fontweight='bold', color='#3F3F3E')
-            ax.set_ylim(0, 100)  # Limitar el rango de 0 a 100%
         elif sensor_elegido == 'Luz':
             ax.set_ylabel('Luz (cd)', fontsize=6, fontweight='bold', color='#3F3F3E')
         else:
@@ -119,33 +118,53 @@ def analisisDeTodos():
         # Codificar la imagen en base64
         img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
         
-        # Calcular estadísticas adicionales
-        stats = {}
-        for agrupacion in agrupaciones:
-            datos_agrupacion = df[df['Grouping'] == agrupacion]
-            promedio = float(datos_agrupacion['Valor'].mean())
-            horas_ejecucion = float((datos_agrupacion['Tiempo'].max() - datos_agrupacion['Tiempo'].min()).total_seconds() / 3600)
-            valor_maximo = float(datos_agrupacion['Valor'].max())
-            valor_minimo = float(datos_agrupacion['Valor'].min())
-            stats[agrupacion] = {
-                "promedio": round(promedio, 2) if not np.isnan(promedio) else "N/A",
-                "horas_ejecucion": round(horas_ejecucion, 2),
-                "valor_maximo": round(valor_maximo, 2) if not np.isnan(valor_maximo) else "N/A",
-                "valor_minimo": round(valor_minimo, 2) if not np.isnan(valor_minimo) else "N/A"
-            }
-        
-        # Preparar datos para descarga individual
-        datos_individuales = df.to_dict(orient='records')
-        
-        return jsonify({
-            "grafica": img_base64,
-            "simbologia": [{"Sensor": str(agrupacion), "Color": color} for agrupacion, color in zip(agrupaciones, palette)],
-            "estadisticas": stats,
-            "valor_medio_total": round(valor_medio_total, 2),
-            "datos_individuales": datos_individuales
-        })
+ # Calcular estadísticas adicionales
+    stats = {}
+    datos_generales = {}
+    
+    # Obtenemos todos los sensores únicos
+    sensores_unicos = df['Grouping'].unique()
 
-    return jsonify({"mensaje": "Acción no reconocida"})
+    for sensor in sensores_unicos:
+        datos_sensor = df[df['Grouping'] == sensor]
+        promedio = float(datos_sensor['Valor'].mean())
+        horas_ejecucion = float((datos_sensor['Tiempo'].max() - datos_sensor['Tiempo'].min()).total_seconds() / 3600)
+        valor_maximo = float(datos_sensor['Valor'].max())
+        valor_minimo = float(datos_sensor['Valor'].min())
+        
+        stats[sensor] = {
+            "promedio": round(promedio, 2) if not np.isnan(promedio) else "N/A",
+            "horas_ejecucion": round(horas_ejecucion, 2),
+            "valor_maximo": round(valor_maximo, 2) if not np.isnan(valor_maximo) else "N/A",
+            "valor_minimo": round(valor_minimo, 2) if not np.isnan(valor_minimo) else "N/A"
+        }
+        
+        datos_generales[sensor] = {
+            "Sensor": sensor_elegido,
+            "Cantidad de mediciones": len(datos_sensor),
+            "Horas de ejecución": stats[sensor]["horas_ejecucion"],
+            "Promedio": stats[sensor]["promedio"],
+            "Valor máximo": stats[sensor]["valor_maximo"],
+            "Valor mínimo": stats[sensor]["valor_minimo"]
+        }
+
+    # Preparar datos para descarga individual
+    datos_individuales = df.to_dict(orient='records')
+
+    # Imprimir datos para depuración
+    print("Datos generales:", datos_generales)
+    print("Estadísticas:", stats)
+
+    response_data = {
+        "grafica": img_base64,
+        "simbologia": [{"Sensor": str(sensor), "Color": color} for sensor, color in zip(sensores_unicos, palette)],
+        "estadisticas": stats,
+        "valor_medio_total": round(float(df['Valor'].mean()), 2),
+        "datos_individuales": datos_individuales,
+        "datos_generales": datos_generales
+    }
+
+    return jsonify(response_data)
 
 def descargar_valores_individuales():
     data = request.get_json()

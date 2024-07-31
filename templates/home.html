@@ -3,124 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Quantum Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #FF6600;
-            --secondary-color: #003366;
-            --accent-color: #00CCFF;
-            --background-color: #FFFFFF;
-            --text-color: #333333;
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .navbar {
-            background-color: var(--secondary-color);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-        .company-name {
-            color: var(--background-color);
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .nav-links a {
-            color: var(--background-color);
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-        .container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-        .welcome-message {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .options {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%;
-            max-width: 1000px;
-        }
-        .option-button {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-            padding: 2rem;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: calc(50% - 1rem);
-            text-decoration: none;
-        }
-        .option-button:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-5px);
-        }
-        .option-button img {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 1rem;
-        }
-        .option-button h2 {
-            margin: 0 0 1rem 0;
-        }
-        .option-button p {
-            font-size: 1rem;
-            margin: 0;
-        }
-        footer {
-            background-color: var(--secondary-color);
-            color: var(--background-color);
-            text-align: center;
-            padding: 1rem;
-            margin-top: auto;
-        }
-    </style>
+    <title>Quamtum Services Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylehome.css') }}">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo-container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
-            </div>
+            <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quamtum Services Logo" class="logo">
             <span class="company-name">Quamtum Solutions</span>
         </div>
         <div class="nav-links">
@@ -129,47 +18,32 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="welcome-message">
-            <span id="greeting"></span>, {{ nombre_usuario }}
-        </div>
-        <div class="options">
-            <a href="{{ url_for('index') }}" class="option-button">
-                <img src="{{ url_for('static', filename='icons/consulta.png') }}" alt="Consulta icon">
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Bienvenido, <span id="nombre-usuario">{{ nombre_usuario }}</span></h1>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-item main-option" id="consulta-button">
+                <img src="{{ url_for('static', filename='icons/consulta.png') }}" alt="Consulta icon" class="option-icon">
                 <h2>Consulta</h2>
-                <p>Puedes consultar cualquier duda que se tenga sobre la plataforma de Quantum Services. Obtén respuestas rápidas y precisas sobre funcionalidades, procesos y mejores prácticas. Aprovecha nuestra base de conocimientos para optimizar tu experiencia con nuestros servicios.</p>
-            </a>
-            <a href="{{ url_for('analisis_datos') }}" class="option-button">
-                <img src="{{ url_for('static', filename='icons/analisis.png') }}" alt="Análisis icon">
+                <p>Obtén respuestas rápidas y precisas sobre nuestros servicios.</p>
+                <a href="{{ url_for('index') }}" class="option-button">Ir a Consulta</a>
+            </div>
+            <div class="dashboard-item main-option" id="analisis-button">
+                <img src="{{ url_for('static', filename='icons/analisis.png') }}" alt="Análisis icon" class="option-icon">
                 <h2>Análisis de datos</h2>
-                <p>Análisis de datos personalizados para las necesidades de {{ nombre_usuario }}. Descubre insights valiosos, identifica tendencias y toma decisiones informadas basadas en tus datos específicos.</p>
-            </a>
+                <p>Descubre insights valiosos basados en tus datos específicos.</p>
+                <a href="{{ url_for('analisis_datos') }}" class="option-button">Ir a Análisis</a>
+            </div>
+            <!-- Los elementos dinámicos se insertarán aquí -->
         </div>
-    </div>
+    </main>
 
     <footer>
-        &copy; 2024 Quantum Services. Todos los derechos reservados.
+        <p>© 2024 Quamtum Services. Todos los derechos reservados.</p>
     </footer>
 
-    <script>
-        function updateGreeting() {
-            const now = new Date();
-            const hour = now.getHours();
-            let greeting;
-
-            if (hour >= 0 && hour < 12) {
-                greeting = "Buenos días";
-            } else if (hour >= 12 && hour < 18.5) {
-                greeting = "Buenas tardes";
-            } else {
-                greeting = "Buenas noches";
-            }
-
-            document.getElementById('greeting').textContent = greeting;
-        }
-
-        updateGreeting();
-        setInterval(updateGreeting, 60000); // Actualiza cada minuto
-    </script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
+    <script type="module" src="{{ url_for('static', filename='js/wialon-api.js') }}"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -55,6 +56,7 @@
     </div>
 
     <script>
+        import { WIALON_TOKEN } from './static/js/wialon-api.js';
         function msg(text) { 
             $("#log").prepend(text + "<br/>"); 
         }
@@ -216,7 +218,7 @@ function onLoginSuccess() {
             $("#reportForm").submit(executeReport);
 
             wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-            wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754DA7B0B72BA3DBE72DC954157715425D0341E5C12", "",
+            wialon.core.Session.getInstance().loginToken(WIALON_TOKEN, "",
                 function (code) {
                     if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
                     msg("Sesión iniciada correctamente");

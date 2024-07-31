@@ -10,60 +10,20 @@
     <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
-    <style>
-        .styled-table {
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.9em;
-            font-family: 'Arial', sans-serif;
-            min-width: 400px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-        }
-        .styled-table thead tr {
-            background-color: #009879;
-            color: #ffffff;
-            text-align: left;
-        }
-        .styled-table th,
-        .styled-table td {
-            padding: 12px 15px;
-            text-align: right;
-        }
-        .styled-table tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
-        .styled-table tbody tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-        .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid #009879;
-        }
-        .styled-table tbody tr.active-row {
-            font-weight: bold;
-            color: #009879;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-    </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="container navbar-container">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quantum Services Logo">
+            </div>
+            <span class="company-name">Quamtum Solutions</span>
         </div>
-        <div>
+        <div class="nav-links">
             <a href="{{ url_for('home') }}">Inicio</a>
             <a href="{{ url_for('logout') }}">Cerrar sesión</a>
         </div>
-    </div>
-</nav>
-
+    </nav>
 <div class="container">
     <h1>Nivel de batería</h1>
     <p>Este informe se conforma de una tabla:</p>
@@ -315,7 +275,7 @@
         });
 
         wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754DA7B0B72BA3DBE72DC954157715425D0341E5C12", "",
+        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a75467BCA1F2B1C0C79D91407F72474DCED77F98DAB0" , "",
             function (code) {
                 if (code) { msg("Error al iniciar sesión: " + wialon.core.Errors.getErrorText(code)); return; }
                 msg("Sesión iniciada correctamente");

@@ -10,6 +10,7 @@
     <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
 </head>
 <body>
 <nav class="navbar">
@@ -64,12 +65,15 @@
     <div id="resultContainer"></div>
     <button id="downloadBtn" style="display: none;">Descargar Imagen</button>
     <button id="descargarValoresPDFBtn" class="download-button" style="display: none;" onclick="descargarValoresPDF()">Descargar valores individuales en Excel</button>
+    <button id="mostrarDatosGeneralesBtn" style="display: none;">Mostrar Datos Generales de Cada Sensor</button>
+
 
 
     <div id="log" class="response-container"></div>
 </div>
 
 <script>
+    let datosGeneralesGlobal = null;
     const RESOURCE_ID = 400730713;  // ID fijo del recurso
     const TEMPLATE_ID = 27;  // ID fijo de la plantilla
 
@@ -225,10 +229,60 @@
 
     let statsGlobal = null;
 let datosIndividualesGlobal = null;
-
+//Muestra botones
 function showButtons() {
     $("#downloadBtn").show();
     $("#descargarValoresPDFBtn").show();
+    $("#mostrarDatosGeneralesBtn").show();
+}
+//Mostrar los datos de todos
+function mostrarDatosGenerales(datosGenerales) {
+    console.log("Mostrando datos generales:", datosGenerales);
+    if (!datosGenerales || Object.keys(datosGenerales).length === 0) {
+        $("#modalDatosGeneralesContent").html('<p>No hay datos generales disponibles</p>');
+        return;
+    }
+
+    let html = '';
+    let index = 0;
+    for (let agrupacion in datosGenerales) {
+        html += `<div class="sensor-data" data-index="${index}">`;
+        html += `<h3>${agrupacion}</h3>`;
+        html += '<ul>';
+        for (let key in datosGenerales[agrupacion]) {
+            html += `<li><strong>${key}:</strong> ${datosGenerales[agrupacion][key]}</li>`;
+        }
+        html += '</ul></div>';
+        index++;
+    }
+
+    $("#modalDatosGeneralesContent").html(html);
+    totalSensors = index;
+    currentSensorIndex = 0;
+    actualizarVisualizacionSensor();
+    $("#modalDatosGenerales").show();
+}
+
+function actualizarVisualizacionSensor() {
+    $(".sensor-data").removeClass("active");
+    $(`.sensor-data[data-index="${currentSensorIndex}"]`).addClass("active");
+    $("#sensorCounter").text(`Sensor ${currentSensorIndex + 1} de ${totalSensors}`);
+    $("#prevSensor").prop("disabled", currentSensorIndex === 0);
+    $("#nextSensor").prop("disabled", currentSensorIndex === totalSensors - 1);
+}
+
+function nextSensor() {
+    if (currentSensorIndex < totalSensors - 1) {
+        currentSensorIndex++;
+        actualizarVisualizacionSensor();
+    }
+}
+
+function prevSensor() {
+    if (currentSensorIndex > 0) {
+        currentSensorIndex--;
+        actualizarVisualizacionSensor();
+    }
 }
 
 function descargarValoresExcel() {
@@ -291,7 +345,7 @@ function sendDataToBackend(reportData) {
                             sensorElegido: $("#sensorSelect").val()
                         }),
                         success: function (response) {
-                            console.log("Datos enviados al backend con éxito");
+                            console.log("Respuesta completa del servidor:", response);
                             $("#resultContainer").empty();
                             $("#log").empty();  // Limpiar el cuadro de texto
                             if (response.grafica) {
@@ -319,6 +373,13 @@ function sendDataToBackend(reportData) {
                                 $("#resultContainer").append(resultContainer);
                                 // Mostrar los botones
                                 showButtons();
+                                // Guardar los datos generales en la variable global de los datos generales de cada sensor
+                                datosGeneralesGlobal = response.datos_generales;
+                                console.log("Datos generales recibidos:", datosGeneralesGlobal);
+                                // Mostrar el botón de datos generales
+                                $("#mostrarDatosGeneralesBtn").show().off('click').on('click', function() {
+                                    mostrarDatosGenerales(datosGeneralesGlobal);
+                                });
                                 // Guardar los datos individuales en una variable global para usarlos en descargarExcel
                                 statsGlobal = response.estadisticas;
                                 datosIndividualesGlobal = response.datos_individuales;
@@ -378,7 +439,32 @@ function onLoginSuccess() {
 
     $(document).ready(function () {
         $("#reportForm").submit(executeReport);
+        
+        $("#mostrarDatosGeneralesBtn").on('click', function() {
+        console.log("Botón clickeado, datosGeneralesGlobal:", datosGeneralesGlobal);
+        mostrarDatosGenerales(datosGeneralesGlobal);
+    });
+    $(".close").on('click', function() {
+        $("#modalDatosGenerales").hide();
+    });
 
+    $(window).on('click', function(event) {
+        if (event.target == $("#modalDatosGenerales")[0]) {
+            $("#modalDatosGenerales").hide();
+        }
+    });
+    $("#nextSensor").on('click', nextSensor);
+    $("#prevSensor").on('click', prevSensor);
+
+    $(document).on('keydown', function(e) {
+        if ($("#modalDatosGenerales").is(":visible")) {
+            if (e.which === 37) { // Flecha izquierda
+                prevSensor();
+            } else if (e.which === 39) { // Flecha derecha
+                nextSensor();
+            }
+        }
+    });
         flatpickr.localize(flatpickr.l10ns.es);
         flatpickr("#startDateTime", {
             enableTime: true,
@@ -390,9 +476,8 @@ function onLoginSuccess() {
             dateFormat: "d/m/Y H:i",
             time_24hr: true
         });
-
         wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754DA7B0B72BA3DBE72DC954157715425D0341E5C12", "",
+        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a75467BCA1F2B1C0C79D91407F72474DCED77F98DAB0", "",
             function (code) {
                 if (code) { msg("Error al iniciar sesión: " + wialon.core.Errors.getErrorText(code)); return; }
                 msg("Sesión iniciada correctamente");
@@ -409,5 +494,18 @@ function onLoginSuccess() {
     const sensorElegido = $("#sensorSelect").val();
 
 </script>
+
+<div id="modalDatosGenerales" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Datos Generales de Cada Sensor</h2>
+        <div id="modalDatosGeneralesContent"></div>
+        <div class="modal-navigation">
+            <button id="prevSensor">&larr; Anterior</button>
+            <span id="sensorCounter"></span>
+            <button id="nextSensor">Siguiente &rarr;</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
