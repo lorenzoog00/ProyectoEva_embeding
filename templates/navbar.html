@@ -1,11 +1,22 @@
-<nav class="navbar">
+<div class="navbar">
     <div class="container navbar-container">
         <div class="logo">
             <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quamtum Services Logo">
         </div>
-        <div class="nav-links">
+
+        <nav class="nav-links">
             <a href="{{ url_for('home') }}">Inicio</a>
+            <div class="dropdown">
+                <a href="{{ url_for('analisis_datos') }}" class="dropbtn">Análisis</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('analisis_baterias') }}">Batería de tus activos</a>
+                    <a href="{{ url_for('analisis_temperatura') }}">Análisis de desempeño de sensores</a>
+                    <a href="#">Opción A</a>
+                    <a href="#">Opción B</a>
+                </div>
+            </div>
+            <a href="{{ url_for('index') }}">Consulta</a>
             <a href="{{ url_for('login_route') }}">Cerrar sesión</a>
-        </div>
+        </nav>
     </div>
-</nav>
+</div>

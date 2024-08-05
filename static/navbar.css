@@ -1,8 +1,12 @@
 /* Estilos para el Navbar */
 .navbar {
-    background-color: #003366; /* Azul oscuro */
-    padding: 10px 20px; /* Padding lateral para dar espacio */
-    overflow: hidden; /* Asegura que no haya desbordamiento */
+    background-color: #003366;
+    padding: 10px 20px;
+    overflow: visible; /* Asegura que el menú desplegable sea visible */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 .navbar-container {
@@ -17,6 +21,11 @@
 .logo img {
     height: 70px; /* Ajuste del tamaño del logo */
     border-radius: 10px;
+    transition: transform 0.3s ease; /* Animación suave para el logo */
+}
+
+.logo img:hover {
+    transform: scale(1.05); /* Ligero aumento de tamaño al pasar el mouse */
 }
 
 .nav-links {
@@ -31,11 +40,21 @@
     margin-left: 20px;
     font-weight: bolder;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease; /* Animación suave para color y transformación */
 }
 
 .nav-links a:hover {
     color: #FF6600; /* Naranja */
+    transform: translateY(-2px); /* Ligero movimiento hacia arriba al pasar el mouse */
+}
+
+/* Efecto de reducción de tamaño al hacer scroll */
+.navbar.scrolled {
+    padding: 5px 20px; /* Reduce el padding */
+}
+
+.navbar.scrolled .logo img {
+    height: 50px; /* Reduce el tamaño del logo */
 }
 
 /* Media Queries para pantallas pequeñas */
@@ -59,5 +78,90 @@
 
     .logo img {
         height: 50px; /* Reduce el tamaño del logo en pantallas pequeñas */
+    }
+}
+
+/* Estilos actualizados para el menú desplegable */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    padding: 10px 15px; /* Añade padding para aumentar el área clickeable */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 220px; /* Aumenta el ancho mínimo */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001; /* Asegura que esté por encima de otros elementos */
+    border-radius: 4px;
+    top: 100%; /* Lo coloca justo debajo del botón */
+    left: 0; /* Alinea con el borde izquierdo del botón */
+    padding: 5px 0; /* Añade un poco de padding arriba y abajo */
+}
+
+.dropdown-content a {
+    color: #003366;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap; /* Previene el salto de línea en los textos largos */
+}
+
+.dropdown-content a:hover {
+    background-color: #e9e9e9; /* Cambia ligeramente el color de fondo al hacer hover */
+    color: #FF6600;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    color: #FF6600;
+    transform: translateY(-2px);
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .dropdown {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown-content {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        background-color: #004080; /* Un tono más claro que el navbar para diferenciarlo */
+    }
+
+    .dropdown-content a {
+        color: #FFFFFF; /* Mantiene el texto blanco en móviles */
+    }
+
+    .dropdown-content a:hover {
+        background-color: #005099; /* Un tono aún más claro para el hover en móviles */
     }
 }
