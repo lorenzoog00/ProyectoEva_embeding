@@ -74,6 +74,9 @@ def query_page():
 def download_pdf_route():
     return generate_and_download_pdf()
 
+@app.route('/sensores')
+def sensores():
+    return render_template('dashboard/sensores.html')
 
 @app.route('/analisis_datos')
 @login_required

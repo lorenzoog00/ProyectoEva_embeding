@@ -1,0 +1,11 @@
+<div class="sensor-container">
+    <h3>Rastreo de Sensores</h3>
+    <div class="sensor-controls">
+        <select id="units" class="sensor-select"></select>
+        <select id="sensors" class="sensor-select"></select>
+    </div>
+    <div id="sensor-value" class="sensor-value"></div>
+    <div id="sensor-graph" class="sensor-graph"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard/sensores.js') }}"></script>

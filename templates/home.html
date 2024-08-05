@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quamtum Services Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylehome.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}"> <!-- CSS del Navbar -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sensores.css') }}">
 </head>
 <body>
     {% include 'navbar.html' %}
-
 
     <main class="dashboard-container">
         <header class="dashboard-header">
@@ -29,7 +29,21 @@
                 <p>Descubre insights valiosos basados en tus datos específicos.</p>
                 <a href="{{ url_for('analisis_datos') }}" class="option-button">Ir a Análisis</a>
             </div>
-            <!-- Los elementos dinámicos se insertarán aquí -->
+            <div class="dashboard-item dynamic" id="graph-mensajes" style="display: none;">
+                <h2>Mensajes</h2>
+                <select id="units" class="sensor-select"></select>
+                <select id="sensors" class="sensor-select"></select>
+                <div id="sensor-value" class="sensor-value"></div>
+            </div>
+            <div class="dashboard-item dynamic" id="graph-bateria" style="display: none;">
+                <h2>Batería</h2>
+                <!-- Contenido para la gráfica de Batería -->
+            </div>
+            <div class="dashboard-item dynamic" id="graph-temperatura" style="display: none;">
+                <h2>Temperatura</h2>
+                <!-- Contenido para la gráfica de Temperatura -->
+            </div>
+            <!-- Agrega aquí más elementos dinámicos para otras posibles gráficas -->
         </div>
     </main>
 
@@ -37,6 +51,8 @@
         <p>© 2024 Quamtum Services. Todos los derechos reservados.</p>
     </footer>
 
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="//hst-api.wialon.com/wsdk/script/wialon.js"></script>
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
 </html>
