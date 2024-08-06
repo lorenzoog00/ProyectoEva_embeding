@@ -3,6 +3,7 @@ FILES_BY_PLAN = {
     'Bronce': [
         'Conductores.txt',
         'Dashboard.txt',
+        'EVA.txt',
         'Geocercas.txt'
     ],
     'Plata': [
@@ -11,6 +12,7 @@ FILES_BY_PLAN = {
         'Geocercas.txt',
         'Herramientas.txt',
         'Recorridos.txt',
+        'EVA.txt',
         'Remolques.txt',
         'Informes.txt',
         'Introducción a la plataforma.txt'
@@ -33,6 +35,7 @@ ORDERED_FILES = [
     'Notificaciones.txt',
     'Usuarios.txt',
     'Unidades.txt',
+    'EVA.txt',
     'Herramientas.txt',
     'Introducción a la plataforma.txt'
 ]
@@ -53,5 +56,6 @@ TOOLTIPS = {
     'Usuarios.txt': 'Información sobre Usuarios.',
     'Unidades.txt': 'Información sobre Unidades.',
     'Herramientas.txt': 'Información sobre Herramientas.',
-    'Introducción a la plataforma.txt': 'Información sobre Introducción a la plataforma.'
+    'Introducción a la plataforma.txt': 'Información sobre Introducción a la plataforma.',
+    'EVA.txt': 'Guía detallada sobre cómo usar EVA, tu asistente personal con IA.'
 }

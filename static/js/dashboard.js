@@ -38,17 +38,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateDashboard(activeGraphs) {
         const dashboardGrid = document.querySelector('.dashboard-grid');
         
-        // Ocultar todos los elementos dinámicos
         document.querySelectorAll('.dashboard-item.dynamic').forEach(el => {
             el.style.display = 'none';
         });
-
-        // Mostrar y actualizar solo las gráficas activas
+    
         activeGraphs.forEach((graph) => {
             const graphElement = document.getElementById(`graph-${graph.toLowerCase().replace(/\s+/g, '-')}`);
             if (graphElement) {
                 graphElement.style.display = 'block';
-                if (graph === "Mensajes") {
+                if (graph === "Consulta de sensor") {
                     loadUnitsForGraph();
                 } else {
                     graphElement.innerHTML = `

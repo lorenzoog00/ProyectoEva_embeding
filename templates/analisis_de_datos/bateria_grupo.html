@@ -27,6 +27,14 @@
         </div>
         
         <div class="form-group">
+            <label for="timeRangeSelect">Seleccionar rango de tiempo:</label>
+            <select id="timeRangeSelect" onchange="setDateTimeRange()">
+                <option value="custom">Personalizado</option>
+                <option value="today">De hoy</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="startDateTime">Fecha y hora de inicio:</label>
             <input type="text" id="startDateTime" required>
         </div>

@@ -14,22 +14,50 @@
     <div class="container">
         <h1>Hola, {{ nombre_usuario }}</h1>
         <h2>Selecciona los archivos para filtrar el DataFrame</h2>
+    
         <form action="{{ url_for('submit') }}" method="post">
+            <div class="checkbox">
+                <input type="checkbox" id="select-all">
+                <label for="select-all">Seleccionar todos</label>
+            </div>
+    
             {% for file, display_file, image_file, tooltip in zip(files, display_files, image_files, tooltips) %}
-                <div class="checkbox">
-                    <input type="checkbox" id="{{ file }}" name="files" value="{{ file }}">
-                    <label for="{{ file }}">
-                        <img src="{{ url_for('static', filename='logos/' ~ image_file) }}" alt="{{ display_file }}" width="20" height="20">
-                        {{ display_file }}
-                        <span class="tooltip">
-                            <img src="{{ url_for('static', filename='logos/interrogacion.png') }}" class="info-icon" alt="Info">
-                            <span class="tooltiptext">{{ tooltip }}</span>
-                        </span>
-                    </label>
-                </div>
+            <div class="checkbox">
+                <input type="checkbox" name="files" value="{{ file }}" id="file-{{ loop.index }}">
+                <label for="file-{{ loop.index }}">
+                    <img src="{{ url_for('static', filename='logos/' ~ image_file) }}" width="20" height="20">
+                    {{ display_file }}
+                    <span class="tooltip">
+                        <img src="{{ url_for('static', filename='logos/interrogacion.png') }}" class="info-icon">
+                        <span class="tooltiptext">{{ tooltip }}</span>
+                    </span>
+                </label>
+            </div>
             {% endfor %}
-            <button type="submit" class="button">Enviar</button>
+    
+            <input type="submit" value="Enviar">
         </form>
     </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectAll = document.getElementById('select-all');
+        var checkboxes = document.querySelectorAll('input[name="files"]');
+    
+        selectAll.addEventListener('change', function() {
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = selectAll.checked;
+            });
+        });
+    
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                selectAll.checked = Array.from(checkboxes).every(function(cb) {
+                    return cb.checked;
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>
