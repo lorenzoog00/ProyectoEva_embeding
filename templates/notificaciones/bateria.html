@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificación de Batería por debajo de X%</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='notificaciones.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="notification-container">
+        <h1 class="main-title">Notificación de Batería por debajo de X%</h1>
+
+        {% if has_thinkpower_tl904d %}
+        <div class="compatibility-message" style="color: green;">
+            Hay dispositivos suyos que sí se puede variar la frecuencia de transmisiones que hace.
+            <br>
+            <a href="{{ url_for('variacion_reporte') }}" class="learn-more-link">Presiona aquí para saber más</a>
+        </div>
+        {% endif %}
+
+        <div class="content-section introduction">
+            <h2 class="section-title">Introducción</h2>
+            <p>Las notificaciones de batería baja son cruciales para mantener la continuidad del monitoreo de sus activos. Configurar estas alertas le permitirá tomar acciones preventivas antes de que los dispositivos se apaguen por falta de energía.</p>
+            <ul>
+                <li>🔋 <strong>Monitoreo de energía:</strong> Supervise el nivel de batería de sus dispositivos en tiempo real.</li>
+                <li>⚠️ <strong>Alertas preventivas:</strong> Reciba notificaciones antes de que la batería alcance niveles críticos.</li>
+                <li>🔄 <strong>Mantenimiento proactivo:</strong> Planifique la recarga o reemplazo de baterías de manera eficiente.</li>
+                <li>📊 <strong>Optimización de recursos:</strong> Mejore la gestión de su flota y reduzca el tiempo de inactividad.</li>
+            </ul>
+        </div>
+
+        <div class="content-section configuration">
+            <h2 class="section-title">Cómo Configurar</h2>
+            <ol class="configuration-steps">
+                <li>
+                    <p>Acceda a <a href="http://controlb.quamtumservices.com.mx/" target="_blank">http://controlb.quamtumservices.com.mx/</a></p>
+                </li>
+                <li>
+                    <p>Haga clic en "Crear" en la esquina superior izquierda</p>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/crear.png') }}" alt="Botón crear">
+                        <p class="image-caption">Botón para crear una nueva notificación</p>
+                    </div>
+                </li>
+                <li>
+                    <p>Elija si la notificación es para un grupo de unidades o una unidad específica</p>
+                </li>
+                <li>
+                    <p>Seleccione "Valor del sensor" como tipo de notificación</p>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/tipo notificacion.png') }}" alt="Tipos de notificación">
+                        <p class="image-caption">Seleccione "Valor del sensor" en las opciones de notificación</p>
+                    </div>
+                </li>
+                <li>
+                    <p>Configure los parámetros del sensor de batería:</p>
+                    <ul>
+                        <li>En "Nombre de sensor" escriba "Batería".</li>
+                        <li>Mantenga "Valores similares" sin cambios.</li>
+                        <li>En "Tipo de sensor" elija "sensor personalizado".</li>
+                        <li>Establezca el umbral de batería baja (por ejemplo, 20%).</li>
+                        <li>Configure para que se active cuando el valor esté por debajo del umbral.</li>
+                    </ul>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/valor sensor bateria.png') }}" alt="Configuración del sensor de batería">
+                        <p class="image-caption">Ejemplo de configuración para notificación de batería por debajo del 20%</p>
+                    </div>
+                </li>
+                <li>
+                    <p>Elija la acción que desea que se ejecute cuando se active la notificación, por ejemplo, enviar un correo electrónico o una notificación push. Hay múltiples opciones disponibles.</p>
+                    <p>Si necesita una acción específica, consulte <a href="{{ url_for('index') }}">nuestra guía detallada</a>.</p>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/correo.png') }}" alt="Configuración de correo">
+                        <p class="image-caption">Ejemplo: Configuración para envío por correo electrónico</p>
+                    </div>
+                </li>
+                <li>
+                    <p>Redacte el contenido del mensaje de notificación. Puede utilizar códigos especiales como %UNIT% para incluir información dinámica, como el nombre de la unidad.</p>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/contenidoCorreo.png') }}" alt="Contenido del correo">
+                        <p class="image-caption">Contenido predeterminado del mensaje de notificación</p>
+                    </div>
+                </li>
+                <li>
+                    <p>Configure los detalles finales de la notificación:</p>
+                    <ol type="a">
+                        <li>Asigne un nombre descriptivo a la notificación.</li>
+                        <li>
+                            <p>Establezca el período de control:</p>
+                            <p>El período de control es un parámetro crítico que define la ventana temporal relevante para la activación de notificaciones. Este ajuste es particularmente importante para sistemas que utilizan dispositivos de seguimiento de activos con frecuencias de reporte limitadas. Se recomienda configurar un período de control de un día para asegurar que las notificaciones se generen solo para eventos recientes y relevantes, optimizando así la eficacia del sistema de monitoreo y evitando alertas innecesarias basadas en datos obsoletos.</p>
+                        </li>
+                        <li>Si desea limitar el número de notificaciones, establezca un límite superior de activaciones máximas.</li>
+                        <li>Configure "Generar notificación" en "Cambiar de estado".</li>
+                    </ol>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/ajustes1.png') }}" alt="Ajustes generales">
+                        <p class="image-caption">Configuración general de la notificación</p>
+                    </div>
+                </li>
+                <li>
+                    <p>Ajuste los parámetros avanzados:</p>
+                    <ul>
+                        <li><strong>Duración mínima del estado anterior:</strong> Especifica el tiempo mínimo que debe mantenerse el estado previo antes de que un nuevo estado active la notificación.</li>
+                        <li><strong>Lapso máximo entre mensajes:</strong> Define el intervalo máximo permitido entre mensajes consecutivos. Para dispositivos con reportes poco frecuentes, se recomienda establecer este valor en 6 horas o más.</li>
+                        <li><strong>Tiempo de espera:</strong> Determina cuánto tiempo el sistema aguardará para recibir todos los mensajes antes de analizar la situación. Se sugiere mantenerlo en 0 segundos para una respuesta inmediata.</li>
+                        <li><strong>Activada:</strong> Indica si la notificación está operativa.</li>
+                        <li><strong>Limitaciones de tiempo:</strong> Permite programar períodos específicos durante los cuales la notificación estará activa o inactiva.</li>
+                    </ul>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/ajustes2.png') }}" alt="Ajustes avanzados">
+                        <p class="image-caption">Configuración avanzada de la notificación</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/notificaciones.js') }}"></script>
+</body>
+</html>

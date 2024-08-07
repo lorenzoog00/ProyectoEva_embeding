@@ -4,6 +4,9 @@ from query_py.submit import filter_and_prepare_query
 from analisis_py.analisis_temperatura import descargar_valores_individuales
 from query_py.download_pdf_consulta import generate_and_download_pdf
 from login_py.login import login_required, init_excel, handle_login, active_graphs_handler
+from dashboard_py.geocerca_salidas import geocerca_analysis
+from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
+from notificaciones_py.bateriaMenor import check_thinkpower_compatibility
 from query_py.query import process_user_query
 from query_py.query_aditional import process_additional_user_query
 from login_py.index import index_handler
@@ -20,7 +23,7 @@ app.permanent_session_lifetime = timedelta(minutes=5)  # Establece la duración 
 
 # Inicializar el archivo Excel
 init_excel()
-
+#Login
 @app.route('/login', methods=['GET', 'POST'])
 def login_route():
     return handle_login(request)
@@ -41,7 +44,7 @@ def home():
 @login_required
 def active_graphs():
     return active_graphs_handler()
-
+#Query
 @app.route('/index')
 @login_required
 def index():
@@ -74,9 +77,44 @@ def query_page():
 def download_pdf_route():
     return generate_and_download_pdf()
 
+#Notificaciones
+@app.route('/geocerca_notificacion')
+@login_required
+def geocerca_notificacion():
+    return render_template('notificaciones/geocerca.html')
+
+@app.route('/luz_notificacion')
+@login_required
+def luz_notificacion():
+    username = session.get('nombre_usuario')
+    has_compatible_device, message, color = check_sensor_compatibility(username)
+    print(f"Debug - Color: {color}, Message: {message}")  # Línea de depuración
+    return render_template('notificaciones/luz.html', compatibility_message=message, compatibility_color=color)
+
+@app.route('/bateria_notificacion')
+@login_required
+def bateria_notificacion():
+    username = session.get('nombre_usuario')
+    has_thinkpower_tl904d = check_thinkpower_compatibility(username)
+    return render_template('notificaciones/bateria.html', has_thinkpower_tl904d=has_thinkpower_tl904d)
+
+@app.route('/variacion-reporte')
+@login_required
+def variacion_reporte():
+    return render_template('notificaciones/variacionReporte.html')
+
+#Dashboard
 @app.route('/sensores')
 def sensores():
     return render_template('dashboard/sensores.html')
+
+# Añade esta función a app.py
+
+@app.route('/geocerca_analysis', methods=['POST'])
+def handle_geocerca_analysis():
+    return geocerca_analysis()
+    
+#Analisis
 
 @app.route('/analisis_datos')
 @login_required

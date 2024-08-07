@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variación de Frecuencia de Reportes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='notificaciones.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="notification-container">
+        <h1 class="main-title">Variación de Frecuencia de Reportes</h1>
+
+        <div class="content-section">
+            <h2 class="section-title">Dispositivo ThinkPower TL904D</h2>
+            <p>El dispositivo ThinkPower TL904D ofrece la capacidad de ajustar la frecuencia con la que envía reportes. Esta característica proporciona una mayor flexibilidad en el monitoreo de sus activos y puede ayudar a optimizar el uso de la batería.</p>
+
+            <h3>Beneficios de la variación de frecuencia:</h3>
+            <ul>
+                <li>Personalización del monitoreo según sus necesidades específicas.</li>
+                <li>Optimización del consumo de batería.</li>
+                <li>Adaptación a diferentes escenarios operativos.</li>
+                <li>Mejora en la gestión de datos y costos de transmisión.</li>
+            </ul>
+
+            <h3>Tutorial: Cómo configurar la variación de frecuencia de reportes</h3>
+            <ol>
+                <li>Acceda a la plataforma de control en <a href="http://controlb.quamtumservices.com.mx/" target="_blank">http://controlb.quamtumservices.com.mx/</a></li>
+                <li>Vaya a la sección de "Notificaciones" y cree una nueva notificación.</li>
+                <li>Configure los parámetros de la notificación según sus necesidades (por ejemplo, nivel de batería bajo).</li>
+                <li>En la parte de elegir acción si la notificación se activa, seleccione "Enviar un comando".</li>
+                <li>
+                    <p>En el menú desplegable, seleccione el comando ya configurado para ajustar la frecuencia de reportes.</p>
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='notificaciones/seleccion_comando.png') }}" alt="Selección de comando">
+                        <p class="image-caption">Se selecciona el comando a mandar para ajustar la frecuencia de reportes</p>
+                    </div>
+                </li>
+                <li>Configure los demás parámetros de la notificación según sea necesario.</li>
+                <li>Guarde la configuración de la notificación.</li>
+            </ol>
+
+            <p><strong>Nota:</strong> Tenga en cuenta que ajustar la frecuencia de reportes puede afectar el consumo de batería del dispositivo. Intervalos más cortos entre reportes resultarán en un mayor consumo de batería, mientras que intervalos más largos pueden extender la vida útil de la batería pero proporcionarán actualizaciones menos frecuentes.</p>
+
+            <p>Para obtener asistencia adicional en la configuración de la frecuencia de reportes o si necesita ayuda para crear comandos personalizados, por favor contacte a nuestro equipo de soporte técnico.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/notificaciones.js') }}"></script>
+</body>
+</html>
