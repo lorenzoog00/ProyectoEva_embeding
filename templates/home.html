@@ -31,24 +31,20 @@
                 <a href="{{ url_for('analisis_datos') }}" class="option-button">Ir a Análisis</a>
             </div>
     
-            <div id="graph-mensajes" class="dashboard-item dynamic" style="display: none;">
-                <h2>Mensajes</h2>
+            <div id="graph-consulta-de-sensor" class="dashboard-item dynamic">
+                <h2>Consulta de sensor</h2>
+                <select id="units"></select>
+                <select id="sensors"></select>
                 <div id="sensor-value" class="sensor-value"></div>
             </div>
     
-            <div id="graph-bateria" class="dashboard-item dynamic" style="display: none;">
-                <h2>Batería</h2>
-            </div>
-    
-            <div id="graph-temperatura" class="dashboard-item dynamic" style="display: none;">
-                <h2>Temperatura</h2>
-            </div>
-    
-            <div id="graph-geocercas" class="dashboard-item dynamic" style="display: none;">
+            <div id="graph-geocercas" class="dashboard-item dynamic">
                 <h2>Salidas de geocerca por unidad</h2>
                 <select id="unitGroupSelect"></select>
                 <div id="geocercaChartContainer"></div>
             </div>
+
+                    <!-- Agrega aquí más elementos dinámicos según sea necesario -->
         </div>
     </div>
     
@@ -59,6 +55,6 @@
     <script src="//code.jquery.com/jquery-latest.min.js"></script>
     <script src="{{ url_for('static', filename='js/geocerca_analysis.js') }}"></script>
     <script src="//hst-api.wialon.com/wsdk/script/wialon.js"></script>
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard/dashboard.js') }}"></script>
 </body>
 </html>

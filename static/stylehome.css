@@ -109,3 +109,36 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.dashboard-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-option {
+    grid-column: span 1;
+}
+
+.dynamic {
+    display: none; /* Inicialmente ocultos, se mostrarán mediante JavaScript */
+}
+
+/* Asegurarse de que los elementos fijos estén en su lugar */
+#consulta-button {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#analisis-button {
+    grid-row: 1;
+    grid-column: 2;
+}

@@ -31,23 +31,46 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Manejar el error aquí, por ejemplo, mostrar un mensaje al usuario
             });
     }
 
     function updateDashboard(activeGraphs) {
         const dashboardGrid = document.querySelector('.dashboard-grid');
+        const dynamicItems = document.querySelectorAll('.dashboard-item.dynamic');
         
-        document.querySelectorAll('.dashboard-item.dynamic').forEach(el => {
+        // Ocultar todos los elementos dinámicos
+        dynamicItems.forEach(el => {
             el.style.display = 'none';
         });
-    
-        activeGraphs.forEach((graph) => {
+
+        // Mostrar y actualizar solo las gráficas activas
+        activeGraphs.forEach((graph, index) => {
             const graphElement = document.getElementById(`graph-${graph.toLowerCase().replace(/\s+/g, '-')}`);
             if (graphElement) {
                 graphElement.style.display = 'block';
+                
+                // Mantener las posiciones fijas
+                if (index === 0) {
+                    // El primer elemento dinámico siempre en 1,3
+                    graphElement.style.gridRow = '1';
+                    graphElement.style.gridColumn = '3';
+                } else {
+                    // Los siguientes elementos en la segunda fila, manteniendo su orden
+                    graphElement.style.gridRow = '2';
+                    graphElement.style.gridColumn = index.toString();
+                }
+
+                // Inicializar o actualizar el contenido del gráfico
                 if (graph === "Consulta de sensor") {
-                    loadUnitsForGraph();
+                    if (!graphElement.hasAttribute('data-initialized')) {
+                        loadUnitsForGraph();
+                        graphElement.setAttribute('data-initialized', 'true');
+                    }
+                } else if (graph === "Geocercas") {
+                    if (!graphElement.hasAttribute('data-initialized')) {
+                        initGeocercaAnalysis();
+                        graphElement.setAttribute('data-initialized', 'true');
+                    }
                 } else {
                     graphElement.innerHTML = `
                         <h2>${graph}</h2>
@@ -56,15 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-
-        // Asegurar que siempre haya 6 elementos visibles en total (3x2 grid)
-        const visibleItems = document.querySelectorAll('.dashboard-item:not([style*="display: none"])');
-        const totalItems = visibleItems.length;
-        for (let i = totalItems; i < 6; i++) {
-            const emptyElement = document.createElement('div');
-            emptyElement.className = 'dashboard-item empty';
-            dashboardGrid.appendChild(emptyElement);
-        }
     }
 
     function loadUnitsForGraph() {
@@ -88,6 +102,30 @@ document.addEventListener('DOMContentLoaded', function() {
             unitSelect.addEventListener('change', loadSensorsForGraph);
         });
     }
+
+
+    function loadUnitsForGraph() {
+        var flags = wialon.item.Item.dataFlag.base | wialon.item.Unit.dataFlag.sensors | wialon.item.Unit.dataFlag.lastMessage;
+        wialonSession.loadLibrary("unitSensors");
+        wialonSession.updateDataFlags([{type: "type", data: "avl_unit", flags: flags, mode: 0}], function (code) {
+            if (code) {
+                console.error(wialon.core.Errors.getErrorText(code));
+                return;
+            }
+            var units = wialonSession.getItems("avl_unit");
+            if (!units || !units.length) {
+                console.error("No units found");
+                return;
+            }
+            var unitSelect = document.getElementById("units");
+            unitSelect.innerHTML = "<option value=''>Selecciona una unidad</option>";
+            units.forEach(unit => {
+                unitSelect.innerHTML += `<option value="${unit.getId()}">${unit.getName()}</option>`;
+            });
+            unitSelect.addEventListener('change', loadSensorsForGraph);
+        });
+    }
+
 
     function loadSensorsForGraph() {
         var unitId = document.getElementById("units").value;
