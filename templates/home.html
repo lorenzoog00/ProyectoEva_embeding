@@ -11,10 +11,10 @@
 <body>
     {% include 'navbar.html' %}
 
-    <div class="dashboard-container" role="main">
-        <div class="dashboard-header">
+    <main class="dashboard-container" role="main">
+        <header class="dashboard-header">
             <h1>Bienvenido, <span id="nombre-usuario">{{ nombre_usuario }}</span></h1>
-        </div>
+        </header>
     
         <div class="dashboard-grid">
             <div id="consulta-button" class="dashboard-item main-option">
@@ -31,22 +31,12 @@
                 <a href="{{ url_for('analisis_datos') }}" class="option-button">Ir a Análisis</a>
             </div>
     
-            <div id="graph-consulta-de-sensor" class="dashboard-item dynamic">
-                <h2>Consulta de sensor</h2>
-                <select id="units"></select>
-                <select id="sensors"></select>
-                <div id="sensor-value" class="sensor-value"></div>
-            </div>
-    
-            <div id="graph-geocercas" class="dashboard-item dynamic">
-                <h2>Salidas de geocerca por unidad</h2>
-                <select id="unitGroupSelect"></select>
-                <div id="geocercaChartContainer"></div>
-            </div>
-
-                    <!-- Agrega aquí más elementos dinámicos según sea necesario -->
+            <div id="dynamic-1-3" class="dashboard-item dynamic"></div>
+            <div id="dynamic-2-1" class="dashboard-item dynamic"></div>
+            <div id="dynamic-2-2" class="dashboard-item dynamic"></div>
+            <div id="dynamic-2-3" class="dashboard-item dynamic"></div>
         </div>
-    </div>
+    </main>
     
     <footer>
         © 2024 Quamtum Services. Todos los derechos reservados.

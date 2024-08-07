@@ -35,42 +35,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateDashboard(activeGraphs) {
-        const dashboardGrid = document.querySelector('.dashboard-grid');
-        const dynamicItems = document.querySelectorAll('.dashboard-item.dynamic');
+        const dynamicPositions = ['dynamic-1-3', 'dynamic-2-1', 'dynamic-2-2', 'dynamic-2-3'];
         
         // Ocultar todos los elementos dinámicos
-        dynamicItems.forEach(el => {
-            el.style.display = 'none';
+        dynamicPositions.forEach(position => {
+            document.getElementById(position).style.display = 'none';
         });
 
         // Mostrar y actualizar solo las gráficas activas
         activeGraphs.forEach((graph, index) => {
-            const graphElement = document.getElementById(`graph-${graph.toLowerCase().replace(/\s+/g, '-')}`);
-            if (graphElement) {
+            if (index < dynamicPositions.length) {
+                const positionId = dynamicPositions[index];
+                const graphElement = document.getElementById(positionId);
                 graphElement.style.display = 'block';
-                
-                // Mantener las posiciones fijas
-                if (index === 0) {
-                    // El primer elemento dinámico siempre en 1,3
-                    graphElement.style.gridRow = '1';
-                    graphElement.style.gridColumn = '3';
-                } else {
-                    // Los siguientes elementos en la segunda fila, manteniendo su orden
-                    graphElement.style.gridRow = '2';
-                    graphElement.style.gridColumn = index.toString();
-                }
+                graphElement.innerHTML = ''; // Limpiar contenido previo
 
-                // Inicializar o actualizar el contenido del gráfico
                 if (graph === "Consulta de sensor") {
-                    if (!graphElement.hasAttribute('data-initialized')) {
-                        loadUnitsForGraph();
-                        graphElement.setAttribute('data-initialized', 'true');
-                    }
+                    graphElement.innerHTML = `
+                        <h2>Consulta de sensor</h2>
+                        <div id="sensor-controls">
+                            <select id="units">
+                                <option value="">Selecciona una unidad</option>
+                            </select>
+                            <select id="sensors">
+                                <option value="">Selecciona un sensor</option>
+                            </select>
+                        </div>
+                        <div id="sensor-value">
+                            <span class="placeholder">Selecciona una unidad y un sensor</span>
+                        </div>
+                    `;
+                    loadUnitsForGraph();
                 } else if (graph === "Geocercas") {
-                    if (!graphElement.hasAttribute('data-initialized')) {
-                        initGeocercaAnalysis();
-                        graphElement.setAttribute('data-initialized', 'true');
-                    }
+                    graphElement.innerHTML = `
+                        <h2>Salidas de geocerca por unidad</h2>
+                        <div id="geocercaChartContainer"></div>
+                    `;
+                    initGeocercaAnalysis();
                 } else {
                     graphElement.innerHTML = `
                         <h2>${graph}</h2>
@@ -95,37 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             var unitSelect = document.getElementById("units");
-            unitSelect.innerHTML = "<option value=''>Selecciona una unidad</option>";
             units.forEach(unit => {
                 unitSelect.innerHTML += `<option value="${unit.getId()}">${unit.getName()}</option>`;
             });
             unitSelect.addEventListener('change', loadSensorsForGraph);
         });
     }
-
-
-    function loadUnitsForGraph() {
-        var flags = wialon.item.Item.dataFlag.base | wialon.item.Unit.dataFlag.sensors | wialon.item.Unit.dataFlag.lastMessage;
-        wialonSession.loadLibrary("unitSensors");
-        wialonSession.updateDataFlags([{type: "type", data: "avl_unit", flags: flags, mode: 0}], function (code) {
-            if (code) {
-                console.error(wialon.core.Errors.getErrorText(code));
-                return;
-            }
-            var units = wialonSession.getItems("avl_unit");
-            if (!units || !units.length) {
-                console.error("No units found");
-                return;
-            }
-            var unitSelect = document.getElementById("units");
-            unitSelect.innerHTML = "<option value=''>Selecciona una unidad</option>";
-            units.forEach(unit => {
-                unitSelect.innerHTML += `<option value="${unit.getId()}">${unit.getName()}</option>`;
-            });
-            unitSelect.addEventListener('change', loadSensorsForGraph);
-        });
-    }
-
 
     function loadSensorsForGraph() {
         var unitId = document.getElementById("units").value;
@@ -150,9 +126,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var unit = wialonSession.getItem(unitId);
         var sensor = unit.getSensor(sensorId);
         var result = unit.calculateSensorValue(sensor, unit.getLastMessage());
-        if (result == -348201.3876) result = "N/A";
-        document.getElementById("sensor-value").innerHTML = `${result} ${sensor.m}`;
-        // Eliminamos cualquier código relacionado con la actualización de un gráfico
+        var sensorValueElement = document.getElementById("sensor-value");
+        if (result == -348201.3876) {
+            sensorValueElement.innerHTML = `<span class="no-data">Sin datos</span>`;
+        } else {
+            sensorValueElement.innerHTML = `
+                <span class="value">${result}</span>
+                <span class="unit">${sensor.m}</span>
+            `;
+        }
     }
 
     // Inicializar Wialon y luego cargar las gráficas activas

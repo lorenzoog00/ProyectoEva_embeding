@@ -1,6 +1,6 @@
 :root {
     --primary-color: #FF5100;
-    --secondary-color: #003366; /* Azul oscuro */
+    --secondary-color: #003366;
     --accent-color: #F39149;
     --neutral-color: #898A8D;
     --background-color: #F5F5F5;
@@ -33,7 +33,7 @@ body {
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, minmax(250px, auto));
     gap: 1.5rem;
 }
 
@@ -43,6 +43,9 @@ body {
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .dashboard-item:hover {
@@ -51,9 +54,6 @@ body {
 }
 
 .main-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
 }
 
@@ -83,6 +83,7 @@ body {
     border-radius: 25px;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
 }
 
 .option-button:hover {
@@ -98,6 +99,30 @@ footer {
     margin-top: auto;
 }
 
+/* Estilos específicos para Consulta sensor */
+#sensor-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#sensor-controls select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--neutral-color);
+    font-size: 1rem;
+}
+
+#sensor-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Responsive design */
 @media (max-width: 1200px) {
     .dashboard-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -108,37 +133,4 @@ footer {
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
-}
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 1rem;
-    padding: 1rem;
-}
-
-.dashboard-item {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.main-option {
-    grid-column: span 1;
-}
-
-.dynamic {
-    display: none; /* Inicialmente ocultos, se mostrarán mediante JavaScript */
-}
-
-/* Asegurarse de que los elementos fijos estén en su lugar */
-#consulta-button {
-    grid-row: 1;
-    grid-column: 1;
-}
-
-#analisis-button {
-    grid-row: 1;
-    grid-column: 2;
 }
