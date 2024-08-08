@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_file, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 from datetime import timedelta
 from query_py.submit import filter_and_prepare_query
 from analisis_py.analisis_temperatura import descargar_valores_individuales
@@ -107,6 +107,8 @@ def variacion_reporte():
 @app.route('/sensores')
 def sensores():
     return render_template('dashboard/sensores.html')
+
+
 
 # Añade esta función a app.py
 
