@@ -1,11 +1,13 @@
 from flask import jsonify, request
 import pandas as pd
-import matplotlib.pyplot as plt
-import io
-import base64
 from datetime import datetime, timedelta
 
-def process_geocerca_data(data):
+def geocerca_analysis():
+    data = request.json
+    
+    if not data:
+        return jsonify({'error': 'No se recibieron datos'}), 400
+    
     df = pd.DataFrame(data['rows'], columns=data['headers'])
     
     # Filtrar las salidas (donde la hora de salida no es "Desconocido")
@@ -14,41 +16,50 @@ def process_geocerca_data(data):
     # Contar las salidas por unidad
     salidas_por_unidad = df_salidas['Unidad'].value_counts()
     
-    return salidas_por_unidad
-
-def generate_geocerca_chart(salidas_por_unidad):
-    plt.figure(figsize=(10, 6))
-    salidas_por_unidad.plot(kind='bar')
-    plt.title('Salidas de geocerca por unidad')
-    plt.xlabel('Unidades')
-    plt.ylabel('Número de salidas')
-    plt.xticks(rotation=45, ha='right')
-    plt.tight_layout()
+    # Obtener la unidad que más salió
+    unidad_mas_salidas = salidas_por_unidad.index[0] if not salidas_por_unidad.empty else "N/A"
+    valor_mas_salidas = salidas_por_unidad.iloc[0] if not salidas_por_unidad.empty else 0
     
-    # Convertir el gráfico a una imagen base64
-    img_buffer = io.BytesIO()
-    plt.savefig(img_buffer, format='png')
-    img_buffer.seek(0)
-    img_base64 = base64.b64encode(img_buffer.getvalue()).decode('utf-8')
-    plt.close()
+    # Obtener la unidad que menos salió
+    unidad_menos_salidas = salidas_por_unidad.index[-1] if len(salidas_por_unidad) > 1 else "N/A"
+    valor_menos_salidas = salidas_por_unidad.iloc[-1] if len(salidas_por_unidad) > 1 else 0
     
-    return img_base64
-
-def geocerca_analysis():
-    data = request.json
+    # Calcular el promedio de salidas
+    promedio_salidas = salidas_por_unidad.mean() if not salidas_por_unidad.empty else 0
     
-    if not data:
-        return jsonify({'error': 'No se recibieron datos'}), 400
-    
-    salidas_por_unidad = process_geocerca_data(data)
-    chart_image = generate_geocerca_chart(salidas_por_unidad)
+    # Generar el HTML de la tabla
+    table_html = f"""
+    <table class="geocerca-table">
+        <tr>
+            <th>Estadística</th>
+            <th>Unidad</th>
+            <th>Valor</th>
+        </tr>
+        <tr>
+            <td>Unidad con más salidas</td>
+            <td>{unidad_mas_salidas}</td>
+            <td>{valor_mas_salidas}</td>
+        </tr>
+        <tr>
+            <td>Unidad con menos salidas</td>
+            <td>{unidad_menos_salidas}</td>
+            <td>{valor_menos_salidas}</td>
+        </tr>
+        <tr>
+            <td>Promedio de salidas</td>
+            <td>Todas las unidades</td>
+            <td>{promedio_salidas:.2f}</td>
+        </tr>
+    </table>
+    <p>Para mayor información, <a href="#" id="moreInfoLink">haz clic aquí</a></p>
+    """
     
     # Obtener el primer día del mes actual y la fecha actual
     today = datetime.now()
     first_day_of_month = today.replace(day=1)
     
     response = {
-        'chart_image': chart_image,
+        'table_html': table_html,
         'date_range': f"Del {first_day_of_month.strftime('%d/%m/%Y')} al {today.strftime('%d/%m/%Y')}"
     }
     

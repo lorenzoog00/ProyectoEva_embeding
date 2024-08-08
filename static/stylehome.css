@@ -134,3 +134,63 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Estilos para la tabla de geocercas */
+.geocerca-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.geocerca-table th,
+.geocerca-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.geocerca-table th {
+    background-color: var(--secondary-color);
+    color: var(--card-background);
+    font-weight: bold;
+}
+
+.geocerca-table tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.geocerca-table tr:hover {
+    background-color: #f0f0f0;
+}
+
+#moreInfoLink {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#moreInfoLink:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el select de grupos de unidades */
+#unitGroupSelect {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--neutral-color);
+    border-radius: 4px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+#unitGroupSelect:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(255, 81, 0, 0.2);
+}

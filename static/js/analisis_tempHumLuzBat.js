@@ -402,7 +402,7 @@ function onLoginSuccess() {
             time_24hr: true
         });
         wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a75467BCA1F2B1C0C79D91407F72474DCED77F98DAB0", "",
+        wialon.core.Session.getInstance().loginToken("41454459d97f26fb5c2f8815b477a754CCCACCCACC79EAF157E1F82ED336E36CB4CF7A95", "",
             function (code) {
                 if (code) { msg("Error al iniciar sesión: " + wialon.core.Errors.getErrorText(code)); return; }
                 msg("Sesión iniciada correctamente");
