@@ -1,66 +1,45 @@
 from flask import jsonify, request
-import pandas as pd
-from datetime import datetime, timedelta
 
 def geocerca_analysis():
     data = request.json
-    
-    if not data:
-        return jsonify({'error': 'No se recibieron datos'}), 400
-    
-    df = pd.DataFrame(data['rows'], columns=data['headers'])
-    
-    # Filtrar las salidas (donde la hora de salida no es "Desconocido")
-    df_salidas = df[df['Hora de salida'] != 'Desconocido']
-    
-    # Contar las salidas por unidad
-    salidas_por_unidad = df_salidas['Unidad'].value_counts()
-    
-    # Obtener la unidad que más salió
-    unidad_mas_salidas = salidas_por_unidad.index[0] if not salidas_por_unidad.empty else "N/A"
-    valor_mas_salidas = salidas_por_unidad.iloc[0] if not salidas_por_unidad.empty else 0
-    
-    # Obtener la unidad que menos salió
-    unidad_menos_salidas = salidas_por_unidad.index[-1] if len(salidas_por_unidad) > 1 else "N/A"
-    valor_menos_salidas = salidas_por_unidad.iloc[-1] if len(salidas_por_unidad) > 1 else 0
-    
-    # Calcular el promedio de salidas
-    promedio_salidas = salidas_por_unidad.mean() if not salidas_por_unidad.empty else 0
-    
-    # Generar el HTML de la tabla
-    table_html = f"""
-    <table class="geocerca-table">
-        <tr>
-            <th>Estadística</th>
-            <th>Unidad</th>
-            <th>Valor</th>
-        </tr>
-        <tr>
-            <td>Unidad con más salidas</td>
-            <td>{unidad_mas_salidas}</td>
-            <td>{valor_mas_salidas}</td>
-        </tr>
-        <tr>
-            <td>Unidad con menos salidas</td>
-            <td>{unidad_menos_salidas}</td>
-            <td>{valor_menos_salidas}</td>
-        </tr>
-        <tr>
-            <td>Promedio de salidas</td>
-            <td>Todas las unidades</td>
-            <td>{promedio_salidas:.2f}</td>
-        </tr>
-    </table>
-    <p>Para mayor información, <a href="#" id="moreInfoLink">haz clic aquí</a></p>
-    """
-    
-    # Obtener el primer día del mes actual y la fecha actual
-    today = datetime.now()
-    first_day_of_month = today.replace(day=1)
-    
-    response = {
-        'table_html': table_html,
-        'date_range': f"Del {first_day_of_month.strftime('%d/%m/%Y')} al {today.strftime('%d/%m/%Y')}"
-    }
-    
-    return jsonify(response)
+    report_data = data.get('reportData', [])
+
+    if not report_data:
+        print("No se recibieron datos en el reporte.")
+        return jsonify({"status": "error", "message": "No se recibieron datos en el reporte"}), 400
+
+    unit_exit_counts = {}
+
+    # Recorrer cada fila y contar las salidas
+    for report in report_data:
+        rows = report.get('rows', [])
+        for row in rows:
+            unit = row[0]  # "Grouping" es la primera columna
+            if unit not in unit_exit_counts:
+                unit_exit_counts[unit] = 0
+            unit_exit_counts[unit] += 1
+
+    if not unit_exit_counts:
+        print("No se encontraron datos de salidas de unidades.")
+        return jsonify({"status": "error", "message": "No se encontraron datos de salidas de unidades"}), 400
+
+    # Determinar la(s) unidad(es) con más salidas, menos salidas y el promedio
+    max_exits = max(unit_exit_counts.values())
+    min_exits = min(unit_exit_counts.values())
+    avg_exits = sum(unit_exit_counts.values()) / len(unit_exit_counts)
+
+    units_with_max_exits = [unit for unit, count in unit_exit_counts.items() if count == max_exits]
+    units_with_min_exits = [unit for unit, count in unit_exit_counts.items() if count == min_exits]
+
+    print(f"Unidades con más salidas ({max_exits}): {', '.join(units_with_max_exits)}")
+    print(f"Unidades con menos salidas ({min_exits}): {', '.join(units_with_min_exits)}")
+    print(f"Promedio de salidas: {avg_exits:.2f}")
+
+    return jsonify({
+        "status": "success",
+        "units_with_max_exits": units_with_max_exits,
+        "max_exits": max_exits,
+        "units_with_min_exits": units_with_min_exits,
+        "min_exits": min_exits,
+        "avg_exits": avg_exits
+    }), 200

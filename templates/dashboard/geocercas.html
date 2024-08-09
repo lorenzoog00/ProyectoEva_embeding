@@ -1,8 +1,29 @@
-<div class="geocerca-container">
-    <h3>Salidas de Geocerca por Unidad</h3>
-    <div class="geocerca-controls">
-        <select id="unitGroupSelect" class="geocerca-select"></select>
+<div id="geocercasContainer">
+    <h2>Reporte de Salidas de Geocercas</h2>
+    <div id="geocercasTable">
+        <!-- Aquí se insertará la tabla dinámicamente -->
     </div>
-    <div id="geocercaTableContainer" class="geocerca-chart"></div>
 </div>
-<script src="{{ url_for('static', filename='js/dashboard/geocerca_salidas.js') }}"></script>
+
+<script>
+    function renderGeocercasTable(data) {
+        const tableContainer = document.getElementById('geocercasTable');
+        let html = '<table class="styled-table"><thead><tr>';
+        
+        // Headers
+        html += '<th>Unidad</th>';
+        html += '<th>Salidas</th>';
+        html += '</tr></thead><tbody>';
+        
+        // Rows
+        for (const unit in data.unit_exit_counts) {
+            html += '<tr>';
+            html += `<td>${unit}</td>`;
+            html += `<td>${data.unit_exit_counts[unit]}</td>`;
+            html += '</tr>';
+        }
+
+        html += '</tbody></table>';
+        tableContainer.innerHTML = html;
+    }
+</script>
