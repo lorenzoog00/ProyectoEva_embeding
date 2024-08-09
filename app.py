@@ -108,7 +108,9 @@ def variacion_reporte():
 def sensores():
     return render_template('dashboard/sensores.html')
 
-
+@app.route('/geocercas_html')
+def geocercas_html():
+    return render_template('dashboard/geocercas.html')
 
 # Añade esta función a app.py
 

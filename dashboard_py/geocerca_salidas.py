@@ -10,7 +10,6 @@ def geocerca_analysis():
 
     unit_exit_counts = {}
 
-    # Recorrer cada fila y contar las salidas
     for report in report_data:
         rows = report.get('rows', [])
         for row in rows:
@@ -23,7 +22,6 @@ def geocerca_analysis():
         print("No se encontraron datos de salidas de unidades.")
         return jsonify({"status": "error", "message": "No se encontraron datos de salidas de unidades"}), 400
 
-    # Determinar la(s) unidad(es) con más salidas, menos salidas y el promedio
     max_exits = max(unit_exit_counts.values())
     min_exits = min(unit_exit_counts.values())
     avg_exits = sum(unit_exit_counts.values()) / len(unit_exit_counts)

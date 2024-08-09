@@ -194,3 +194,27 @@ footer {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(255, 81, 0, 0.2);
 }
+.dashboard-item#geocercas-summary {
+    grid-column: span 2;
+}
+
+#geocercasContainer {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#geocercasContainer h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+#geocercasContent p {
+    margin: 0.5rem 0;
+}
+
+#geocercasContent span {
+    font-weight: bold;
+    color: var(--secondary-color);
+}

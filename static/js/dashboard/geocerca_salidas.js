@@ -7,8 +7,12 @@ export function initGeocercaGraph(graphElement, wialonSession) {
         <select id="unitGroupSelect">
             <option value="">Seleccione un grupo</notoption>
         </select>
-        <div id="geocercaTableContainer">Cargando datos de geocercas...</div>
-    `;
+<div id="geocercaContent">
+            <p>Unidades con más salidas: <span id="max-exits">-</span></p>
+            <p>Unidades con menos salidas: <span id="min-exits">-</span></p>
+            <p>Promedio de salidas: <span id="avg-exits">-</span></p>
+        </div>
+            `;
     init(wialonSession);
 }
 
@@ -175,26 +179,18 @@ function sendDataToBackend(data, wialonSession) {
     })
     .then(response => response.json())
     .then(responseData => {
-        console.log("Datos enviados exitosamente al backend");
-        if (responseData.table_html) {
-            updateGeocercaTable(responseData.table_html, wialonSession);
-        } else {
-            console.error('No se recibió el HTML de la tabla del backend');
-        }
+        console.log("Datos recibidos del backend:", responseData);
+        updateGeocercaInfo(responseData);
     })
     .catch((error) => {
         console.error('Error al enviar datos al backend:', error);
     });
 }
 
-function updateGeocercaTable(tableHtml, wialonSession) {
-    const tableContainer = document.getElementById('geocercaTableContainer');
-    if (tableContainer) {
-        tableContainer.innerHTML = tableHtml;
-        console.log("Tabla de geocercas actualizada");
-    } else {
-        console.error("Error: No se encontró el contenedor de la tabla de geocercas");
-    }
+function updateGeocercaInfo(data) {
+    document.getElementById('max-exits').textContent = `${data.units_with_max_exits.join(', ')} (${data.max_exits})`;
+    document.getElementById('min-exits').textContent = `${data.units_with_min_exits.join(', ')} (${data.min_exits})`;
+    document.getElementById('avg-exits').textContent = data.avg_exits.toFixed(2);
 }
 
 function getTableValue(data) {
