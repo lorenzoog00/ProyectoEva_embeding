@@ -5,6 +5,7 @@ from analisis_py.analisis_temperatura import descargar_valores_individuales
 from query_py.download_pdf_consulta import generate_and_download_pdf
 from login_py.login import login_required, init_excel, handle_login, active_graphs_handler
 from dashboard_py.geocerca_salidas import geocerca_analysis
+from dashboard_py.geocerca_deep_analysis import geocerca_deep_analysis
 from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
 from notificaciones_py.bateriaMenor import check_thinkpower_compatibility
 from query_py.query import process_user_query
@@ -104,12 +105,11 @@ def variacion_reporte():
     return render_template('notificaciones/variacionReporte.html')
 
 #Dashboard
-@app.route('/sensores')
-def sensores():
-    return render_template('dashboard/sensores.html')
 
-@app.route('/geocercas_html')
+@app.route('/geocercas_deep_analysis')
 def geocercas_html():
+    if request.method == "POST":
+        return geocerca_deep_analysis()
     return render_template('dashboard/geocercas.html')
 
 # Añade esta función a app.py

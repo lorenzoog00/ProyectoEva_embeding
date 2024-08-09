@@ -3,16 +3,30 @@ const TEMPLATE_ID = 36;
 
 export function initGeocercaGraph(graphElement, wialonSession) {
     graphElement.innerHTML = `
-        <h2>Salidas de geocerca por unidad</h2>
-        <select id="unitGroupSelect">
-            <option value="">Seleccione un grupo</notoption>
-        </select>
-<div id="geocercaContent">
-            <p>Unidades con más salidas: <span id="max-exits">-</span></p>
-            <p>Unidades con menos salidas: <span id="min-exits">-</span></p>
-            <p>Promedio de salidas: <span id="avg-exits">-</span></p>
+        <div class="geocerca-container">
+            <h2 class="geocerca-title">Salidas de geocerca por unidad</h2>
+            <div class="geocerca-select-container">
+                <select id="unitGroupSelect" class="geocerca-select">
+                    <option value="">Seleccione un grupo</option>
+                </select>
+            </div>
+            <div id="geocercaContent" class="geocerca-content">
+                <div class="geocerca-stat">
+                    <h3>Unidades con más salidas</h3>
+                    <span id="max-exits" class="geocerca-value">-</span>
+                </div>
+                <div class="geocerca-stat">
+                    <h3>Unidades con menos salidas</h3>
+                    <span id="min-exits" class="geocerca-value">-</span>
+                </div>
+                <div class="geocerca-stat">
+                    <h3>Promedio de salidas</h3>
+                    <span id="avg-exits" class="geocerca-value">-</span>
+                </div>
+            </div>
+            <a href="/geocercas_deep_analysis" id="moreInfoLink" class="geocerca-link">Para más información, haga clic aquí</a>
         </div>
-            `;
+    `;
     init(wialonSession);
 }
 
@@ -43,18 +57,14 @@ function init(wialonSession) {
                 $groupSelect.append($("<option>").val(group.getId()).text(group.getName()));
             });
 
-            console.log("Recurso preseleccionado con ID: " + RESOURCE_ID + " (Tipo: " + typeof RESOURCE_ID + ")");
-            console.log("Plantilla preseleccionada con ID: " + TEMPLATE_ID + " (Tipo: " + typeof TEMPLATE_ID + ")");
-
-            listAvailableResources(sess);
-
-            var res = sess.getItem(RESOURCE_ID);
-            if (res) {
-                console.log("Recurso encontrado: " + res.getName());
-                executeGeocercaReport(groups[0].getId(), sess);  // Ejecutar el reporte para el primer grupo
-            } else {
-                console.error("No se pudo encontrar el recurso con ID " + RESOURCE_ID);
-            }
+            $groupSelect.on('change', function() {
+                var selectedGroupId = $(this).val();
+                if (selectedGroupId) {
+                    executeGeocercaReport(selectedGroupId, sess);
+                } else {
+                    $("#geocercaTableContainer").html("Seleccione un grupo para ver los datos de geocercas.");
+                }
+            });
         }
     );
 }
@@ -82,7 +92,6 @@ function executeGeocercaReport(groupId, wialonSession) {
         return;
     }
 
-    // Configuración de la fecha: desde el primer día del mes hasta la fecha y hora actuales
     var now = new Date();
     var firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
     var from = Math.floor(firstDayOfMonth.getTime() / 1000);

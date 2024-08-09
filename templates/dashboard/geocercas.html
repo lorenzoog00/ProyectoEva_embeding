@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Profundo de Geocercas - Quamtum Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='geocerca_deep_analysis.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="geocerca-deep-container">
+        <h1 class="geocerca-deep-title">Análisis Profundo de Geocercas</h1>
+        <div class="geocerca-deep-intro">
+            <p>Bienvenido al análisis profundo de geocercas de Quamtum Services. Esta herramienta proporciona información detallada sobre las salidas de las unidades de las geocercas definidas. A continuación, se muestra un resumen del promedio de salidas por unidad en comparación con la media general.</p>
+        </div>
+        <div id="geocercaDeepTable"></div>
+    </div>
+    <script type="module" src="{{ url_for('static', filename='js/dashboard/geocerca_deep_analysis.js') }}"></script>
+</body>
+</html>

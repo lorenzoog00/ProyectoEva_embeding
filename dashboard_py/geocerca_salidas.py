@@ -2,6 +2,7 @@ from flask import jsonify, request
 
 def geocerca_analysis():
     data = request.json
+    print(data)
     report_data = data.get('reportData', [])
 
     if not report_data:
@@ -28,10 +29,6 @@ def geocerca_analysis():
 
     units_with_max_exits = [unit for unit, count in unit_exit_counts.items() if count == max_exits]
     units_with_min_exits = [unit for unit, count in unit_exit_counts.items() if count == min_exits]
-
-    print(f"Unidades con más salidas ({max_exits}): {', '.join(units_with_max_exits)}")
-    print(f"Unidades con menos salidas ({min_exits}): {', '.join(units_with_min_exits)}")
-    print(f"Promedio de salidas: {avg_exits:.2f}")
 
     return jsonify({
         "status": "success",
