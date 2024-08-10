@@ -106,7 +106,7 @@ def variacion_reporte():
 
 #Dashboard
 
-@app.route('/geocercas_deep_analysis')
+@app.route('/geocercas_deep_analysis', methods=['GET', 'POST'])
 def geocercas_html():
     if request.method == "POST":
         return geocerca_deep_analysis()

@@ -6,7 +6,7 @@
     <title>Análisis Profundo de Geocercas - Quamtum Services</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='geocerca_deep_analysis.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
-
+    <script type="text/javascript" src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
 </head>
 <body>
     {% include 'navbar.html' %}
@@ -15,8 +15,33 @@
         <div class="geocerca-deep-intro">
             <p>Bienvenido al análisis profundo de geocercas de Quamtum Services. Esta herramienta proporciona información detallada sobre las salidas de las unidades de las geocercas definidas. A continuación, se muestra un resumen del promedio de salidas por unidad en comparación con la media general.</p>
         </div>
-        <div id="geocercaDeepTable"></div>
+        <div class="geocerca-controls">
+            <select id="groupSelect">
+                <option value="">Seleccione un grupo de unidades</option>
+            </select>
+            <button id="analyzeBtn">Analizar</button>
+        </div>
+        <div id="geocerca-deep-results">
+            <!-- Aquí se mostrarán los resultados del análisis -->
+        </div>
     </div>
-    <script type="module" src="{{ url_for('static', filename='js/dashboard/geocerca_deep_analysis.js') }}"></script>
+    <script type="module">
+        import { initGeocercaDeepAnalysis } from "{{ url_for('static', filename='js/dashboard/geocerca_deep_analysis.js') }}";
+        
+        function checkWialonLoaded() {
+            if (typeof wialon !== "undefined") {
+                console.log("Wialon library loaded, initializing deep analysis");
+                initGeocercaDeepAnalysis();
+            } else {
+                console.log("Waiting for Wialon library to load...");
+                setTimeout(checkWialonLoaded, 100);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM completamente cargado y parseado');
+            checkWialonLoaded();
+        });
+    </script>
 </body>
 </html>
