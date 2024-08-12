@@ -9,8 +9,8 @@ def geocerca_deep_analysis():
     # Inicializar estructuras de datos
     unit_exits = defaultdict(int)
     unit_current_location = {}
-    start_date = datetime(2024, 8, 1)  # Primer día del mes
     end_date = datetime.now()
+    start_date = datetime(end_date.year, end_date.month, 1)
     days_diff = (end_date - start_date).days + 1
 
     # Procesar los datos

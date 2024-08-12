@@ -44,13 +44,38 @@ function loadResources(wialonSession) {
             }
             
             console.log(`Se encontraron ${groups.length} grupos de unidades`);
-            // Ejecutar el análisis para todos los grupos
-            groups.forEach(group => executeGeocercaReport(group.getId(), wialonSession));
+            const groupSelect = document.getElementById('unitGroupSelect');
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group.getId();
+                option.text = group.getName();
+                groupSelect.appendChild(option);
+            });
+
+            document.getElementById('analyzeBtn').addEventListener('click', () => {
+                const selectedGroupId = groupSelect.value;
+                if (selectedGroupId) {
+                    executeGeocercaReport(selectedGroupId, wialonSession);
+                } else {
+                    alert("Por favor, seleccione un grupo de unidades para analizar.");
+                }
+            });
         }
     );
 }
+function updateDateRangeTitle(startDate, endDate) {
+    const dateRangeTitle = document.getElementById('date-range-title');
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+    const formattedStartDate = startDate.toLocaleDateString('es-ES', options);
+    const formattedEndDate = endDate.toLocaleDateString('es-ES', options);
+
+    dateRangeTitle.innerHTML = `<h3>De ${formattedStartDate} hasta ${formattedEndDate}</h3>`;
+}
 
 function executeGeocercaReport(groupId, wialonSession) {
+
+
     console.log("Ejecutando reporte de geocerca para el grupo: " + groupId);
 
     const res = wialonSession.getItem(RESOURCE_ID);
@@ -151,11 +176,42 @@ function sendDataToBackend(data) {
     })
     .then(responseData => {
         console.log("Respuesta del backend (análisis profundo):", responseData);
-        // Aquí puedes procesar la respuesta, actualizar la UI, etc.
+        renderJSONResults(responseData.summary);  // Renderiza los resultados en el frontend
     })
     .catch((error) => {
         console.error('Error al enviar datos al backend para análisis profundo:', error);
     });
+}
+
+function renderJSONResults(summary) {
+    const resultsDiv = document.getElementById('geocerca-deep-results');
+    
+    // Limpia cualquier contenido previo
+    resultsDiv.innerHTML = '';
+
+    // Verifica si el resumen tiene datos
+    if (summary.length === 0) {
+        resultsDiv.innerHTML = '<p>No hay datos para mostrar.</p>';
+        return;
+    }
+
+    // Crea la tabla HTML
+    let htmlContent = '<table><thead><tr><th>Unidad</th><th>Salidas este mes</th><th>Dentro de geocerca</th><th>Promedio salidas/día</th></tr></thead><tbody>';
+    
+    // Itera sobre los elementos del resumen para crear las filas de la tabla
+    summary.forEach(item => {
+        htmlContent += `<tr>
+                            <td>${item.Unidad}</td>
+                            <td>${item['Salidas este mes']}</td>
+                            <td>${item['Dentro de geocerca']}</td>
+                            <td>${item['Promedio salidas/día']}</td>
+                        </tr>`;
+    });
+
+    htmlContent += '</tbody></table>';
+
+    // Inserta la tabla en el div
+    resultsDiv.innerHTML = htmlContent;
 }
 
 initGeocercaDeepAnalysis();

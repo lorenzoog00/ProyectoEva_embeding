@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análisis Profundo de Geocercas - Quamtum Services</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='geocerca_deep_analysis.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='geocerca_deep_analysis.css') }}">
     <script type="text/javascript" src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
 </head>
 <body>
@@ -13,35 +13,28 @@
     <div class="geocerca-deep-container">
         <h1 class="geocerca-deep-title">Análisis Profundo de Geocercas</h1>
         <div class="geocerca-deep-intro">
-            <p>Bienvenido al análisis profundo de geocercas de Quamtum Services. Esta herramienta proporciona información detallada sobre las salidas de las unidades de las geocercas definidas. A continuación, se muestra un resumen del promedio de salidas por unidad en comparación con la media general.</p>
+            <p>Bienvenido al análisis profundo de geocercas de Quamtum Services. Esta herramienta proporciona información valiosa sobre el grupo de unidades que se escoja.</p>
+        </div>
+        <div class="geocerca-table-explanation">
+            <h2>Explicación de la Tabla</h2>
+            <ul>
+                <li><strong>Unidad:</strong> Nombre de la unidad en el sistema.</li>
+                <li><strong>Salidas este mes:</strong> Número total de veces que la unidad ha salido de las geocercas durante el mes actual. El rango de tiempo de la tabla abarca desde el primer día del mes hasta el día actual.</li>
+                <li><strong>Dentro de Geocerca:</strong> Indica si la unidad está actualmente dentro de alguna geocerca. Si la unidad está dentro, también se especifica en cuál.</li>
+                <li><strong>Promedio de salidas por día:</strong> Calculado como el número total de salidas dividido por el número total de días en el mes hasta la fecha actual.</li>
+            </ul>
         </div>
         <div class="geocerca-controls">
-            <select id="groupSelect">
+            <select id="unitGroupSelect">
                 <option value="">Seleccione un grupo de unidades</option>
             </select>
             <button id="analyzeBtn">Analizar</button>
         </div>
+        
         <div id="geocerca-deep-results">
             <!-- Aquí se mostrarán los resultados del análisis -->
         </div>
     </div>
-    <script type="module">
-        import { initGeocercaDeepAnalysis } from "{{ url_for('static', filename='js/dashboard/geocerca_deep_analysis.js') }}";
-        
-        function checkWialonLoaded() {
-            if (typeof wialon !== "undefined") {
-                console.log("Wialon library loaded, initializing deep analysis");
-                initGeocercaDeepAnalysis();
-            } else {
-                console.log("Waiting for Wialon library to load...");
-                setTimeout(checkWialonLoaded, 100);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            console.log('DOM completamente cargado y parseado');
-            checkWialonLoaded();
-        });
-    </script>
+    <script type="module" src="{{ url_for('static', filename='js/dashboard/geocerca_deep_analysis.js') }}"></script>
 </body>
 </html>
