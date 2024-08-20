@@ -25,12 +25,11 @@ def enviar_correo(destinatario, asunto, cuerpo):
         server.starttls()
         server.login(remitente, password)
         texto = mensaje.as_string()
-        logging.info(f"Enviando correo de {remitente} a {destinatario}")
         server.sendmail(remitente, destinatario, texto)
         server.quit()
-        logging.info(f"Correo enviado exitosamente a {destinatario}")
+        print(f"Correo enviado exitosamente a {destinatario}")
     except Exception as e:
-        logging.error(f"Error al enviar correo: {str(e)}")
+        print(f"Error al enviar correo a {destinatario}: {str(e)}")
 
 def crear_ticket_handler(app):
     if request.method == 'POST':
@@ -68,17 +67,18 @@ def crear_ticket_handler(app):
             cuerpo_usuario = f"Estimado/a {nombre},\n\nHemos recibido su ticket con el asunto: '{asunto}'. Estamos trabajando en ello y le contactaremos pronto.\n\nGracias por su paciencia."
             enviar_correo(email, "Ticket Recibido", cuerpo_usuario)
             
-            # Enviar correo al admin
-            admin_email = current_app.config['ADMIN_EMAIL']
+           # Enviar correo al admin
+            admin_email = current_app.config.get('ADMIN_EMAIL')
             if admin_email:
                 cuerpo_admin = f"Nuevo ticket recibido:\n\nFecha y Hora: {fecha_hora}\nNombre: {nombre}\nEmail: {email}\nAsunto: {asunto}\nMensaje: {mensaje}"
                 enviar_correo(admin_email, f"Nuevo Ticket: {asunto}", cuerpo_admin)
+                print(f"Notificación enviada al administrador ({admin_email})")
             else:
-                logging.error("ADMIN_EMAIL no está configurado en .env")
-             
+                print("ADVERTENCIA: ADMIN_EMAIL no está configurado en .env")
+            
             flash('Su ticket ha sido recibido. Le contactaremos pronto.', 'success')
         except Exception as e:
-            logging.error(f"Error al procesar el ticket: {str(e)}")
+            print(f"Error al procesar el ticket: {str(e)}")
             flash('Hubo un problema al procesar su ticket. Por favor, intente nuevamente.', 'error')
         
         return redirect(url_for('ticket_enviado'))
