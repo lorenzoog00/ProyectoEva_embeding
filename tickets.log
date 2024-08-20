@@ -407,3 +407,40 @@
 2024-08-19 18:22:16,905:INFO: * Debugger PIN: 900-217-990
 2024-08-19 18:23:06,864:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\app.py', reloading
 2024-08-19 18:23:07,104:INFO: * Restarting with stat
+2024-08-19 18:24:26,644:INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-19 18:24:26,645:INFO:[33mPress CTRL+C to quit[0m
+2024-08-19 18:24:26,647:INFO: * Restarting with stat
+2024-08-19 18:24:28,838:WARNING: * Debugger is active!
+2024-08-19 18:24:28,838:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:24:29,572:INFO:127.0.0.1 - - [19/Aug/2024 18:24:29] "[32mGET /home HTTP/1.1[0m" 302 -
+2024-08-19 18:24:29,581:INFO:127.0.0.1 - - [19/Aug/2024 18:24:29] "GET /login HTTP/1.1" 200 -
+2024-08-19 18:24:29,624:INFO:127.0.0.1 - - [19/Aug/2024 18:24:29] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:29,627:INFO:127.0.0.1 - - [19/Aug/2024 18:24:29] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,310:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-08-19 18:24:34,317:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "GET /home HTTP/1.1" 200 -
+2024-08-19 18:24:34,354:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,355:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,359:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,361:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,362:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,362:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,368:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,417:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 18:24:34,421:INFO:127.0.0.1 - - [19/Aug/2024 18:24:34] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 18:24:36,182:INFO:127.0.0.1 - - [19/Aug/2024 18:24:36] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 18:24:36,224:INFO:127.0.0.1 - - [19/Aug/2024 18:24:36] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:36,226:INFO:127.0.0.1 - - [19/Aug/2024 18:24:36] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:36,227:INFO:127.0.0.1 - - [19/Aug/2024 18:24:36] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:24:36,229:INFO:127.0.0.1 - - [19/Aug/2024 18:24:36] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 18:24:55,514:INFO:Ticket guardado: 2024-08-19 18:24:55 - nnphotovoltaic.cells@gmail.com - Ultima
+2024-08-19 18:24:55,931:INFO:Enviando correo de lorenzo.orozco.garcia@gmail.com a nnphotovoltaic.cells@gmail.com
+2024-08-19 18:24:56,593:INFO:Correo enviado exitosamente a nnphotovoltaic.cells@gmail.com
+2024-08-19 18:24:56,986:INFO:Enviando correo de lorenzo.orozco.garcia@gmail.com a lorenzo.orozco.garcia@gmail.com
+2024-08-19 18:24:57,543:INFO:Correo enviado exitosamente a lorenzo.orozco.garcia@gmail.com
+2024-08-19 18:24:57,544:INFO:127.0.0.1 - - [19/Aug/2024 18:24:57] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 18:24:57,548:INFO:127.0.0.1 - - [19/Aug/2024 18:24:57] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 18:24:57,581:INFO:127.0.0.1 - - [19/Aug/2024 18:24:57] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:57,584:INFO:127.0.0.1 - - [19/Aug/2024 18:24:57] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:24:57,587:INFO:127.0.0.1 - - [19/Aug/2024 18:24:57] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:24:57,589:INFO:127.0.0.1 - - [19/Aug/2024 18:24:57] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
