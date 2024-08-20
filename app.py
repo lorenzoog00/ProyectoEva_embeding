@@ -10,6 +10,10 @@ from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
 from notificaciones_py.bateriaMenor import check_thinkpower_compatibility
 from query_py.query import process_user_query
 from query_py.query_aditional import process_additional_user_query
+from tickets_py.crear_ticket import crear_ticket_handler, ticket_enviado_handler
+from config import Config
+from flask_mail import Mail
+from datetime import timedelta
 from login_py.index import index_handler
 from reportlab.lib.pagesizes import letter
 from analisis_py.bateria_master import procesar_analisis_baterias
@@ -155,5 +159,14 @@ def analisis_oscuridad():
 def individual():
     return render_template('analisis_de_datos/individual.html')
 
+#Ticket
+app.config.from_object(Config)
+@app.route('/crear_ticket', methods=['GET', 'POST'])
+def crear_ticket():
+    return crear_ticket_handler(app)
+
+@app.route('/ticket_enviado')
+def ticket_enviado():
+    return ticket_enviado_handler()
 if __name__ == '__main__':
     app.run(debug=True)

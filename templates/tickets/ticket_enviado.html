@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Enviado - Quamtum Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ticket.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="main-container">
+        <div class="content-wrapper">
+            <h2 class="page-title">Ticket Enviado</h2>
+            <div class="success-message">
+                <p>Su ticket ha sido recibido. Revisaremos su problema y le contactaremos pronto.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Quamtum Services. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

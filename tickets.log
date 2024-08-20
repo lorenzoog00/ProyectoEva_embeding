@@ -1,0 +1,409 @@
+2024-08-19 17:29:11,215:WARNING: * Debugger is active!
+2024-08-19 17:29:11,215:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:29:28,378:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\app.py', reloading
+2024-08-19 17:29:31,013:WARNING: * Debugger is active!
+2024-08-19 17:29:31,017:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:30:29,332:INFO:127.0.0.1 - - [19/Aug/2024 17:30:29] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:30:29,357:INFO:127.0.0.1 - - [19/Aug/2024 17:30:29] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:29,361:INFO:127.0.0.1 - - [19/Aug/2024 17:30:29] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:29,362:INFO:127.0.0.1 - - [19/Aug/2024 17:30:29] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:30:29,363:INFO:127.0.0.1 - - [19/Aug/2024 17:30:29] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:30:30,719:INFO:127.0.0.1 - - [19/Aug/2024 17:30:30] "[32mGET /home HTTP/1.1[0m" 302 -
+2024-08-19 17:30:30,724:INFO:127.0.0.1 - - [19/Aug/2024 17:30:30] "GET /login HTTP/1.1" 200 -
+2024-08-19 17:30:30,752:INFO:127.0.0.1 - - [19/Aug/2024 17:30:30] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:30,753:INFO:127.0.0.1 - - [19/Aug/2024 17:30:30] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,561:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-08-19 17:30:33,569:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:30:33,609:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,610:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,617:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,618:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,620:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,622:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,623:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,649:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:30:33,665:INFO:127.0.0.1 - - [19/Aug/2024 17:30:33] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:30:35,008:INFO:127.0.0.1 - - [19/Aug/2024 17:30:35] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:30:35,036:INFO:127.0.0.1 - - [19/Aug/2024 17:30:35] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:35,037:INFO:127.0.0.1 - - [19/Aug/2024 17:30:35] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:35,040:INFO:127.0.0.1 - - [19/Aug/2024 17:30:35] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:30:35,040:INFO:127.0.0.1 - - [19/Aug/2024 17:30:35] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:30:40,108:INFO:Ticket guardado: Email: lorenzo.orozco.garcia@gmail.com, Problema: 123
+2024-08-19 17:30:40,108:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Estamos trabajando en su problema.
+2024-08-19 17:30:40,108:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Nuevo ticket de lorenzo.orozco.garcia@gmail.com - Problema: 123
+2024-08-19 17:30:40,108:INFO:127.0.0.1 - - [19/Aug/2024 17:30:40] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:30:40,112:INFO:127.0.0.1 - - [19/Aug/2024 17:30:40] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:30:40,157:INFO:127.0.0.1 - - [19/Aug/2024 17:30:40] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:40,160:INFO:127.0.0.1 - - [19/Aug/2024 17:30:40] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:30:40,161:INFO:127.0.0.1 - - [19/Aug/2024 17:30:40] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:30:40,161:INFO:127.0.0.1 - - [19/Aug/2024 17:30:40] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:31:28,631:INFO:127.0.0.1 - - [19/Aug/2024 17:31:28] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:31:28,632:INFO:127.0.0.1 - - [19/Aug/2024 17:31:28] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,569:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:31:53,599:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,604:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,604:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,604:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,604:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,604:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,610:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,646:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:31:53,659:INFO:127.0.0.1 - - [19/Aug/2024 17:31:53] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:32:00,652:INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-19 17:32:00,652:INFO:[33mPress CTRL+C to quit[0m
+2024-08-19 17:32:00,653:INFO: * Restarting with stat
+2024-08-19 17:32:02,814:WARNING: * Debugger is active!
+2024-08-19 17:32:02,816:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:32:33,589:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\app.py', reloading
+2024-08-19 17:32:33,876:INFO: * Restarting with stat
+2024-08-19 17:32:40,529:INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-19 17:32:40,529:INFO:[33mPress CTRL+C to quit[0m
+2024-08-19 17:32:40,532:INFO: * Restarting with stat
+2024-08-19 17:32:42,616:WARNING: * Debugger is active!
+2024-08-19 17:32:42,623:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:32:58,241:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "GET / HTTP/1.1" 200 -
+2024-08-19 17:32:58,267:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,271:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,271:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,271:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,271:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,271:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,283:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,332:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:32:58,351:INFO:127.0.0.1 - - [19/Aug/2024 17:32:58] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:33:02,322:INFO:127.0.0.1 - - [19/Aug/2024 17:33:02] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:33:02,352:INFO:127.0.0.1 - - [19/Aug/2024 17:33:02] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:02,352:INFO:127.0.0.1 - - [19/Aug/2024 17:33:02] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:02,352:INFO:127.0.0.1 - - [19/Aug/2024 17:33:02] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:33:02,352:INFO:127.0.0.1 - - [19/Aug/2024 17:33:02] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,681:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:33:05,713:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,713:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,722:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,722:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,722:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,722:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,729:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,751:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:33:05,762:INFO:127.0.0.1 - - [19/Aug/2024 17:33:05] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:33:49,208:INFO:127.0.0.1 - - [19/Aug/2024 17:33:49] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:33:49,233:INFO:127.0.0.1 - - [19/Aug/2024 17:33:49] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:49,233:INFO:127.0.0.1 - - [19/Aug/2024 17:33:49] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:49,243:INFO:127.0.0.1 - - [19/Aug/2024 17:33:49] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:33:49,244:INFO:127.0.0.1 - - [19/Aug/2024 17:33:49] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:33:57,743:INFO:Ticket guardado: Email: lorenzo.orozco.garcia@gmail.com, Problema: qwe
+2024-08-19 17:33:57,743:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Estamos trabajando en su problema.
+2024-08-19 17:33:57,743:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Nuevo ticket de lorenzo.orozco.garcia@gmail.com - Problema: qwe
+2024-08-19 17:33:57,743:INFO:127.0.0.1 - - [19/Aug/2024 17:33:57] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:33:57,752:INFO:127.0.0.1 - - [19/Aug/2024 17:33:57] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:33:57,781:INFO:127.0.0.1 - - [19/Aug/2024 17:33:57] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:57,784:INFO:127.0.0.1 - - [19/Aug/2024 17:33:57] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:33:57,786:INFO:127.0.0.1 - - [19/Aug/2024 17:33:57] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:33:57,787:INFO:127.0.0.1 - - [19/Aug/2024 17:33:57] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:35:12,574:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\app.py', reloading
+2024-08-19 17:35:12,843:INFO: * Restarting with stat
+2024-08-19 17:35:15,081:WARNING: * Debugger is active!
+2024-08-19 17:35:15,085:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:35:25,737:INFO:127.0.0.1 - - [19/Aug/2024 17:35:25] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:35:25,763:INFO:127.0.0.1 - - [19/Aug/2024 17:35:25] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:35:25,766:INFO:127.0.0.1 - - [19/Aug/2024 17:35:25] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:35:25,766:INFO:127.0.0.1 - - [19/Aug/2024 17:35:25] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:35:25,770:INFO:127.0.0.1 - - [19/Aug/2024 17:35:25] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:35:27,919:INFO:127.0.0.1 - - [19/Aug/2024 17:35:27] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:35:27,949:INFO:127.0.0.1 - - [19/Aug/2024 17:35:27] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:35:27,956:INFO:127.0.0.1 - - [19/Aug/2024 17:35:27] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:35:27,956:INFO:127.0.0.1 - - [19/Aug/2024 17:35:27] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:35:27,956:INFO:127.0.0.1 - - [19/Aug/2024 17:35:27] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:35:31,473:INFO:Ticket guardado: Email: lorenzo.orozco.garcia@gmail.com, Problema: 123
+2024-08-19 17:35:31,473:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Estamos trabajando en su problema.
+2024-08-19 17:35:31,473:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Nuevo ticket de lorenzo.orozco.garcia@gmail.com - Problema: 123
+2024-08-19 17:35:31,473:INFO:127.0.0.1 - - [19/Aug/2024 17:35:31] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:35:31,476:INFO:127.0.0.1 - - [19/Aug/2024 17:35:31] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:35:31,513:INFO:127.0.0.1 - - [19/Aug/2024 17:35:31] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:35:31,514:INFO:127.0.0.1 - - [19/Aug/2024 17:35:31] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:35:31,516:INFO:127.0.0.1 - - [19/Aug/2024 17:35:31] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:35:31,517:INFO:127.0.0.1 - - [19/Aug/2024 17:35:31] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:36:56,099:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 17:36:56,347:INFO: * Restarting with stat
+2024-08-19 17:36:58,605:WARNING: * Debugger is active!
+2024-08-19 17:36:58,605:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:36:58,749:INFO:127.0.0.1 - - [19/Aug/2024 17:36:58] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:36:58,779:INFO:127.0.0.1 - - [19/Aug/2024 17:36:58] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:36:58,779:INFO:127.0.0.1 - - [19/Aug/2024 17:36:58] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:36:58,779:INFO:127.0.0.1 - - [19/Aug/2024 17:36:58] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:36:58,787:INFO:127.0.0.1 - - [19/Aug/2024 17:36:58] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:36:59,947:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:36:59,976:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:36:59,980:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:36:59,980:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:36:59,980:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:36:59,980:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:36:59,980:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:36:59,980:INFO:127.0.0.1 - - [19/Aug/2024 17:36:59] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:37:00,022:INFO:127.0.0.1 - - [19/Aug/2024 17:37:00] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:37:00,039:INFO:127.0.0.1 - - [19/Aug/2024 17:37:00] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:37:00,499:INFO:127.0.0.1 - - [19/Aug/2024 17:37:00] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:37:00,529:INFO:127.0.0.1 - - [19/Aug/2024 17:37:00] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:37:00,529:INFO:127.0.0.1 - - [19/Aug/2024 17:37:00] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:37:00,529:INFO:127.0.0.1 - - [19/Aug/2024 17:37:00] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:37:00,536:INFO:127.0.0.1 - - [19/Aug/2024 17:37:00] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:37:04,221:INFO:Intentando guardar ticket en: C:\Users\PcR\Desktop\tickets.xlsx
+2024-08-19 17:37:04,221:INFO:El archivo Excel existe. Actualizando...
+2024-08-19 17:37:04,243:INFO:Ticket guardado exitosamente en Excel: C:\Users\PcR\Desktop\tickets.xlsx
+2024-08-19 17:37:04,243:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Estamos trabajando en su problema.
+2024-08-19 17:37:04,243:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Nuevo ticket de lorenzo.orozco.garcia@gmail.com - Problema: 123
+2024-08-19 17:37:04,243:INFO:127.0.0.1 - - [19/Aug/2024 17:37:04] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:37:04,247:INFO:127.0.0.1 - - [19/Aug/2024 17:37:04] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:37:04,284:INFO:127.0.0.1 - - [19/Aug/2024 17:37:04] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:37:04,285:INFO:127.0.0.1 - - [19/Aug/2024 17:37:04] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:37:04,288:INFO:127.0.0.1 - - [19/Aug/2024 17:37:04] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:37:04,288:INFO:127.0.0.1 - - [19/Aug/2024 17:37:04] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:40:30,865:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\config.py', reloading
+2024-08-19 17:40:31,147:INFO: * Restarting with stat
+2024-08-19 17:40:33,239:WARNING: * Debugger is active!
+2024-08-19 17:40:33,239:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:40:46,257:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:40:46,292:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,296:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,296:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,296:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,296:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,296:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,296:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,340:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:40:46,357:INFO:127.0.0.1 - - [19/Aug/2024 17:40:46] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:40:47,054:INFO:127.0.0.1 - - [19/Aug/2024 17:40:47] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:40:47,077:INFO:127.0.0.1 - - [19/Aug/2024 17:40:47] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:40:47,077:INFO:127.0.0.1 - - [19/Aug/2024 17:40:47] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:40:47,077:INFO:127.0.0.1 - - [19/Aug/2024 17:40:47] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:40:47,077:INFO:127.0.0.1 - - [19/Aug/2024 17:40:47] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:40:51,756:INFO:Intentando guardar ticket en: tickets\tickets.xlsx
+2024-08-19 17:40:51,756:INFO:El archivo Excel no existe. Creando nuevo archivo...
+2024-08-19 17:40:51,759:ERROR:Error al procesar el ticket: Cannot save file into a non-existent directory: 'tickets'
+2024-08-19 17:40:51,759:INFO:127.0.0.1 - - [19/Aug/2024 17:40:51] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:40:51,765:INFO:127.0.0.1 - - [19/Aug/2024 17:40:51] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:40:51,796:INFO:127.0.0.1 - - [19/Aug/2024 17:40:51] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:40:51,798:INFO:127.0.0.1 - - [19/Aug/2024 17:40:51] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:40:51,800:INFO:127.0.0.1 - - [19/Aug/2024 17:40:51] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:40:51,800:INFO:127.0.0.1 - - [19/Aug/2024 17:40:51] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,226:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:41:12,256:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,256:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,256:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,266:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,266:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,271:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,271:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,298:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,314:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,966:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:41:12,986:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,998:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,998:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:12,998:INFO:127.0.0.1 - - [19/Aug/2024 17:41:12] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:41:20,566:INFO:Intentando guardar ticket en: tickets\tickets.xlsx
+2024-08-19 17:41:20,567:INFO:El archivo Excel no existe. Creando nuevo archivo...
+2024-08-19 17:41:20,579:INFO:Ticket guardado exitosamente en Excel: tickets\tickets.xlsx
+2024-08-19 17:41:20,579:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Estamos trabajando en su problema.
+2024-08-19 17:41:20,579:INFO:Correo enviado a lorenzo.orozco.garcia@gmail.com: Nuevo ticket de lorenzo.orozco.garcia@gmail.com - Problema: 145
+2024-08-19 17:41:20,580:INFO:127.0.0.1 - - [19/Aug/2024 17:41:20] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:41:20,582:INFO:127.0.0.1 - - [19/Aug/2024 17:41:20] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:41:20,620:INFO:127.0.0.1 - - [19/Aug/2024 17:41:20] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:20,621:INFO:127.0.0.1 - - [19/Aug/2024 17:41:20] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:20,623:INFO:127.0.0.1 - - [19/Aug/2024 17:41:20] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:41:20,623:INFO:127.0.0.1 - - [19/Aug/2024 17:41:20] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:36,987:INFO:127.0.0.1 - - [19/Aug/2024 17:41:36] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:41:37,018:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,018:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,018:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,018:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,027:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,027:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,032:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,057:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:41:37,079:INFO:127.0.0.1 - - [19/Aug/2024 17:41:37] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:43:47,191:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 17:43:47,462:INFO: * Restarting with stat
+2024-08-19 17:43:49,796:WARNING: * Debugger is active!
+2024-08-19 17:43:49,803:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:45:02,482:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\config.py', reloading
+2024-08-19 17:45:02,704:INFO: * Restarting with stat
+2024-08-19 17:45:04,904:WARNING: * Debugger is active!
+2024-08-19 17:45:04,908:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:45:15,194:INFO:127.0.0.1 - - [19/Aug/2024 17:45:15] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:45:15,226:INFO:127.0.0.1 - - [19/Aug/2024 17:45:15] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:45:15,231:INFO:127.0.0.1 - - [19/Aug/2024 17:45:15] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:45:15,231:INFO:127.0.0.1 - - [19/Aug/2024 17:45:15] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:45:15,232:INFO:127.0.0.1 - - [19/Aug/2024 17:45:15] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:45:20,948:INFO:Ticket guardado: 2024-08-19 17:45:20 - lorenzo.orozco.garcia@gmail.com - Problema
+2024-08-19 17:45:22,013:INFO:Correo enviado exitosamente a lorenzo.orozco.garcia@gmail.com
+2024-08-19 17:45:23,023:INFO:Correo enviado exitosamente a lorenzo.orozco.garcia@gmail.com
+2024-08-19 17:45:23,024:INFO:127.0.0.1 - - [19/Aug/2024 17:45:23] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:45:23,025:INFO:127.0.0.1 - - [19/Aug/2024 17:45:23] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:45:23,064:INFO:127.0.0.1 - - [19/Aug/2024 17:45:23] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:45:23,064:INFO:127.0.0.1 - - [19/Aug/2024 17:45:23] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:45:23,068:INFO:127.0.0.1 - - [19/Aug/2024 17:45:23] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:45:23,069:INFO:127.0.0.1 - - [19/Aug/2024 17:45:23] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:45:59,035:INFO:127.0.0.1 - - [19/Aug/2024 17:45:59] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:45:59,066:INFO:127.0.0.1 - - [19/Aug/2024 17:45:59] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:45:59,075:INFO:127.0.0.1 - - [19/Aug/2024 17:45:59] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:45:59,075:INFO:127.0.0.1 - - [19/Aug/2024 17:45:59] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:45:59,080:INFO:127.0.0.1 - - [19/Aug/2024 17:45:59] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:49:22,092:INFO:127.0.0.1 - - [19/Aug/2024 17:49:22] "[32mGET /home HTTP/1.1[0m" 302 -
+2024-08-19 17:49:22,099:INFO:127.0.0.1 - - [19/Aug/2024 17:49:22] "GET /login HTTP/1.1" 200 -
+2024-08-19 17:49:22,133:INFO:127.0.0.1 - - [19/Aug/2024 17:49:22] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-19 17:49:22,133:INFO:127.0.0.1 - - [19/Aug/2024 17:49:22] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,482:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-08-19 17:49:25,490:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:49:25,526:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,528:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,530:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,532:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,533:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,535:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,535:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,564:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:49:25,573:INFO:127.0.0.1 - - [19/Aug/2024 17:49:25] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:49:27,183:INFO:127.0.0.1 - - [19/Aug/2024 17:49:27] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:49:27,209:INFO:127.0.0.1 - - [19/Aug/2024 17:49:27] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:49:27,217:INFO:127.0.0.1 - - [19/Aug/2024 17:49:27] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:49:27,217:INFO:127.0.0.1 - - [19/Aug/2024 17:49:27] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:49:27,222:INFO:127.0.0.1 - - [19/Aug/2024 17:49:27] "GET /static/ticket.css HTTP/1.1" 200 -
+2024-08-19 17:49:47,194:INFO:127.0.0.1 - - [19/Aug/2024 17:49:47] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:49:47,215:INFO:127.0.0.1 - - [19/Aug/2024 17:49:47] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:49:47,215:INFO:127.0.0.1 - - [19/Aug/2024 17:49:47] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:49:47,215:INFO:127.0.0.1 - - [19/Aug/2024 17:49:47] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:49:47,215:INFO:127.0.0.1 - - [19/Aug/2024 17:49:47] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:49:58,767:INFO:Ticket guardado: 2024-08-19 17:49:58 - lorenzo.orozco.garcia@gmail.com - Problema 2
+2024-08-19 17:49:59,768:INFO:Correo enviado exitosamente a lorenzo.orozco.garcia@gmail.com
+2024-08-19 17:50:00,695:INFO:Correo enviado exitosamente a lorenzo.orozco.garcia@gmail.com
+2024-08-19 17:50:00,696:INFO:127.0.0.1 - - [19/Aug/2024 17:50:00] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:50:00,711:INFO:127.0.0.1 - - [19/Aug/2024 17:50:00] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:50:00,743:INFO:127.0.0.1 - - [19/Aug/2024 17:50:00] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:00,745:INFO:127.0.0.1 - - [19/Aug/2024 17:50:00] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:00,747:INFO:127.0.0.1 - - [19/Aug/2024 17:50:00] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:50:00,748:INFO:127.0.0.1 - - [19/Aug/2024 17:50:00] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:50:17,483:INFO:127.0.0.1 - - [19/Aug/2024 17:50:17] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:50:17,503:INFO:127.0.0.1 - - [19/Aug/2024 17:50:17] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:17,503:INFO:127.0.0.1 - - [19/Aug/2024 17:50:17] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:17,503:INFO:127.0.0.1 - - [19/Aug/2024 17:50:17] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:50:17,503:INFO:127.0.0.1 - - [19/Aug/2024 17:50:17] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:50:22,674:INFO:127.0.0.1 - - [19/Aug/2024 17:50:22] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:50:22,693:INFO:127.0.0.1 - - [19/Aug/2024 17:50:22] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:22,693:INFO:127.0.0.1 - - [19/Aug/2024 17:50:22] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:22,693:INFO:127.0.0.1 - - [19/Aug/2024 17:50:22] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:50:22,693:INFO:127.0.0.1 - - [19/Aug/2024 17:50:22] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,704:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "GET /home HTTP/1.1" 200 -
+2024-08-19 17:50:24,734:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,734:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,734:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,734:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,734:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,734:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,734:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,765:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 17:50:24,784:INFO:127.0.0.1 - - [19/Aug/2024 17:50:24] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 17:53:04,672:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\config.py', reloading
+2024-08-19 17:53:04,933:INFO: * Restarting with stat
+2024-08-19 17:53:07,250:WARNING: * Debugger is active!
+2024-08-19 17:53:07,250:INFO: * Debugger PIN: 900-217-990
+2024-08-19 17:53:08,290:INFO:127.0.0.1 - - [19/Aug/2024 17:53:08] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 17:53:08,329:INFO:127.0.0.1 - - [19/Aug/2024 17:53:08] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:53:08,334:INFO:127.0.0.1 - - [19/Aug/2024 17:53:08] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:53:08,334:INFO:127.0.0.1 - - [19/Aug/2024 17:53:08] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:53:08,337:INFO:127.0.0.1 - - [19/Aug/2024 17:53:08] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 17:53:52,697:INFO:Ticket guardado: 2024-08-19 17:53:52 - nnphotovoltaic.cells@gmail.com - Coche
+2024-08-19 17:53:53,750:INFO:Correo enviado exitosamente a nnphotovoltaic.cells@gmail.com
+2024-08-19 17:53:54,902:INFO:Correo enviado exitosamente a nnphotovoltaic.cells@gmail.com
+2024-08-19 17:53:54,903:INFO:127.0.0.1 - - [19/Aug/2024 17:53:54] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 17:53:54,909:INFO:127.0.0.1 - - [19/Aug/2024 17:53:54] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 17:53:54,948:INFO:127.0.0.1 - - [19/Aug/2024 17:53:54] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 17:53:54,951:INFO:127.0.0.1 - - [19/Aug/2024 17:53:54] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 17:53:54,952:INFO:127.0.0.1 - - [19/Aug/2024 17:53:54] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 17:53:54,953:INFO:127.0.0.1 - - [19/Aug/2024 17:53:54] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 18:12:58,231:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 18:12:58,477:INFO: * Restarting with stat
+2024-08-19 18:13:00,855:WARNING: * Debugger is active!
+2024-08-19 18:13:00,861:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:14:08,894:INFO:127.0.0.1 - - [19/Aug/2024 18:14:08] "[32mGET /home HTTP/1.1[0m" 302 -
+2024-08-19 18:14:08,901:INFO:127.0.0.1 - - [19/Aug/2024 18:14:08] "GET /login HTTP/1.1" 200 -
+2024-08-19 18:14:08,942:INFO:127.0.0.1 - - [19/Aug/2024 18:14:08] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:08,942:INFO:127.0.0.1 - - [19/Aug/2024 18:14:08] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,788:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-08-19 18:14:11,798:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "GET /home HTTP/1.1" 200 -
+2024-08-19 18:14:11,830:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,832:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,832:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,832:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,838:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,838:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,838:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,889:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 18:14:11,898:INFO:127.0.0.1 - - [19/Aug/2024 18:14:11] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 18:14:13,220:INFO:127.0.0.1 - - [19/Aug/2024 18:14:13] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 18:14:13,251:INFO:127.0.0.1 - - [19/Aug/2024 18:14:13] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:13,253:INFO:127.0.0.1 - - [19/Aug/2024 18:14:13] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:13,256:INFO:127.0.0.1 - - [19/Aug/2024 18:14:13] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 18:14:13,256:INFO:127.0.0.1 - - [19/Aug/2024 18:14:13] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:14:33,383:INFO:Ticket guardado: 2024-08-19 18:14:33 - nnphotovoltaic.cells@gmail.com - Problemon
+2024-08-19 18:14:34,669:INFO:Correo enviado exitosamente a nnphotovoltaic.cells@gmail.com
+2024-08-19 18:14:35,679:INFO:Correo enviado exitosamente a nnphotovoltaic.cells@gmail.com
+2024-08-19 18:14:35,680:INFO:127.0.0.1 - - [19/Aug/2024 18:14:35] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 18:14:35,685:INFO:127.0.0.1 - - [19/Aug/2024 18:14:35] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 18:14:35,715:INFO:127.0.0.1 - - [19/Aug/2024 18:14:35] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:35,718:INFO:127.0.0.1 - - [19/Aug/2024 18:14:35] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:14:35,718:INFO:127.0.0.1 - - [19/Aug/2024 18:14:35] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:14:35,718:INFO:127.0.0.1 - - [19/Aug/2024 18:14:35] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 18:18:06,505:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 18:18:06,828:INFO: * Restarting with stat
+2024-08-19 18:18:08,982:WARNING: * Debugger is active!
+2024-08-19 18:18:08,985:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:18:25,060:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 18:18:25,275:INFO: * Restarting with stat
+2024-08-19 18:18:27,512:WARNING: * Debugger is active!
+2024-08-19 18:18:27,516:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:18:31,148:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 18:18:31,370:INFO: * Restarting with stat
+2024-08-19 18:18:33,490:WARNING: * Debugger is active!
+2024-08-19 18:18:33,497:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:18:55,164:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 18:18:55,456:INFO: * Restarting with stat
+2024-08-19 18:18:57,610:WARNING: * Debugger is active!
+2024-08-19 18:18:57,610:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:19:13,782:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\tickets_py\\crear_ticket.py', reloading
+2024-08-19 18:19:13,991:INFO: * Restarting with stat
+2024-08-19 18:19:16,257:WARNING: * Debugger is active!
+2024-08-19 18:19:16,257:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:19:17,048:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "GET /home HTTP/1.1" 200 -
+2024-08-19 18:19:17,077:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,077:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,084:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,087:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,087:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,090:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,090:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,120:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-19 18:19:17,128:INFO:127.0.0.1 - - [19/Aug/2024 18:19:17] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-19 18:19:18,427:INFO:127.0.0.1 - - [19/Aug/2024 18:19:18] "GET /crear_ticket HTTP/1.1" 200 -
+2024-08-19 18:19:18,458:INFO:127.0.0.1 - - [19/Aug/2024 18:19:18] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:19:18,458:INFO:127.0.0.1 - - [19/Aug/2024 18:19:18] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 18:19:18,458:INFO:127.0.0.1 - - [19/Aug/2024 18:19:18] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:19:18,458:INFO:127.0.0.1 - - [19/Aug/2024 18:19:18] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 18:19:31,088:INFO:Ticket guardado: 2024-08-19 18:19:31 - nnphotovoltaic.cells@gmail.com - 3
+2024-08-19 18:19:31,622:INFO:Enviando correo de lorenzo.orozco.garcia@gmail.com a nnphotovoltaic.cells@gmail.com
+2024-08-19 18:19:32,222:INFO:Correo enviado exitosamente a nnphotovoltaic.cells@gmail.com
+2024-08-19 18:19:32,222:ERROR:Error al procesar el ticket: cannot access local variable 'admin_email' where it is not associated with a value
+2024-08-19 18:19:32,223:INFO:127.0.0.1 - - [19/Aug/2024 18:19:32] "[32mPOST /crear_ticket HTTP/1.1[0m" 302 -
+2024-08-19 18:19:32,227:INFO:127.0.0.1 - - [19/Aug/2024 18:19:32] "GET /ticket_enviado HTTP/1.1" 200 -
+2024-08-19 18:19:32,263:INFO:127.0.0.1 - - [19/Aug/2024 18:19:32] "[36mGET /static/ticket.css HTTP/1.1[0m" 304 -
+2024-08-19 18:19:32,264:INFO:127.0.0.1 - - [19/Aug/2024 18:19:32] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-19 18:19:32,266:INFO:127.0.0.1 - - [19/Aug/2024 18:19:32] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-19 18:19:32,266:INFO:127.0.0.1 - - [19/Aug/2024 18:19:32] "[33mGET /static/js/main.js HTTP/1.1[0m" 404 -
+2024-08-19 18:22:14,244:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\config.py', reloading
+2024-08-19 18:22:14,462:INFO: * Restarting with stat
+2024-08-19 18:22:16,905:WARNING: * Debugger is active!
+2024-08-19 18:22:16,905:INFO: * Debugger PIN: 900-217-990
+2024-08-19 18:23:06,864:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\app.py', reloading
+2024-08-19 18:23:07,104:INFO: * Restarting with stat
