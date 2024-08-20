@@ -9,6 +9,8 @@
     <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
     <script type="module" src="{{ url_for('static', filename='js/wialon-api.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}"> <!-- CSS del Navbar -->
+    <script src="{{ url_for('static', filename='js/loginWialon.js') }}"></script>
+
 
 </head>
 <body>
@@ -48,6 +50,6 @@
         <div id="log" class="response-container"></div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/individual.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/individual.js') }}"></script>
 </body>
 </html>

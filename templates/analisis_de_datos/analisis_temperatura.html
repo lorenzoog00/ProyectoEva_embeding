@@ -11,6 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}"> <!-- CSS del Navbar -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="{{ url_for('static', filename='js/loginWialon.js') }}"></script>
+
 
 </head>
 <body>
@@ -63,7 +65,7 @@
     <div id="log" class="response-container"></div>
 </div>
 
-<script src="{{ url_for('static', filename='js/analisis_tempHumLuzBat.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/analisis_tempHumLuzBat.js') }}"></script>
 
 
 <div id="modalDatosGenerales" class="modal">

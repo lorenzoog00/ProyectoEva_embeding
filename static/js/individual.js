@@ -1,46 +1,58 @@
-import { WIALON_TOKEN } from './static/js/wialon-api.js';
+import { initWialon, getWialonSession } from './loginWialon.js';
+
 function msg(text) { 
     $("#log").prepend(text + "<br/>"); 
 }
 
-function init() {
-    var res_flags = wialon.item.Item.dataFlag.base | wialon.item.Resource.dataFlag.reports;
-    var unit_flags = wialon.item.Item.dataFlag.base;
-    
-    var sess = wialon.core.Session.getInstance();
-    sess.loadLibrary("resourceReports");
-    sess.updateDataFlags(
-        [
-            {type: "type", data: "avl_resource", flags: res_flags, mode: 0},
-            {type: "type", data: "avl_unit", flags: unit_flags, mode: 0}
-        ],
-        function (code) {
-            if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
-
-            var res = sess.getItems("avl_resource");
-            if (!res || !res.length){ msg("No se encontraron recursos"); return; }
-            var $resourceSelect = $("#resourceSelect");
-            res.forEach(function(resource) {
-                $resourceSelect.append($("<option>").val(resource.getId()).text(resource.getName()));
-            });
-
-            getTemplates();
-            
-            $("#resourceSelect").change(getTemplates);
-
-            var units = sess.getItems("avl_unit");
-            if (!units || !units.length){ msg("No se encontraron unidades"); return; }
-            var $unitSelect = $("#unitSelect");
-            units.forEach(function(unit) {
-                $unitSelect.append($("<option>").val(unit.getId()).text(unit.getName()));
-            });
+async function init() {
+    try {
+        await initWialon();
+        var sess = getWialonSession();
+        if (!sess) {
+            throw new Error("No se pudo obtener la sesión de Wialon");
         }
-    );
+
+        var res_flags = wialon.item.Item.dataFlag.base | wialon.item.Resource.dataFlag.reports;
+        var unit_flags = wialon.item.Item.dataFlag.base;
+        
+        sess.loadLibrary("resourceReports");
+        sess.updateDataFlags(
+            [
+                {type: "type", data: "avl_resource", flags: res_flags, mode: 0},
+                {type: "type", data: "avl_unit", flags: unit_flags, mode: 0}
+            ],
+            function (code) {
+                if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
+
+                var res = sess.getItems("avl_resource");
+                if (!res || !res.length){ msg("No se encontraron recursos"); return; }
+                var $resourceSelect = $("#resourceSelect");
+                res.forEach(function(resource) {
+                    $resourceSelect.append($("<option>").val(resource.getId()).text(resource.getName()));
+                });
+
+                getTemplates();
+                
+                $("#resourceSelect").change(getTemplates);
+
+                var units = sess.getItems("avl_unit");
+                if (!units || !units.length){ msg("No se encontraron unidades"); return; }
+                var $unitSelect = $("#unitSelect");
+                units.forEach(function(unit) {
+                    $unitSelect.append($("<option>").val(unit.getId()).text(unit.getName()));
+                });
+            }
+        );
+    } catch (error) {
+        console.error("Error al inicializar Wialon:", error);
+        msg("Error al inicializar Wialon: " + error.message);
+    }
 }
 
 function getTemplates() {
     $("#templateSelect").empty().append("<option></option>");
-    var res = wialon.core.Session.getInstance().getItem($("#resourceSelect").val());
+    var sess = getWialonSession();
+    var res = sess.getItem($("#resourceSelect").val());
     if (!wialon.util.Number.and(res.getUserAccess(), wialon.item.Item.accessFlag.execReports)){
         $("#executeReportBtn").prop("disabled", true);
         msg("No tiene suficientes permisos para ejecutar informes");
@@ -66,7 +78,7 @@ function executeReport(e) {
     if(!id_templ){ msg("Seleccione un template de informe"); return; }
     if(!id_unit){ msg("Seleccione una unidad"); return; }
 
-    var sess = wialon.core.Session.getInstance();
+    var sess = getWialonSession();
     var res = sess.getItem(id_res);
     var to = sess.getServerTime();
     var from;
@@ -95,30 +107,36 @@ function executeReport(e) {
         }
     );
 }
-// Función para establecer la configuración local (incluyendo zona horaria)
-function setLocale() {
-var params = {
-"tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
-"language": "es",  // Código de idioma de dos letras
-"flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
-"formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
-};
 
-// Hacer la solicitud a la API de Wialon
-wialon.core.Remote.getInstance().remoteCall('render/set_locale', params, function(code, result) {
-if (code) {
-    console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
-} else {
-    console.log("Configuración local establecida correctamente");
+function setLocale() {
+    var params = {
+        "tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
+        "language": "es",  // Código de idioma de dos letras
+        "flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
+        "formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
+    };
+
+    var sess = getWialonSession();
+    sess.execute('render/set_locale', params, function(code, result) {
+        if (code) {
+            console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
+        } else {
+            console.log("Configuración local establecida correctamente");
+        }
+    });
 }
-});
+
+async function onLoginSuccess() {
+    try {
+        await initWialon();
+        setLocale();
+        init();
+    } catch (error) {
+        console.error("Error en onLoginSuccess:", error);
+        msg("Error al inicializar Wialon: " + error.message);
+    }
 }
-// Llamar a esta función justo después de la autenticación exitosa
-function onLoginSuccess() {
-setLocale();
-// Aquí puedes continuar con la inicialización de tu aplicación
-init();
-}
+
 function showReportResult(result) {
     var tables = result.getTables();
     if (!tables) return;
@@ -158,14 +176,5 @@ function getTableValue(data) {
 
 $(document).ready(function () {
     $("#reportForm").submit(executeReport);
-
-    wialon.core.Session.getInstance().initSession("https://hst-api.wialon.com");
-    wialon.core.Session.getInstance().loginToken(WIALON_TOKEN, "",
-        function (code) {
-            if (code) { msg(wialon.core.Errors.getErrorText(code)); return; }
-            msg("Sesión iniciada correctamente");
-            onLoginSuccess();
-            init();
-        }
-    );
+    onLoginSuccess();
 });
