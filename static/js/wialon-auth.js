@@ -1,9 +1,11 @@
-let wialonToken = '';
+window.wialonToken = '';
+
+window.wialonToken = '';
 
 function initiateWialonAuth() {
     const dns = "https://hosting.wialon.com";
     let url = dns + "/login.html";
-    url += "?client_id=" + "QuamtumEVA";  // Reemplaza "QuamtumEVA" con el nombre de tu aplicación
+    url += "?client_id=" + "QuamtumEVA";
     url += "&access_type=" + 0x100;
     url += "&activation_time=" + 0;
     url += "&duration=" + 604800;
@@ -17,17 +19,17 @@ function initiateWialonAuth() {
 function handleWialonToken(event) {
     const msg = event.data;
     if (typeof msg == "string" && msg.indexOf("access_token=") >= 0) {
-        wialonToken = msg.replace("access_token=", "");
-        console.log("Wialon token obtained:", wialonToken);
+        window.wialonToken = msg.replace("access_token=", "");
+        localStorage.setItem('wialonToken', window.wialonToken);
+        console.log("Wialon token obtenido y almacenado:", window.wialonToken);
         
         window.removeEventListener("message", handleWialonToken);
         
-        document.getElementById('wialon_token').value = wialonToken;
-        document.getElementById('tokenDisplay').textContent = wialonToken;
+        document.getElementById('wialon_token').value = window.wialonToken;
+        document.getElementById('tokenDisplay').textContent = window.wialonToken;
         document.getElementById('loginButton').disabled = true;
         
-        // Iniciar sesión en Wialon
-        initWialonSession(wialonToken);
+        initWialonSession(window.wialonToken);
     }
 }
 
@@ -73,7 +75,8 @@ function logout() {
         sess.logout(function() {
             document.getElementById('loginButton').disabled = false;
             document.getElementById('tokenDisplay').textContent = '';
-            wialonToken = '';
+            localStorage.removeItem('wialonToken');
+            window.wialonToken = '';
         });
     }
 }

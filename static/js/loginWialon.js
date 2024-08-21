@@ -1,10 +1,19 @@
 let wialonSession = null;
 
-export function initWialon(token) {
+export function initWialon() {
+    const token = window.wialonToken || localStorage.getItem('wialonToken');
+    console.log("initWialon llamado con token:", token);
+    
     return new Promise((resolve, reject) => {
         if (typeof wialon === "undefined") {
             console.error("La librería de Wialon no está cargada.");
             reject(new Error("Wialon library not loaded"));
+            return;
+        }
+
+        if (!token) {
+            console.error("No se encontró un token de Wialon.");
+            reject(new Error("No Wialon token found"));
             return;
         }
 
