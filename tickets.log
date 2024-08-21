@@ -4,3 +4,108 @@
 2024-08-20 11:24:36,483:INFO: * Restarting with stat
 2024-08-20 11:24:38,682:WARNING: * Debugger is active!
 2024-08-20 11:24:38,689:INFO: * Debugger PIN: 900-217-990
+2024-08-21 11:21:04,208:INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-21 11:21:04,209:INFO:[33mPress CTRL+C to quit[0m
+2024-08-21 11:21:04,210:INFO: * Restarting with stat
+2024-08-21 11:21:06,463:WARNING: * Debugger is active!
+2024-08-21 11:21:06,466:INFO: * Debugger PIN: 900-217-990
+2024-08-21 11:21:12,424:INFO:127.0.0.1 - - [21/Aug/2024 11:21:12] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:21:12,464:INFO:127.0.0.1 - - [21/Aug/2024 11:21:12] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-21 11:21:12,467:INFO:127.0.0.1 - - [21/Aug/2024 11:21:12] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:21:12,480:INFO:127.0.0.1 - - [21/Aug/2024 11:21:12] "GET /static/js/wialon-auth.js HTTP/1.1" 200 -
+2024-08-21 11:21:15,307:INFO:127.0.0.1 - - [21/Aug/2024 11:21:15] "[33mPOST /verificar_usuario HTTP/1.1[0m" 404 -
+2024-08-21 11:44:34,157:INFO:127.0.0.1 - - [21/Aug/2024 11:44:34] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:44:34,192:INFO:127.0.0.1 - - [21/Aug/2024 11:44:34] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-21 11:44:34,195:INFO:127.0.0.1 - - [21/Aug/2024 11:44:34] "[36mGET /static/js/wialon-auth.js HTTP/1.1[0m" 304 -
+2024-08-21 11:44:34,200:INFO:127.0.0.1 - - [21/Aug/2024 11:44:34] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:44:36,244:INFO:127.0.0.1 - - [21/Aug/2024 11:44:36] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2024-08-21 11:46:31,409:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\login_py\\login.py', reloading
+2024-08-21 11:46:31,684:INFO: * Restarting with stat
+2024-08-21 11:46:33,902:WARNING: * Debugger is active!
+2024-08-21 11:46:33,905:INFO: * Debugger PIN: 900-217-990
+2024-08-21 11:46:52,129:INFO:127.0.0.1 - - [21/Aug/2024 11:46:52] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:46:52,160:INFO:127.0.0.1 - - [21/Aug/2024 11:46:52] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-21 11:46:52,163:INFO:127.0.0.1 - - [21/Aug/2024 11:46:52] "[36mGET /static/js/wialon-auth.js HTTP/1.1[0m" 304 -
+2024-08-21 11:46:52,167:INFO:127.0.0.1 - - [21/Aug/2024 11:46:52] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:46:54,258:INFO:127.0.0.1 - - [21/Aug/2024 11:46:54] "POST /login HTTP/1.1" 200 -
+2024-08-21 11:47:13,931:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\login_py\\login.py', reloading
+2024-08-21 11:47:14,205:INFO: * Restarting with stat
+2024-08-21 11:47:16,353:WARNING: * Debugger is active!
+2024-08-21 11:47:16,356:INFO: * Debugger PIN: 900-217-990
+2024-08-21 11:48:45,267:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\login_py\\login.py', reloading
+2024-08-21 11:48:45,562:INFO: * Restarting with stat
+2024-08-21 11:48:47,801:WARNING: * Debugger is active!
+2024-08-21 11:48:47,801:INFO: * Debugger PIN: 900-217-990
+2024-08-21 11:52:30,086:INFO:127.0.0.1 - - [21/Aug/2024 11:52:30] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:52:30,112:INFO:127.0.0.1 - - [21/Aug/2024 11:52:30] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-21 11:52:30,115:INFO:127.0.0.1 - - [21/Aug/2024 11:52:30] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:52:30,130:INFO:127.0.0.1 - - [21/Aug/2024 11:52:30] "GET /static/js/wialon-auth.js HTTP/1.1" 200 -
+2024-08-21 11:52:39,703:INFO:127.0.0.1 - - [21/Aug/2024 11:52:39] "[33mGET /wialon_callback?success_uri=http://127.0.0.1:5000/wialon_callback&wialon_sdk_url=https://hst-api.wialon.com&access_token=41454459d97f26fb5c2f8815b477a754075AED85BEDAF3F38AD4892E8B3E1E7340997677&user_name=quamtum&svc_error=0 HTTP/1.1[0m" 404 -
+2024-08-21 11:56:08,219:INFO:127.0.0.1 - - [21/Aug/2024 11:56:08] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:56:08,251:INFO:127.0.0.1 - - [21/Aug/2024 11:56:08] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:56:08,264:INFO:127.0.0.1 - - [21/Aug/2024 11:56:08] "GET /static/js/wialon-auth.js HTTP/1.1" 200 -
+2024-08-21 11:56:57,558:INFO:127.0.0.1 - - [21/Aug/2024 11:56:57] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:56:57,587:INFO:127.0.0.1 - - [21/Aug/2024 11:56:57] "[36mGET /static/js/wialon-auth.js HTTP/1.1[0m" 304 -
+2024-08-21 11:56:57,587:INFO:127.0.0.1 - - [21/Aug/2024 11:56:57] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-21 11:56:57,588:INFO:127.0.0.1 - - [21/Aug/2024 11:56:57] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:57:01,222:INFO:127.0.0.1 - - [21/Aug/2024 11:57:01] "POST /login HTTP/1.1" 200 -
+2024-08-21 11:57:04,162:INFO:127.0.0.1 - - [21/Aug/2024 11:57:04] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:57:18,617:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "POST /login HTTP/1.1" 200 -
+2024-08-21 11:57:18,651:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "GET /home HTTP/1.1" 200 -
+2024-08-21 11:57:18,696:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,700:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,700:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,703:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,704:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,706:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,713:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,715:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "GET /static/js/loginWialon.js HTTP/1.1" 200 -
+2024-08-21 11:57:18,753:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,765:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-21 11:57:18,774:INFO:127.0.0.1 - - [21/Aug/2024 11:57:18] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:10,358:INFO:127.0.0.1 - - [21/Aug/2024 11:58:10] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:58:10,389:INFO:127.0.0.1 - - [21/Aug/2024 11:58:10] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-21 11:58:10,393:INFO:127.0.0.1 - - [21/Aug/2024 11:58:10] "[36mGET /static/js/wialon-auth.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:10,394:INFO:127.0.0.1 - - [21/Aug/2024 11:58:10] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:58:16,777:INFO:127.0.0.1 - - [21/Aug/2024 11:58:16] "POST /login HTTP/1.1" 200 -
+2024-08-21 11:58:22,463:INFO:127.0.0.1 - - [21/Aug/2024 11:58:22] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:58:26,639:INFO:127.0.0.1 - - [21/Aug/2024 11:58:26] "POST /login HTTP/1.1" 200 -
+2024-08-21 11:58:27,921:INFO:127.0.0.1 - - [21/Aug/2024 11:58:27] "GET /login HTTP/1.1" 200 -
+2024-08-21 11:58:37,166:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "POST /login HTTP/1.1" 200 -
+2024-08-21 11:58:37,174:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "GET /home HTTP/1.1" 200 -
+2024-08-21 11:58:37,212:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,220:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,220:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,225:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,227:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,228:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,229:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,234:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,279:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,285:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:37,296:INFO:127.0.0.1 - - [21/Aug/2024 11:58:37] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,670:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "GET /home HTTP/1.1" 200 -
+2024-08-21 11:58:48,700:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,708:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,710:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,710:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,717:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,717:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,720:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,729:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "GET /static/js/loginWialon.js HTTP/1.1" 200 -
+2024-08-21 11:58:48,781:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,790:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:48,800:INFO:127.0.0.1 - - [21/Aug/2024 11:58:48] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-21 11:58:51,360:INFO:127.0.0.1 - - [21/Aug/2024 11:58:51] "GET /api/active-graphs HTTP/1.1" 200 -
+2024-08-21 12:03:28,950:INFO:127.0.0.1 - - [21/Aug/2024 12:03:28] "GET /login HTTP/1.1" 200 -
+2024-08-21 12:03:28,991:INFO:127.0.0.1 - - [21/Aug/2024 12:03:28] "[36mGET /static/js/wialon-auth.js HTTP/1.1[0m" 304 -
+2024-08-21 12:03:28,993:INFO:127.0.0.1 - - [21/Aug/2024 12:03:28] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-21 12:03:28,993:INFO:127.0.0.1 - - [21/Aug/2024 12:03:28] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-21 12:10:29,764:INFO:127.0.0.1 - - [21/Aug/2024 12:10:29] "POST /login HTTP/1.1" 200 -
+2024-08-21 12:18:29,065:INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-21 12:18:29,065:INFO:[33mPress CTRL+C to quit[0m
+2024-08-21 12:18:29,065:INFO: * Restarting with stat
+2024-08-21 12:18:31,121:WARNING: * Debugger is active!
+2024-08-21 12:18:31,132:INFO: * Debugger PIN: 900-217-990

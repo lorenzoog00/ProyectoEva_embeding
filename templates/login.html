@@ -2,32 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Quamtum Services</title>
+    <title>Inicio de sesión - EVA</title>
+    <script type="text/javascript" src="//hst-api.wialon.com/wsdk/script/wialon.js"></script>
+    <script src="{{ url_for('static', filename='js/wialon-auth.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
     <div class="container">
         <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quamtum Services Logo" style="height: 260px; margin-bottom: 1.5rem;">
         <h1>Bienvenidos a EVA</h1>
-        <p class="welcome-message">Tu asistente personal con IA de Quamtum Services</p>
-        <form action="{{ url_for('login_route') }}" method="post">
+        <p>Tu asistente personal con IA de Quamtum Services</p>
+
+        <form id="loginForm" method="POST">
             <div>
                 <label for="nombre_usuario">Nombre de Usuario:</label>
                 <input type="text" id="nombre_usuario" name="nombre_usuario" required>
             </div>
             <div>
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena" required>
+                <input type="hidden" id="wialon_token" name="wialon_token">
             </div>
-            {% if error %}
-                <p class="error-message">{{ error }}</p>
-            {% endif %}
-            <button type="submit">Iniciar Sesión</button>
+            <button type="button" id="loginButton" onclick="initiateWialonAuth()">Iniciar Sesión con Wialon</button>
         </form>
-        <footer>
-            <p>¿Olvidaste tu contraseña? <a href="#">Recuperar contraseña</a></p>
-        </footer>
+
+        <div>
+            <p>Token de Wialon: <span id="tokenDisplay"></span></p>
+        </div>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
     </div>
 </body>
 </html>
