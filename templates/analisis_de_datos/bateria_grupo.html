@@ -17,45 +17,53 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-<div class="container">
-    <h1>Nivel de batería</h1>
-    <p>Este informe se conforma de una tabla:</p>
-    <p>Muestra el nivel de batería de cada dispositivo con el último dato recibido del lapso de tiempo que se especificó en el reporte.</p>
-    <form id="reportForm">
-        <div class="form-group">
-            <label for="unitGroupSelect">Seleccione un grupo de unidades:</label>
-            <select id="unitGroupSelect" required></select>
-        </div>
-        
-        <div class="form-group">
-            <label for="timeRangeSelect">Seleccionar rango de tiempo:</label>
-            <select id="timeRangeSelect" onchange="setDateTimeRange()">
-                <option value="custom">Personalizado</option>
-                <option value="today">De hoy</option>
-            </select>
-        </div>
 
-        <div class="form-group">
-            <label for="startDateTime">Fecha y hora de inicio:</label>
-            <input type="text" id="startDateTime" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="endDateTime">Fecha y hora de fin:</label>
-            <input type="text" id="endDateTime" required>
-        </div>
-        
-        <input type="hidden" name="action" id="action" value="tablas">
-        <div class="button-container">
-            <button type="submit" onclick="setAction('tablas')">Ejecutar Informe</button>
-            <button type="submit" onclick="setAction('graficas')">Gráficas</button>
-        </div>
-    </form>
-    <div id="resultContainer"></div>
-    <button id="downloadBtn" style="display: none;">Descargar Imagen</button>
-
-    <div id="log" class="response-container"></div>
-</div>
+    <div class="container">
+        <h1>Nivel de batería</h1>
+    
+        <p>Este informe se conforma de una tabla:</p>
+        <p>Muestra el nivel de batería de cada dispositivo con el último dato recibido del lapso de tiempo que se especificó en el reporte.</p>
+    
+        <form id="reportForm">
+            <div class="form-group">
+                <label for="unitGroupSelect">Seleccione un grupo de unidades:</label>
+                <select id="unitGroupSelect" class="form-control" required>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="timeRangeSelect">Seleccionar rango de tiempo:</label>
+                <select id="timeRangeSelect" class="form-control">
+                    <option value="custom">Personalizado</option>
+                    <option value="today">De hoy</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="startDateTime">Fecha y hora de inicio:</label>
+                <input type="text" id="startDateTime" class="form-control" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="endDateTime">Fecha y hora de fin:</label>
+                <input type="text" id="endDateTime" class="form-control" required>
+            </div>
+    
+            <input type="hidden" id="action" name="action" value="tablas">
+    
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary" onclick="window.setAction('tablas'); return false;">Ejecutar Informe</button>
+                <button type="submit" class="btn btn-secondary" onclick="window.setAction('graficas'); return false;">Gráficas</button>
+            </div>
+        </form>
+    
+        <div id="resultContainer"></div>
+    
+        <button id="downloadBtn" style="display:none;">Descargar Imagen</button>
+    
+        <div id="log" class="response-container"></div>
+    </div>
 
 <script type="module" src="{{ url_for('static', filename='js/bateria_grupo.js') }}"></script>
 

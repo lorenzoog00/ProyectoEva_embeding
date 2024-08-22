@@ -22,7 +22,7 @@ function initiateWialonAuth() {
     
     checkUserExistence(username)
         .then(() => {
-            const dns = "https://hosting.wialon.com";
+            const dns = "http://controlb.quamtumservices.com.mx/";
             let url = dns + "/login.html";
             url += "?client_id=" + "QuamtumEVA";
             url += "&access_type=" + 0x100;

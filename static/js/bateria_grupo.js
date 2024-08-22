@@ -229,7 +229,9 @@ function downloadImage(base64Data, filename) {
     link.click();
     document.body.removeChild(link);
 }
-
+function setAction(action) {
+    document.getElementById('action').value = action;
+}
 $(document).ready(function () {
     $("#reportForm").submit(executeReport);
 
@@ -245,9 +247,9 @@ $(document).ready(function () {
         time_24hr: true
     });
 
+    // Agregar event listener para el select de rango de tiempo
+    $("#timeRangeSelect").on('change', setDateTimeRange);
+
     init(); // Llamamos a init() directamente, que ahora maneja la inicialización de Wialon
 });
 
-function setAction(action) {
-    document.getElementById('action').value = action;
-}
