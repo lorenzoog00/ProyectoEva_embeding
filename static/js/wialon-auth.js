@@ -26,7 +26,6 @@ function handleWialonToken(event) {
         window.removeEventListener("message", handleWialonToken);
         
         document.getElementById('wialon_token').value = window.wialonToken;
-        document.getElementById('tokenDisplay').textContent = window.wialonToken;
         document.getElementById('loginButton').disabled = true;
         
         initWialonSession(window.wialonToken);

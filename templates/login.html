@@ -11,7 +11,7 @@
     <div class="container">
         <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quamtum Services Logo" style="height: 260px; margin-bottom: 1.5rem;">
         <h1>Bienvenidos a EVA</h1>
-        <p>Tu asistente personal con IA de Quamtum Services</p>
+        <p class="welcome-message">Tu asistente personal con IA de Quamtum Services</p>
 
         <form id="loginForm" method="POST">
             <div>
@@ -21,12 +21,10 @@
             <div>
                 <input type="hidden" id="wialon_token" name="wialon_token">
             </div>
-            <button type="button" id="loginButton" onclick="initiateWialonAuth()">Iniciar Sesión con Wialon</button>
+            <button type="button" id="loginButton" onclick="initiateWialonAuth()">Iniciar Sesión</button>
         </form>
 
-        <div>
-            <p>Token de Wialon: <span id="tokenDisplay"></span></p>
-        </div>
+
 
         {% if error %}
             <p class="error">{{ error }}</p>

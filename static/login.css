@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap');
 
 :root {
-    --primary-color: #FF6600; /* Naranja */
-    --secondary-color: #003366; /* Azul oscuro */
-    --accent-color: #00CCFF; /* Azul claro */
+    --primary-color: #FF6600;
+    --secondary-color: #003366;
+    --accent-color: #00CCFF;
     --background-color: #FFFFFF;
     --text-color: #333333;
     --error-color: #FF3333;
@@ -24,52 +24,62 @@ body {
 
 .container {
     background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     max-width: 400px;
     width: 100%;
     text-align: center;
 }
 
+.logo {
+    width: 150px;
+    margin-bottom: 1.5rem;
+}
+
 h1 {
     color: var(--secondary-color);
     font-family: 'Montserrat', sans-serif;
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 p.welcome-message {
     font-family: 'Montserrat', sans-serif;
     color: var(--primary-color);
     margin-bottom: 2rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+form {
+    text-align: left;
 }
 
 label {
     display: block;
     text-align: left;
-    font-weight: bold;
+    font-weight: 500;
     margin-bottom: 0.5rem;
     color: var(--text-color);
 }
 
-input[type="text"],
-input[type="password"] {
+input[type="text"] {
     width: 100%;
     padding: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="text"]:focus {
     border-color: var(--primary-color);
     outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.2);
 }
 
 button {
@@ -79,33 +89,26 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
     width: 100%;
     transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-}
-
-.error-message {
-    color: var(--error-color);
-    font-weight: bold;
     margin-bottom: 1rem;
 }
 
-footer {
-    margin-top: 2rem;
+button:hover {
+    background-color: #e55b00;
+    transform: translateY(-2px);
+}
+
+.forgot-password {
     font-size: 0.9rem;
-    color: var(--text-color);
-}
-
-footer a {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     text-decoration: none;
+    transition: color 0.3s;
 }
 
-footer a:hover {
+.forgot-password:hover {
+    color: var(--primary-color);
     text-decoration: underline;
 }
