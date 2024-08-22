@@ -220,11 +220,14 @@ function sendDataToBackend(reportData) {
                             console.log("Respuesta completa del servidor:", response);
                             $("#resultContainer").empty();
                             $("#log").empty();
-                            if (response.grafica) {
-                                var img = $('<img>').attr('src', 'data:image/png;base64,' + response.grafica);
-                                $("#resultContainer").append(img);
+                            if (response.grafica_pequeña && response.grafica_grande) {
+                                // Mostrar la gráfica pequeña en la página
+                                var imgSmall = $('<img>').attr('src', 'data:image/png;base64,' + response.grafica_pequeña);
+                                $("#resultContainer").append(imgSmall);
+                                
+                                // Configurar el botón de descarga para la gráfica grande
                                 $("#downloadBtn").show().off('click').on('click', function () {
-                                    downloadImage(response.grafica, 'grafica_sensores.png');
+                                    downloadImage(response.grafica_grande, 'grafica_sensores.png');
                                 });
                             } else {
                                 $("#resultContainer").html('<p>No se pudo generar la gráfica</p>');

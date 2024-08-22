@@ -602,3 +602,71 @@
 2024-08-22 14:10:28,076:INFO:127.0.0.1 - - [22/Aug/2024 14:10:28] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
 2024-08-22 14:10:39,345:INFO:127.0.0.1 - - [22/Aug/2024 14:10:39] "POST /analisis_temperatura HTTP/1.1" 200 -
 2024-08-22 14:10:54,056:INFO:127.0.0.1 - - [22/Aug/2024 14:10:54] "POST /analisis_temperatura HTTP/1.1" 200 -
+2024-08-22 14:15:06,980:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\analisis_py\\analisis_temperatura.py', reloading
+2024-08-22 14:15:08,341:INFO: * Restarting with stat
+2024-08-22 14:15:10,578:WARNING: * Debugger is active!
+2024-08-22 14:15:10,578:INFO: * Debugger PIN: 900-217-990
+2024-08-22 14:15:14,175:INFO:127.0.0.1 - - [22/Aug/2024 14:15:14] "[32mGET /analisis_temperatura HTTP/1.1[0m" 302 -
+2024-08-22 14:15:14,177:INFO:127.0.0.1 - - [22/Aug/2024 14:15:14] "GET /login HTTP/1.1" 200 -
+2024-08-22 14:15:14,226:INFO:127.0.0.1 - - [22/Aug/2024 14:15:14] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:14,226:INFO:127.0.0.1 - - [22/Aug/2024 14:15:14] "[36mGET /static/js/wialon-auth.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:14,235:INFO:127.0.0.1 - - [22/Aug/2024 14:15:14] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-22 14:15:16,518:INFO:127.0.0.1 - - [22/Aug/2024 14:15:16] "POST /check_user HTTP/1.1" 200 -
+2024-08-22 14:15:25,382:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "POST /login HTTP/1.1" 200 -
+2024-08-22 14:15:25,403:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "GET /home HTTP/1.1" 200 -
+2024-08-22 14:15:25,441:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,443:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,445:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,447:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,450:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,450:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,454:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,523:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,531:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:25,537:INFO:127.0.0.1 - - [22/Aug/2024 14:15:25] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:27,431:INFO:127.0.0.1 - - [22/Aug/2024 14:15:27] "GET /analisis_datos HTTP/1.1" 200 -
+2024-08-22 14:15:27,462:INFO:127.0.0.1 - - [22/Aug/2024 14:15:27] "[36mGET /static/menu_analisis.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:27,464:INFO:127.0.0.1 - - [22/Aug/2024 14:15:27] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:27,464:INFO:127.0.0.1 - - [22/Aug/2024 14:15:27] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-22 14:15:27,997:INFO:127.0.0.1 - - [22/Aug/2024 14:15:27] "GET /analisis_temperatura HTTP/1.1" 200 -
+2024-08-22 14:15:28,036:INFO:127.0.0.1 - - [22/Aug/2024 14:15:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:28,038:INFO:127.0.0.1 - - [22/Aug/2024 14:15:28] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-22 14:15:28,040:INFO:127.0.0.1 - - [22/Aug/2024 14:15:28] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:28,044:INFO:127.0.0.1 - - [22/Aug/2024 14:15:28] "[36mGET /static/js/analisis_tempHumLuzBat.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:28,044:INFO:127.0.0.1 - - [22/Aug/2024 14:15:28] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-22 14:15:28,099:INFO:127.0.0.1 - - [22/Aug/2024 14:15:28] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-22 14:15:37,728:INFO:127.0.0.1 - - [22/Aug/2024 14:15:37] "POST /analisis_temperatura HTTP/1.1" 200 -
+2024-08-22 14:18:39,694:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\analisis_py\\analisis_temperatura.py', reloading
+2024-08-22 14:20:24,780:INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-22 14:20:24,780:INFO:[33mPress CTRL+C to quit[0m
+2024-08-22 14:20:24,782:INFO: * Restarting with stat
+2024-08-22 14:20:26,914:WARNING: * Debugger is active!
+2024-08-22 14:20:26,914:INFO: * Debugger PIN: 900-217-990
+2024-08-22 14:20:27,438:INFO:127.0.0.1 - - [22/Aug/2024 14:20:27] "[32mGET /analisis_temperatura HTTP/1.1[0m" 302 -
+2024-08-22 14:20:27,446:INFO:127.0.0.1 - - [22/Aug/2024 14:20:27] "GET /login HTTP/1.1" 200 -
+2024-08-22 14:20:27,480:INFO:127.0.0.1 - - [22/Aug/2024 14:20:27] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-22 14:20:27,480:INFO:127.0.0.1 - - [22/Aug/2024 14:20:27] "[36mGET /static/js/wialon-auth.js HTTP/1.1[0m" 304 -
+2024-08-22 14:20:27,490:INFO:127.0.0.1 - - [22/Aug/2024 14:20:27] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-22 14:20:29,429:INFO:127.0.0.1 - - [22/Aug/2024 14:20:29] "POST /check_user HTTP/1.1" 200 -
+2024-08-22 14:20:36,281:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "POST /login HTTP/1.1" 200 -
+2024-08-22 14:20:36,300:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "GET /home HTTP/1.1" 200 -
+2024-08-22 14:20:36,338:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/stylehome.css HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,340:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,341:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/sensores.css HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,344:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/js/dashboard/dashboard.js HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,346:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,347:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/icons/consulta.png HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,351:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/icons/analisis.png HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,431:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,438:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/js/dashboard/sensores.js HTTP/1.1[0m" 304 -
+2024-08-22 14:20:36,452:INFO:127.0.0.1 - - [22/Aug/2024 14:20:36] "[36mGET /static/js/dashboard/geocerca_salidas.js HTTP/1.1[0m" 304 -
+2024-08-22 14:20:38,397:INFO:127.0.0.1 - - [22/Aug/2024 14:20:38] "GET /analisis_temperatura HTTP/1.1" 200 -
+2024-08-22 14:20:38,429:INFO:127.0.0.1 - - [22/Aug/2024 14:20:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-22 14:20:38,432:INFO:127.0.0.1 - - [22/Aug/2024 14:20:38] "[36mGET /static/navbar.css HTTP/1.1[0m" 304 -
+2024-08-22 14:20:38,435:INFO:127.0.0.1 - - [22/Aug/2024 14:20:38] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-22 14:20:38,436:INFO:127.0.0.1 - - [22/Aug/2024 14:20:38] "[36mGET /static/logos/Q.png HTTP/1.1[0m" 304 -
+2024-08-22 14:20:38,451:INFO:127.0.0.1 - - [22/Aug/2024 14:20:38] "GET /static/js/analisis_tempHumLuzBat.js HTTP/1.1" 200 -
+2024-08-22 14:20:38,468:INFO:127.0.0.1 - - [22/Aug/2024 14:20:38] "[36mGET /static/js/loginWialon.js HTTP/1.1[0m" 304 -
+2024-08-22 14:20:53,741:INFO:127.0.0.1 - - [22/Aug/2024 14:20:53] "POST /analisis_temperatura HTTP/1.1" 200 -
+2024-08-22 14:22:42,236:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\analisis_py\\analisis_temperatura.py', reloading

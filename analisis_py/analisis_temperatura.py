@@ -8,6 +8,42 @@ import io
 import base64
 from datetime import datetime, timedelta
 
+def create_graph(df, sensor_elegido, size):
+    plt.figure(figsize=size)
+    
+    agrupaciones = df['Grouping'].unique()
+    colors = ['#FF5100', '#3F3F3E', '#898A8D', '#F39149']
+    palette = colors + sns.color_palette("husl", n_colors=max(0, len(agrupaciones)-len(colors)))
+    
+    for agrupacion, color in zip(agrupaciones, palette):
+        datos_agrupacion = df[df['Grouping'] == agrupacion]
+        sns.lineplot(x='Tiempo', y='Valor', data=datos_agrupacion, label=agrupacion, linewidth=1.5, color=color)
+    
+    valor_medio_total = df['Valor'].mean()
+    
+    plt.title(f'Desempeño de {sensor_elegido}\nValor medio: {valor_medio_total:.2f}', fontsize=12*size[0]/8, fontweight='bold')
+    plt.xlabel('Tiempo', fontsize=10*size[0]/8, fontweight='bold')
+    plt.ylabel(f'Valor de {sensor_elegido}', fontsize=10*size[0]/8, fontweight='bold')
+    
+    plt.legend(title='Sensores', title_fontsize=8*size[0]/8, fontsize=6*size[0]/8, loc='upper left', bbox_to_anchor=(1, 1))
+    
+    plt.gca().xaxis.set_major_formatter(DateFormatter('%d/%m %H:%M'))
+    plt.gcf().autofmt_xdate()
+    
+    plt.tick_params(axis='both', which='major', labelsize=8*size[0]/8)
+    
+    plt.tight_layout()
+    
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', dpi=300, bbox_inches='tight')
+    buf.seek(0)
+    
+    img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+    
+    plt.close()
+    
+    return img_base64
+
 def analisisDeTodos():
     try:
         print("Iniciando analisisDeTodos()")
@@ -19,7 +55,6 @@ def analisisDeTodos():
             sensor_elegido = data['sensorElegido']
             print(f"Sensor elegido: {sensor_elegido}")
             
-            # Convertir los datos recibidos en un DataFrame
             df = pd.DataFrame(report_data[0]['rows'], columns=report_data[0]['headers'])
             df = df.rename(columns={'Agrupación': 'Grouping'})
             df['Tiempo'] = pd.to_datetime(df['Tiempo'], format='%d.%m.%Y %H:%M:%S', errors='coerce')
@@ -33,65 +68,15 @@ def analisisDeTodos():
             
             df = df.sort_values('Tiempo')
             
-            # Configurar el estilo de seaborn
-            sns.set_style("whitegrid")
+            # Crear gráfica grande para descargar
+            img_base64_large = create_graph(df, sensor_elegido, (11, 6))
             
-            # Crear el gráfico
-            plt.figure(figsize=(10, 6))
-            
-            # Obtener una lista de agrupaciones únicas
-            agrupaciones = df['Grouping'].unique().tolist()  # Convertir a lista Python nativa
-            print(f"Agrupaciones únicas: {agrupaciones}")
-            
-            # Crear una paleta de colores personalizada
-            colors = ['#FF5100', '#3F3F3E', '#898A8D', '#F39149']
-            palette = colors + sns.color_palette("husl", n_colors=max(0, len(agrupaciones)-len(colors)))
-            
-            # Crear una línea para cada agrupación
-            for agrupacion, color in zip(agrupaciones, palette):
-                datos_agrupacion = df[df['Grouping'] == agrupacion]
-                sns.lineplot(x='Tiempo', y='Valor', data=datos_agrupacion, label=agrupacion, linewidth=2, color=color)
-            
-            # Calcular el valor medio total
-            valor_medio_total = float(df['Valor'].mean())  # Convertir a float nativo de Python
-            
-            # Personalizar el gráfico
-            plt.title(f'Desempeño de {sensor_elegido} (Valor medio: {valor_medio_total:.2f})', fontsize=16, fontweight='bold')
-            plt.xlabel('Tiempo', fontsize=12, fontweight='bold')
-            plt.ylabel(f'Valor de {sensor_elegido}', fontsize=12, fontweight='bold')
-            plt.legend(title='Sensores', title_fontsize=10, fontsize=8)
-            
-            # Configurar el formato de las fechas en el eje x
-            plt.gca().xaxis.set_major_formatter(DateFormatter('%d/%m %H:%M'))
-            plt.gcf().autofmt_xdate()  # Rotar y alinear las etiquetas de fecha
-            
-            # Ajustar el diseño
-            plt.tight_layout()
-            
-            # Guardar la gráfica en un buffer
-            buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=300, bbox_inches='tight')
-            buf.seek(0)
-            
-            # Codificar la imagen en base64
-            img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
-            
-            # Calcular estadísticas adicionales
-            stats = {}
-            for agrupacion in agrupaciones:
-                datos_agrupacion = df[df['Grouping'] == agrupacion]
-                stats[agrupacion] = {
-                    "promedio": float(datos_agrupacion['Valor'].mean()),
-                    "maximo": float(datos_agrupacion['Valor'].max()),
-                    "minimo": float(datos_agrupacion['Valor'].min()),
-                    "ultima_lectura": float(datos_agrupacion['Valor'].iloc[-1]) if not datos_agrupacion.empty else None
-                }
+            # Crear gráfica pequeña para mostrar
+            img_base64_small = create_graph(df, sensor_elegido, (5.33, 2.67))
             
             response_data = {
-                "grafica": img_base64,
-                "estadisticas": stats,
-                "valor_medio_total": valor_medio_total,
-                "simbologia": [{"Sensor": str(agrupacion), "Color": color} for agrupacion, color in zip(agrupaciones, palette)]
+                "grafica_grande": img_base64_large,
+                "grafica_pequeña": img_base64_small
             }
             
             print("Respuesta preparada con éxito")
