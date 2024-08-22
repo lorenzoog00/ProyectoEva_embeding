@@ -4,6 +4,55 @@ let datosGeneralesGlobal = null;
     const RESOURCE_ID = 400730713;  // ID fijo del recurso
     const TEMPLATE_ID = 27;  // ID fijo de la plantilla
 
+    // Hacer executeReport disponible globalmente
+window.executeReport = function(action) {
+    // Establecer la acción
+    document.getElementById('action').value = action;
+
+    var id_group = $("#unitGroupSelect").val(),
+        startDate = flatpickr.parseDate($("#startDateTime").val(), "d/m/Y H:i"),
+        endDate = flatpickr.parseDate($("#endDateTime").val(), "d/m/Y H:i");
+    
+    if(!id_group){ msg("Seleccione un grupo de unidades"); return; }
+
+    var sess = wialon.core.Session.getInstance();
+    var res = sess.getItem(RESOURCE_ID);
+    if (!res) {
+        msg("No se pudo encontrar el recurso con ID " + RESOURCE_ID);
+        listAvailableResources();
+        return;
+    }
+
+    var from = Math.floor(startDate.getTime() / 1000);
+    var to = Math.floor(endDate.getTime() / 1000);
+
+    var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
+    var template = res.getReport(TEMPLATE_ID);
+    if (!template) {
+        msg("No se pudo encontrar la plantilla con ID " + TEMPLATE_ID);
+        return;
+    }
+
+    $("#executeReportBtn").prop("disabled", true);
+    msg("Ejecutando informe...");
+
+    res.execReport(template, id_group, 0 , interval,
+    function(code, data) {
+        $("#executeReportBtn").prop("disabled", false);
+        if(code){ msg("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code)); return; }
+        if(!data.getTables().length){
+            msg("<b>No se generaron datos</b>");
+            return;
+        }
+        else {
+            if (action === 'tablas') {
+                showReportResult(data);
+            } else if (action === 'graficas') {
+                sendDataToBackend(data);
+            }
+        }
+    });
+};
     function msg(text) { 
         $("#log").prepend(text + "<br/>"); 
     }
@@ -19,8 +68,7 @@ let datosGeneralesGlobal = null;
 
     async function init() {
         try {
-            await initWialon();
-            var sess = getWialonSession();
+            const sess = await initWialon();
             if (!sess) {
                 throw new Error("No se pudo obtener la sesión de Wialon");
             }
@@ -35,10 +83,16 @@ let datosGeneralesGlobal = null;
                     {type: "type", data: "avl_unit_group", flags: group_flags, mode: 0}
                 ],
                 function (code) {
-                    if (code) { msg("Error al actualizar banderas de datos: " + wialon.core.Errors.getErrorText(code)); return; }
+                    if (code) { 
+                        msg("Error al actualizar banderas de datos: " + wialon.core.Errors.getErrorText(code)); 
+                        return; 
+                    }
     
                     var groups = sess.getItems("avl_unit_group");
-                    if (!groups || !groups.length){ msg("No se encontraron grupos de unidades"); return; }
+                    if (!groups || !groups.length){ 
+                        msg("No se encontraron grupos de unidades"); 
+                        return; 
+                    }
                     var $groupSelect = $("#unitGroupSelect");
                     groups.forEach(function(group) {
                         $groupSelect.append($("<option>").val(group.getId()).text(group.getName()));
@@ -76,41 +130,39 @@ let datosGeneralesGlobal = null;
             }
         });
     }
-// Función para establecer la configuración local (incluyendo zona horaria)
-function setLocale() {
-    var sess = getWialonSession();
-    if (!sess || typeof sess.execute !== 'function') {
-        console.error("Sesión de Wialon no inicializada correctamente");
-        return;
-    }
-
-    var params = {
-        "tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
-        "language": "es",  // Código de idioma de dos letras
-        "flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
-        "formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
-    };
-
-    sess.execute('render/set_locale', params, function(code, result) {
-        if (code) {
-            console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
-        } else {
-            console.log("Configuración local establecida correctamente");
+    function setLocale() {
+        var sess = getWialonSession();
+        if (!sess || typeof sess.execute !== 'function') {
+            console.error("Sesión de Wialon no inicializada correctamente");
+            return;
         }
-    });
-}
     
-    function executeReport(e) {
-        e.preventDefault();
+        var params = {
+            "tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
+            "language": "es",  // Código de idioma de dos letras
+            "flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
+            "formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
+        };
+    
+        sess.execute('render/set_locale', params, function(code, result) {
+            if (code) {
+                console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
+            } else {
+                console.log("Configuración local establecida correctamente");
+            }
+        });
+    }
+    
+    function executeReport(action) {
+        // Establecer la acción
+        document.getElementById('action').value = action;
+    
         var id_group = $("#unitGroupSelect").val(),
             startDate = flatpickr.parseDate($("#startDateTime").val(), "d/m/Y H:i"),
             endDate = flatpickr.parseDate($("#endDateTime").val(), "d/m/Y H:i");
         
-        if(!id_group){ msg("Seleccione un grupo de unidades"); return; 
-}
-
-        
-
+        if(!id_group){ msg("Seleccione un grupo de unidades"); return; }
+    
         var sess = wialon.core.Session.getInstance();
         var res = sess.getItem(RESOURCE_ID);
         if (!res) {
@@ -118,20 +170,20 @@ function setLocale() {
             listAvailableResources();
             return;
         }
-
+    
         var from = Math.floor(startDate.getTime() / 1000);
         var to = Math.floor(endDate.getTime() / 1000);
-
+    
         var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
         var template = res.getReport(TEMPLATE_ID);
         if (!template) {
             msg("No se pudo encontrar la plantilla con ID " + TEMPLATE_ID);
             return;
         }
-
+    
         $("#executeReportBtn").prop("disabled", true);
         msg("Ejecutando informe...");
-
+    
         res.execReport(template, id_group, 0 , interval,
         function(code, data) {
             $("#executeReportBtn").prop("disabled", false);
@@ -141,14 +193,13 @@ function setLocale() {
                 return;
             }
             else {
-                if ($("#action").val() === 'tablas') {
+                if (action === 'tablas') {
                     showReportResult(data);
-                } else if ($("#action").val() === 'graficas') {
+                } else if (action === 'graficas') {
                     sendDataToBackend(data);
                 }
-                }
             }
-        );
+        });
     }
     
     function showReportResult(result) {
@@ -364,33 +415,12 @@ function sendDataToBackend(reportData) {
         );
     }
 }
-// Función para establecer la configuración local (incluyendo zona horaria)
-function setLocale() {
-    var params = {
-        "tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
-        "language": "es",  // Código de idioma de dos letras
-        "flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
-        "formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
-    };
 
-    var sess = getWialonSession();
-    sess.execute('render/set_locale', params, function(code, result) {
-        if (code) {
-            console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
-        } else {
-            console.log("Configuración local establecida correctamente");
-        }
-    });
-}
+
 async function onLoginSuccess() {
     try {
-        await initWialon();
-        const sess = getWialonSession();
-        if (!sess) {
-            throw new Error("No se pudo obtener la sesión de Wialon");
-        }
+        await init();
         setLocale();
-        init();
     } catch (error) {
         console.error("Error en onLoginSuccess:", error);
         msg("Error al inicializar Wialon: " + error.message);
@@ -436,22 +466,18 @@ async function onLoginSuccess() {
             }
         });
         flatpickr.localize(flatpickr.l10ns.es);
-        flatpickr("#startDateTime", {
-            enableTime: true,
-            dateFormat: "d/m/Y H:i",
-            time_24hr: true
-        });
-        flatpickr("#endDateTime", {
-            enableTime: true,
-            dateFormat: "d/m/Y H:i",
-            time_24hr: true
-        });
-        
-        onLoginSuccess();
+    flatpickr("#startDateTime", {
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        time_24hr: true
+    });
+    flatpickr("#endDateTime", {
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        time_24hr: true
     });
     
-    function setAction(action) {
-        document.getElementById('action').value = action;
-    }
+    onLoginSuccess();
+});
     
     const sensorElegido = $("#sensorSelect").val();
