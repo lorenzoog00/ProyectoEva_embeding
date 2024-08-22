@@ -12,25 +12,27 @@
         <img src="{{ url_for('static', filename='logos/Q.png') }}" alt="Quamtum Services Logo" style="height: 260px; margin-bottom: 1.5rem;">
         <h1>Bienvenidos a EVA</h1>
         <p class="welcome-message">Tu asistente personal con IA de Quamtum Services</p>
-
-        <form id="loginForm" method="POST">
+        
+        <form id="loginForm" onsubmit="event.preventDefault(); initiateWialonAuth();">
             <div>
                 <label for="nombre_usuario">Nombre de Usuario:</label>
                 <input type="text" id="nombre_usuario" name="nombre_usuario" required>
             </div>
-            <div>
-                <input type="hidden" id="wialon_token" name="wialon_token">
-            </div>
-            <button type="button" id="loginButton" onclick="initiateWialonAuth()">Iniciar Sesión</button>
+            <input type="hidden" id="wialon_token" name="wialon_token">
+            <button type="submit" id="loginButton">Iniciar Sesión</button>
         </form>
-
-
-
+        
+        <div id="errorMessage" style="color: red; margin-top: 10px;"></div>
+    
         {% if error %}
-            <p class="error">{{ error }}</p>
+            <p style="color: red;">{{ error }}</p>
         {% endif %}
-
-        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+    
+        <a href="#">¿Olvidaste tu contraseña?</a>
     </div>
-</body>
-</html>
+    
+    <script>
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+        }
+    </script>

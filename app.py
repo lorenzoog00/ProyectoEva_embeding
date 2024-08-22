@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from datetime import timedelta
 from query_py.submit import filter_and_prepare_query
 from analisis_py.analisis_temperatura import descargar_valores_individuales
 from query_py.download_pdf_consulta import generate_and_download_pdf
-from login_py.login import login_required, init_excel, handle_login, active_graphs_handler
+from login_py.login import login_required, init_excel, handle_login, active_graphs_handler, check_user
 from dashboard_py.geocerca_salidas import geocerca_analysis
 from dashboard_py.geocerca_deep_analysis import geocerca_deep_analysis
 from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
@@ -12,8 +12,6 @@ from query_py.query import process_user_query
 from query_py.query_aditional import process_additional_user_query
 from tickets_py.crear_ticket import crear_ticket_handler, ticket_enviado_handler
 from config import Config
-from flask_mail import Mail
-from datetime import timedelta
 from login_py.index import index_handler
 from reportlab.lib.pagesizes import letter
 from analisis_py.bateria_master import procesar_analisis_baterias
@@ -32,6 +30,10 @@ init_excel()
 @app.route('/login', methods=['GET', 'POST'])
 def login_route():
     return handle_login(request)
+
+@app.route('/check_user', methods=['POST'])
+def check_user_route():
+    return check_user()
 
 @app.route('/logout')
 def logout():

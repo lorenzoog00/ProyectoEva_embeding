@@ -1,19 +1,42 @@
 window.wialonToken = '';
 
-window.wialonToken = '';
+
+function checkUserExistence(username) {
+    return fetch('/check_user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nombre_usuario: username })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.exists) {
+            throw new Error('Usuario no encontrado');
+        }
+    });
+}
 
 function initiateWialonAuth() {
-    const dns = "https://hosting.wialon.com";
-    let url = dns + "/login.html";
-    url += "?client_id=" + "QuamtumEVA";
-    url += "&access_type=" + 0x100;
-    url += "&activation_time=" + 0;
-    url += "&duration=" + 604800;
-    url += "&flags=" + 0x1;
-    url += "&redirect_uri=" + dns + "/post_token.html";
+    const username = document.getElementById('nombre_usuario').value;
+    
+    checkUserExistence(username)
+        .then(() => {
+            const dns = "https://hosting.wialon.com";
+            let url = dns + "/login.html";
+            url += "?client_id=" + "QuamtumEVA";
+            url += "&access_type=" + 0x100;
+            url += "&activation_time=" + 0;
+            url += "&duration=" + 604800;
+            url += "&flags=" + 0x1;
+            url += "&redirect_uri=" + dns + "/post_token.html";
 
-    window.addEventListener("message", handleWialonToken);
-    window.open(url, "_blank", "width=760, height=500, top=300, left=500");
+            window.addEventListener("message", handleWialonToken);
+            window.open(url, "_blank", "width=760, height=500, top=300, left=500");
+        })
+        .catch(error => {
+            alert(error.message);
+        });
 }
 
 function handleWialonToken(event) {

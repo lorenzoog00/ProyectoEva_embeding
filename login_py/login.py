@@ -42,6 +42,15 @@ def authenticate_user(nombre_usuario, wialon_token):
 
 
 # Manejar el inicio de sesión
+def check_user():
+    data = request.json
+    nombre_usuario = data.get('nombre_usuario')
+    
+    if user_exists(nombre_usuario):
+        return jsonify({"exists": True})
+    else:
+        return jsonify({"exists": False})
+
 def handle_login(request):
     if request.method == 'POST':
         nombre_usuario = request.form['nombre_usuario']
