@@ -3,7 +3,11 @@ import { initWialon, getWialonSession } from './loginWialon.js';
 
 const RESOURCE_ID = 400730713;  // ID fijo del recurso
 const TEMPLATE_ID = 30;  // ID fijo de la plantilla
- 
+// Hacer setAction accesible globalmente
+window.setAction = function(action) {
+    document.getElementById('action').value = action;
+}
+
 function msg(text) { 
     $("#log").prepend(text + "<br/>"); 
 }
@@ -80,8 +84,9 @@ async function init() {
     }
 }
 
-function executeReport(e) {
+function executeReport(e, action) {
     e.preventDefault();
+    window.setAction(action);  // Establecer la acción antes de ejecutar el informe
     var id_group = $("#unitGroupSelect").val(),
         startDate = flatpickr.parseDate($("#startDateTime").val(), "d/m/Y H:i"),
         endDate = flatpickr.parseDate($("#endDateTime").val(), "d/m/Y H:i");
@@ -233,7 +238,16 @@ function setAction(action) {
     document.getElementById('action').value = action;
 }
 $(document).ready(function () {
-    $("#reportForm").submit(executeReport);
+    // Eliminar el event listener del formulario
+    // $("#reportForm").submit(executeReport);
+
+    // Agregar event listeners a los botones
+    $("#executeReportBtn").on('click', function(e) {
+        executeReport(e, 'tablas');
+    });
+    $("#graphicsBtn").on('click', function(e) {
+        executeReport(e, 'graficas');
+    });
 
     flatpickr.localize(flatpickr.l10ns.es);
     flatpickr("#startDateTime", {

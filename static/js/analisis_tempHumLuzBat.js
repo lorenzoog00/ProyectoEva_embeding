@@ -62,6 +62,7 @@ let datosGeneralesGlobal = null;
             msg("Error al inicializar Wialon: " + error.message);
         }
     }
+    
     function setLocaleTimeZone(callback) {
         var sess = getWialonSession();
         sess.execute("render/set_locale", { "tzOffset": -21600000 }, function(code) {
@@ -75,7 +76,30 @@ let datosGeneralesGlobal = null;
             }
         });
     }
+// Función para establecer la configuración local (incluyendo zona horaria)
+function setLocale() {
+    var sess = getWialonSession();
+    if (!sess || typeof sess.execute !== 'function') {
+        console.error("Sesión de Wialon no inicializada correctamente");
+        return;
+    }
 
+    var params = {
+        "tzOffset": -134173792,  // Valor para Ciudad de México con horario de verano
+        "language": "es",  // Código de idioma de dos letras
+        "flags": 256,  // Flags: 0 - sistema métrico, 1 - sistema US, 2 - sistema imperial
+        "formatDate": "%d-%b-%Y %H:%M:%S"  // Formato de fecha y hora
+    };
+
+    sess.execute('render/set_locale', params, function(code, result) {
+        if (code) {
+            console.error("Error al establecer la configuración local:", wialon.core.Errors.getErrorText(code));
+        } else {
+            console.log("Configuración local establecida correctamente");
+        }
+    });
+}
+    
     function executeReport(e) {
         e.preventDefault();
         var id_group = $("#unitGroupSelect").val(),
@@ -361,6 +385,10 @@ function setLocale() {
 async function onLoginSuccess() {
     try {
         await initWialon();
+        const sess = getWialonSession();
+        if (!sess) {
+            throw new Error("No se pudo obtener la sesión de Wialon");
+        }
         setLocale();
         init();
     } catch (error) {

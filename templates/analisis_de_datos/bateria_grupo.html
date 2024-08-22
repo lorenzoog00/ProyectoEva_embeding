@@ -53,8 +53,8 @@
             <input type="hidden" id="action" name="action" value="tablas">
     
             <div class="button-container">
-                <button type="submit" class="btn btn-primary" onclick="window.setAction('tablas'); return false;">Ejecutar Informe</button>
-                <button type="submit" class="btn btn-secondary" onclick="window.setAction('graficas'); return false;">Gráficas</button>
+                <button type="button" id="executeReportBtn" class="btn btn-primary">Ejecutar Informe</button>
+                <button type="button" id="graphicsBtn" class="btn btn-secondary">Gráficas</button>
             </div>
         </form>
     
@@ -64,6 +64,7 @@
     
         <div id="log" class="response-container"></div>
     </div>
+    
 
 <script type="module" src="{{ url_for('static', filename='js/bateria_grupo.js') }}"></script>
 
