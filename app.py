@@ -6,6 +6,7 @@ from query_py.download_pdf_consulta import generate_and_download_pdf
 from login_py.login import login_required, init_excel, handle_login, active_graphs_handler, check_user
 from dashboard_py.geocerca_salidas import geocerca_analysis
 from dashboard_py.geocerca_deep_analysis import geocerca_deep_analysis
+from dashboard_py.bateriaPie import bateria_analysis
 from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
 from notificaciones_py.bateriaMenor import check_thinkpower_compatibility
 from query_py.query import process_user_query
@@ -123,7 +124,11 @@ def geocercas_html():
 @app.route('/geocerca_analysis', methods=['POST'])
 def handle_geocerca_analysis():
     return geocerca_analysis()
-    
+
+@app.route('/bateria_analysis', methods=['POST'])
+def handle_bateria_analysis():
+    return bateria_analysis()
+
 #Analisis
 
 @app.route('/analisis_datos')

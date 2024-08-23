@@ -2,7 +2,6 @@ from flask import jsonify, request
 
 def geocerca_analysis():
     data = request.json
-    print(data)
     report_data = data.get('reportData', [])
 
     if not report_data:

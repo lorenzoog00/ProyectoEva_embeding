@@ -3,12 +3,10 @@ import { initWialon, getWialonSession } from '../loginWialon.js';
 document.addEventListener('DOMContentLoaded', async function() {
     console.log("DOMContentLoaded event fired");
 
-    const RESOURCE_ID = 400730713;
-    const TEMPLATE_ID = 36;
-
     try {
         const { initSensorGraph } = await import('./sensores.js');
         const { initGeocercaGraph } = await import('./geocerca_salidas.js');
+        const { initBateriaPieGraph } = await import('./bateriaPie.js');
         console.log("Módulos importados correctamente");
 
         async function initializeAndLoadGraphs() {
@@ -57,6 +55,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                         initSensorGraph(graphElement, getWialonSession());
                     } else if (graph === "Geocercas") {
                         initGeocercaGraph(graphElement, getWialonSession());
+                    } else if (graph === "Batería") {
+                        initBateriaPieGraph(graphElement, getWialonSession());
                     } else {
                         graphElement.innerHTML = `
                             <h2>${graph}</h2>
