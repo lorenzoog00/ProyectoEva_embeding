@@ -3,7 +3,6 @@ from flask import jsonify, request
 def bateria_analysis():
     data = request.json
     report_data = data.get('reportData', [])
-    print(report_data)
     if not report_data:
         return jsonify({"status": "error", "message": "No se recibieron datos en el reporte"}), 400
 
@@ -22,7 +21,6 @@ def bateria_analysis():
             unit = row[1]  # Asumiendo que la segunda columna es la unidad
             battery = float(row[2])  # Asumiendo que la tercera columna es el nivel de batería
             battery_levels[unit] = battery
-            print(battery)
             if battery >= 80:
                 battery_ranges['80-100'] += 1
             elif 60 <= battery < 80:

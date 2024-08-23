@@ -1515,3 +1515,5 @@
 2024-08-23 12:09:53,017:INFO:127.0.0.1 - - [23/Aug/2024 12:09:53] "GET /api/active-graphs HTTP/1.1" 200 -
 2024-08-23 12:09:56,816:INFO:127.0.0.1 - - [23/Aug/2024 12:09:56] "POST /geocerca_analysis HTTP/1.1" 200 -
 2024-08-23 12:09:57,282:INFO:127.0.0.1 - - [23/Aug/2024 12:09:57] "POST /bateria_analysis HTTP/1.1" 200 -
+2024-08-23 12:12:38,804:INFO: * Detected change in 'C:\\Users\\PcR\\Documents\\GitHub\\ProyectoEva_embeding\\dashboard_py\\bateriaPie.py', reloading
+2024-08-23 12:12:39,023:INFO: * Restarting with stat

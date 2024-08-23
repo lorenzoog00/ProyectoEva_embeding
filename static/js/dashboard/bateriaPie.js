@@ -11,7 +11,7 @@ export function initBateriaPieGraph(graphElement, wialonSession) {
                 </select>
             </div>
             <div id="bateriaPieChartContainer">
-                <canvas id="bateriaPieChart" width="400" height="400"></canvas>
+                <canvas id="bateriaPieChart" width="150" height="150"></canvas>
             </div>
             <div id="bateriaSummary" class="bateria-summary"></div>
             <div id="bateriaCritica" class="bateria-critica"></div>
@@ -150,7 +150,7 @@ function renderBateriaPieChart(data) {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             plugins: {
                 legend: {
                     position: 'right',
@@ -166,7 +166,4 @@ function renderBateriaPieChart(data) {
         <p>Unidades con batería crítica: ${data.unidades_criticas.length}</p>
     `;
 
-    document.getElementById('bateriaCritica').innerHTML = `
-        <p>Unidades críticas: ${data.unidades_criticas.join(', ')}</p>
-    `;
 }

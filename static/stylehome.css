@@ -194,3 +194,10 @@ footer {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(255, 81, 0, 0.2);
 }
+
+#bateriaPieChart {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto; /* Centrar el gráfico */
+    display: block;
+}
