@@ -1,0 +1,157 @@
+:root {
+    --primary-color: #FF5100;
+    --secondary-color: #3F3F3E;
+    --accent-color: #F39149;
+    --background-color: #F5F5F5;
+    --text-color: #3F3F3E;
+    --border-color: #E0E0E0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.8;
+    margin: 0;
+    padding: 0;
+}
+
+.battery-analysis-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.battery-analysis-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 3em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.battery-analysis-intro {
+    margin-bottom: 40px;
+    text-align: justify;
+    font-size: 1.1em;
+    color: var(--secondary-color);
+    line-height: 1.8;
+}
+
+.battery-controls {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.analyze-btn {
+    padding: 14px 20px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.analyze-btn:hover {
+    background-color: var(--accent-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.analyze-btn:active {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+}
+
+.battery-table-explanation {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #fafafa;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+}
+
+.battery-table-explanation h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.battery-table-explanation ul {
+    list-style-type: disc;
+    margin: 0;
+    padding-left: 20px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+#battery-analysis-results {
+    margin-top: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    .battery-analysis-container {
+        padding: 20px;
+    }
+    
+    .battery-analysis-title {
+        font-size: 2.5em;
+    }
+
+    .battery-analysis-intro {
+        font-size: 1em;
+    }
+
+    .analyze-btn {
+        font-size: 14px;
+        padding: 12px 16px;
+    }
+
+    th, td {
+        font-size: 14px;
+        padding: 12px;
+    }
+}

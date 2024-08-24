@@ -7,6 +7,7 @@ from login_py.login import login_required, init_excel, handle_login, active_grap
 from dashboard_py.geocerca_salidas import geocerca_analysis
 from dashboard_py.geocerca_deep_analysis import geocerca_deep_analysis
 from dashboard_py.bateriaPie import bateria_analysis
+from dashboard_py.bateria_deep_analysis import get_battery_data
 from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
 from notificaciones_py.bateriaMenor import check_thinkpower_compatibility
 from query_py.query import process_user_query
@@ -22,7 +23,7 @@ from config import DATA_DIR  # Importar configuración desde config.py
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Cambia esto por una clave secreta segura
-app.permanent_session_lifetime = timedelta(minutes=5)  # Establece la duración de la sesión a 5 minutos
+app.permanent_session_lifetime = timedelta(minutes=100)  # Establece la duración de la sesión a 5 minutos
 
 
 # Inicializar el archivo Excel
@@ -114,11 +115,18 @@ def variacion_reporte():
 #Dashboard
 
 @app.route('/geocercas_deep_analysis', methods=['GET', 'POST'])
+@login_required
 def geocercas_html():
     if request.method == "POST":
         return geocerca_deep_analysis()
     return render_template('dashboard/geocercas.html')
 
+@app.route('/bateria_deep_analysis', methods=['GET', 'POST'])
+@login_required
+def bateria_deep_html():
+    if request.method == "POST":
+        return get_battery_data()
+    return render_template('dashboard/bateria_deep_analysis.html')
 # Añade esta función a app.py
 
 @app.route('/geocerca_analysis', methods=['POST'])

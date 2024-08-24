@@ -201,3 +201,17 @@ footer {
     margin: 0 auto; /* Centrar el gráfico */
     display: block;
 }
+
+.bateria-link {
+    color: var(--primary-color);
+}
+.blurry-chart {
+    filter: blur(10px); /* Aplicar desenfoque a la imagen */
+    transition: filter 0.3s ease; /* Transición suave */
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho del cuadro */
+    border-radius: 12px; /* Mantén la coherencia con el diseño de las tarjetas */
+}
+
+.blurry-chart:hover {
+    filter: blur(0px); /* Eliminar desenfoque al pasar el cursor */
+}

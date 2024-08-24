@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quamtum Services Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bateria_deep_analysis.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <script src="//hst-api.wialon.com/wsdk/script/wialon.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="battery-analysis-container">
+        <h1 class="battery-analysis-title">Análisis de Batería de Dispositivos</h1>
+        
+        <div class="battery-analysis-intro">
+            Bienvenido al análisis de batería de dispositivos de Quamtum Services. Esta herramienta proporciona información valiosa sobre el estado de la batería de las unidades seleccionadas.
+        </div>
+    
+        <div class="battery-table-explanation">
+            <h2>Explicación de la Tabla</h2>
+            <ul>
+                <li><strong>Unidad:</strong> Nombre del dispositivo en el sistema.</li>
+                <li><strong>Batería Actual:</strong> Nivel actual de batería del dispositivo en porcentaje.</li>
+                <li><strong>Desgaste por hora:</strong> Porcentaje de batería que se consume por hora.</li>
+                <li><strong>Tiempo de Vida Restante:</strong> Estimación del tiempo que le queda a la batería antes de agotarse.</li>
+            </ul>
+        </div>
+    
+        <div class="battery-controls">
+            <select id="unitGroupSelect">
+                <option value="">Seleccione un grupo de unidades</option>
+            </select>
+            <button id="analyzeBtn" class="analyze-btn">Analizar Batería</button>
+        </div>
+    
+        <div id="battery-analysis-results">
+            <!-- Los resultados se insertarán aquí -->
+        </div>
+    </div>
+
+<script type="module" src="{{ url_for('static', filename='js/dashboard/bateria_deep_analysis.js') }}"></script>

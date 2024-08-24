@@ -15,7 +15,7 @@ export function initBateriaPieGraph(graphElement, wialonSession) {
             </div>
             <div id="bateriaSummary" class="bateria-summary"></div>
             <div id="bateriaCritica" class="bateria-critica"></div>
-            <a href="/bateria_deep_analysis" class="bateria-link">Para más detalles, haga clic aquí</a>
+            <a href="/bateria_deep_analysis" class="bateria-link">Para más información, haga clic aquí</a>
         </div>
     `;
     initializeGroupSelector(wialonSession);
@@ -165,5 +165,8 @@ function renderBateriaPieChart(data) {
         <p>Total de unidades: ${totalUnits}</p>
         <p>Unidades con batería crítica: ${data.unidades_criticas.length}</p>
     `;
+    document.getElementById('bateriaCritica').innerHTML = `
+    <p>Unidades críticas (0% - 20%): ${data.unidades_criticas.join(', ')}</p>
+`;
 
 }
