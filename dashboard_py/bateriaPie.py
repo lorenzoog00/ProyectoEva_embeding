@@ -19,13 +19,19 @@ def bateria_analysis():
         rows = report.get('rows', [])
         for row in rows:
             unit = row[1]  # Asumiendo que la segunda columna es la unidad
-            battery_data = row[2]  # Esto ahora es un diccionario
+            battery_data = row[2]  # Esto puede ser un diccionario o un valor numérico
             
-            # Extraer el valor numérico de la batería del diccionario
+            # Extraer el valor numérico de la batería
             if isinstance(battery_data, dict):
                 battery = float(battery_data.get('v', 0))  # Asumiendo que 'v' es la clave para el valor
-            elif isinstance(battery_data, (int, float, str)):
+            elif isinstance(battery_data, (int, float)):
                 battery = float(battery_data)
+            elif isinstance(battery_data, str):
+                try:
+                    battery = float(battery_data)
+                except ValueError:
+                    print(f"No se pudo convertir el valor de batería a float para la unidad {unit}: {battery_data}")
+                    continue
             else:
                 print(f"Dato de batería inesperado para la unidad {unit}: {battery_data}")
                 continue  # Saltamos esta unidad si no podemos procesar los datos

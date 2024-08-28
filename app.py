@@ -7,6 +7,7 @@ from login_py.login import login_required, init_excel, handle_login, active_grap
 from dashboard_py.geocerca_salidas import geocerca_analysis
 from dashboard_py.geocerca_deep_analysis import geocerca_deep_analysis
 from dashboard_py.bateriaPie import bateria_analysis
+from dashboard_py.conexion_analysis import conexion_analysis
 from dashboard_py.bateria_deep_analysis import get_battery_data
 from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
 from notificaciones_py.bateriaMenor import check_thinkpower_compatibility
@@ -127,7 +128,13 @@ def bateria_deep_html():
     if request.method == "POST":
         return get_battery_data()
     return render_template('dashboard/bateria_deep_analysis.html')
-# Añade esta función a app.py
+
+@app.route('/conexion_analysis', methods=['POST'])
+def handle_conexion_analysis():
+    data = request.json
+    return conexion_analysis(data)
+
+# Deep dashboard
 
 @app.route('/geocerca_analysis', methods=['POST'])
 def handle_geocerca_analysis():

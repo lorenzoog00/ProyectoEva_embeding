@@ -19,11 +19,8 @@
         </header>
 
         <div class="dashboard-grid">
-            <div class="dashboard-card main-card" id="consulta-card">
-                <div class="card-icon">
-                    <img src="/static/icons/consulta.png" alt="Consulta icon">                
-                </div>
-                <div class="card-content">
+            <div class="dashboard-card menu-card" id="menu-card">
+                <div class="menu-section">
                     <h2>Menú de Inicio</h2>
                     <div class="button-group">
                         <a href="{{ url_for('index') }}" class="card-button">Consulta</a>
@@ -31,6 +28,11 @@
                         <a href="{{ url_for('crear_ticket') }}" class="card-button">Ticket</a>
                         <a href="{{ url_for('geocerca_notificacion') }}" class="card-button">Notificación</a>
                     </div>
+                </div>
+                <div class="news-section">
+                    <h3>¡Nuevo! Deploy de EVA 1.0</h3>
+                    <p>Descubre todas las nuevas funcionalidades de EVA 1.0</p>
+                    <a href="#" class="news-link">Click aquí para ver todo lo que puede hacer</a>
                 </div>
             </div>
 

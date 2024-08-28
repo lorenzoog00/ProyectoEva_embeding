@@ -132,3 +132,69 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.menu-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+}
+
+.menu-section, .news-section {
+    padding: 20px;
+}
+
+.menu-section {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.news-section {
+    background-color: #f8f9fa;
+    border-top: 2px solid var(--primary-color);
+}
+
+.menu-section h2, .news-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.card-button {
+    background-color: white;
+    color: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.card-button:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.news-section p {
+    margin-bottom: 10px;
+}
+
+.news-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.news-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}

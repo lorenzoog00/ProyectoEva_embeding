@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const { initSensorGraph } = await import('./sensores.js');
         const { initGeocercaGraph } = await import('./geocerca_salidas.js');
         const { initBateriaPieGraph } = await import('./bateriaPie.js');
+        const { initConexionGraph } = await import('./conexion_analisis.js');
         console.log("Módulos importados correctamente");
 
         async function initializeAndLoadGraphs() {
@@ -57,7 +58,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                         initGeocercaGraph(graphElement, getWialonSession());
                     } else if (graph === "Batería") {
                         initBateriaPieGraph(graphElement, getWialonSession());
-                        } else {
+                    } else if (graph === "Conexion") {
+                        initConexionGraph(graphElement, getWialonSession());
+                    } else {
                         graphElement.innerHTML = `
                             <h2>${graph}</h2>
                             <p class="placeholder-text">Gráfica activa: ${graph}</p>
