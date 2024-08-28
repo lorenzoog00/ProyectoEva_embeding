@@ -1,0 +1,163 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 100%;
+    padding: 20px;
+    margin-top: 60px; /* Espacio para el navbar */
+}
+
+h1 {
+    color: #FF5100;
+    margin-bottom: 20px;
+    font-size: 32px; /* Aumentado de 24px a 32px */
+    font-weight: bold;
+}
+
+/* Aumentar el tamaño de la descripción */
+.container > p {
+    font-size: 18px; /* Aumentado de 16px (tamaño por defecto) a 18px */
+    margin-bottom: 20px;
+}
+
+/* El resto del CSS permanece igual */
+
+/* Formulario */
+#reportForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1 1 200px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Botones */
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #FF5100;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #E64900;
+}
+
+.btn-secondary {
+    background-color: #3F3F3E;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #2a2a2a;
+}
+
+/* Contenedor de resultados */
+#resultContainer {
+    margin-top: 30px;
+    overflow-x: auto; /* Para gráficos anchos */
+}
+
+/* Estilos para el gráfico */
+#resultContainer img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Botón de descarga */
+#downloadBtn {
+    display: block;
+    margin-top: 20px;
+    background-color: #FF5100;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#downloadBtn:hover {
+    background-color: #E64900;
+}
+
+/* Contenedor de respuesta */
+.response-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-group {
+        flex-basis: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+/* Estilos para Flatpickr */
+.flatpickr-calendar {
+    font-size: 14px;
+}
+
+.flatpickr-day.selected {
+    background: #FF5100;
+    border-color: #FF5100;
+}
+
+.flatpickr-day.selected:hover {
+    background: #E64900;
+    border-color: #E64900;
+}

@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, send_file, render_template
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Set the backend to Agg before importing pyplot
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.dates import DateFormatter, HourLocator, DayLocator
@@ -9,7 +11,7 @@ import base64
 from datetime import datetime, timedelta
 
 def create_graph(df, sensor_elegido, size):
-    plt.figure(figsize=size)
+    fig, ax = plt.subplots(figsize=size)
     
     agrupaciones = df['Grouping'].unique()
     colors = ['#FF5100', '#3F3F3E', '#898A8D', '#F39149']
@@ -17,30 +19,30 @@ def create_graph(df, sensor_elegido, size):
     
     for agrupacion, color in zip(agrupaciones, palette):
         datos_agrupacion = df[df['Grouping'] == agrupacion]
-        sns.lineplot(x='Tiempo', y='Valor', data=datos_agrupacion, label=agrupacion, linewidth=1.5, color=color)
+        sns.lineplot(x='Tiempo', y='Valor', data=datos_agrupacion, label=agrupacion, linewidth=1.5, color=color, ax=ax)
     
     valor_medio_total = df['Valor'].mean()
     
-    plt.title(f'Desempeño de {sensor_elegido}\nValor medio: {valor_medio_total:.2f}', fontsize=12*size[0]/8, fontweight='bold')
-    plt.xlabel('Tiempo', fontsize=10*size[0]/8, fontweight='bold')
-    plt.ylabel(f'Valor de {sensor_elegido}', fontsize=10*size[0]/8, fontweight='bold')
+    ax.set_title(f'Desempeño de {sensor_elegido}\nValor medio: {valor_medio_total:.2f}', fontsize=12*size[0]/8, fontweight='bold')
+    ax.set_xlabel('Tiempo', fontsize=10*size[0]/8, fontweight='bold')
+    ax.set_ylabel(f'Valor de {sensor_elegido}', fontsize=10*size[0]/8, fontweight='bold')
     
-    plt.legend(title='Sensores', title_fontsize=8*size[0]/8, fontsize=6*size[0]/8, loc='upper left', bbox_to_anchor=(1, 1))
+    ax.legend(title='Sensores', title_fontsize=8*size[0]/8, fontsize=6*size[0]/8, loc='upper left', bbox_to_anchor=(1, 1))
     
-    plt.gca().xaxis.set_major_formatter(DateFormatter('%d/%m %H:%M'))
-    plt.gcf().autofmt_xdate()
+    ax.xaxis.set_major_formatter(DateFormatter('%d/%m %H:%M'))
+    fig.autofmt_xdate()
     
-    plt.tick_params(axis='both', which='major', labelsize=8*size[0]/8)
+    ax.tick_params(axis='both', which='major', labelsize=8*size[0]/8)
     
     plt.tight_layout()
     
     buf = io.BytesIO()
-    plt.savefig(buf, format='png', dpi=300, bbox_inches='tight')
+    fig.savefig(buf, format='png', dpi=300, bbox_inches='tight')
     buf.seek(0)
     
     img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
     
-    plt.close()
+    plt.close(fig)
     
     return img_base64
 

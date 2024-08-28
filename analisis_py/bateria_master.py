@@ -51,7 +51,7 @@ def procesar_analisis_baterias():
                 sns.set_style("whitegrid")
 
                 # Crear el gráfico
-                plt.figure(figsize=(4, 4))
+                plt.figure(figsize=(3, 3))  # Tamaño de la figura reducido
                 bars = plt.bar(bateria_promedio.index, bateria_promedio.values, 
                                color=[get_color(value) for value in bateria_promedio.values])
 
@@ -71,7 +71,7 @@ def procesar_analisis_baterias():
                     height = bar.get_height()
                     plt.text(bar.get_x() + bar.get_width()/2., height,
                              f'{height:.1f}%',
-                             ha='center', va='bottom', fontweight='bold', color='#3F3F3E', fontsize=6)
+                             ha='center', va='bottom', fontweight='bold', color='#3F3F3E', fontsize=4)  # Tamaño de la fuente reducido a 4
 
                 # Ajustar el layout
                 plt.tight_layout()

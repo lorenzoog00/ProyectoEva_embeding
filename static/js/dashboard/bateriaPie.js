@@ -165,8 +165,5 @@ function renderBateriaPieChart(data) {
         <p>Total de unidades: ${totalUnits}</p>
         <p>Unidades con batería crítica: ${data.unidades_criticas.length}</p>
     `;
-    document.getElementById('bateriaCritica').innerHTML = `
-    <p>Unidades críticas (0% - 20%): ${data.unidades_criticas.join(', ')}</p>
-`;
 
 }

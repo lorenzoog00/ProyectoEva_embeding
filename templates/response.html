@@ -4,10 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Respuesta a la Consulta - Quantum Services</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}"> <!-- CSS del Navbar -->
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='response.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <div class="response-container">
+            <h2>Respuesta a tu Consulta sobre {{ files | join(', ') }}</h2>
+            <p><strong>Tu pregunta:</strong> {{ query }}</p>
+            <div class="response-text"><strong>Respuesta:</strong> {{ response|safe }}</div>
+            <div class="download-container">
+                <p>Descargar consultas en PDF:</p>
+                <a href="{{ url_for('download_pdf') }}" id="download-pdf">
+                    <img src="{{ url_for('static', filename='logos/descarga.png') }}" alt="Descargar" style="width: 32px; height: 32px;">
+                </a>
+            </div>
+            <div id="download-message" class="message" style="display: none;"></div>
+        </div>
+        <div id="additional-queries"></div>
+        <div class="button-container">
+            <a href="{{ url_for('index') }}" class="button">Volver al inicio</a>
+            <button onclick="addNewQueryBox()" class="button">Nueva consulta sobre {{ files | join(', ') }}</button>
+        </div>
+    </div>
+
     <script>
         function addNewQueryBox() {
             const queryBox = document.createElement('div');
@@ -15,8 +38,8 @@
             queryBox.innerHTML = `
                 <h2>Nueva Consulta sobre {{ files | join(', ') }}</h2>
                 <form onsubmit="submitNewQuery(event, this)">
-                    <label for="query">Escriba su consulta:</label>
-                    <textarea name="query" rows="4" cols="50"></textarea>
+                    <label for="query">Escribe tu pregunta:</label>
+                    <textarea name="query" rows="4" required></textarea>
                     <button type="submit" class="button">Enviar</button>
                     <div class="loading" style="display: none;">
                         <img src="{{ url_for('static', filename='gifs/cargando.gif') }}" alt="Cargando...">
@@ -35,14 +58,15 @@
 
             loading.style.display = 'block';
 
-            fetch('{{ url_for("query_additional") }}', {
+            fetch('/download_pdf', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
-                body: new URLSearchParams({
-                    query: query,
-                }),
+                body: JSON.stringify({
+            selected_files: selectedFiles,
+            queries: queries
+        }),
             })
             .then(response => response.text())
             .then(data => {
@@ -55,28 +79,37 @@
                 alert('Error: ' + error.message);
             });
         }
-    </script>
-</head>
-<body>
-    {% include 'navbar.html' %}
 
-    <div class="container">
-        <div class="response-container">
-            <h2>Respuesta a la Nueva Consulta</h2>
-            <p><strong>Consulta:</strong> {{ query }}</p>
-            <p class="response-text"><strong>Respuesta:</strong> {{ response|safe }}</p>
-            <div class="download-container">
-                <p>Click para descargar en PDF las consultas:</p>
-                <a href="{{ url_for('download_pdf') }}">
-                    <img src="{{ url_for('static', filename='logos/descarga.png') }}" alt="Descargar" style="width: 32px; height: 32px;">
-                </a>
-            </div>
-        </div>
-        <div id="additional-queries"></div>
-        <div class="button-container">
-            <a class="button" href="{{ url_for('index') }}">Hacer otra consulta</a>
-            <button class="button" onclick="addNewQueryBox()">Hacer otra consulta de {{ files | join(', ') }}</button>
-        </div>
-    </div>
+        document.getElementById('download-pdf').addEventListener('click', function(event) {
+            event.preventDefault();
+            const messageDiv = document.getElementById('download-message');
+            messageDiv.style.display = 'none';
+
+            fetch(this.href)
+                .then(response => {
+                    if(response.ok) return response.blob();
+                    throw new Error('Problema al generar el PDF');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'consultas.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    messageDiv.textContent = 'PDF descargado con éxito';
+                    messageDiv.style.display = 'block';
+                    messageDiv.className = 'message success';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageDiv.textContent = 'Error al descargar el PDF';
+                    messageDiv.style.display = 'block';
+                    messageDiv.className = 'message error';
+                });
+        });
+    </script>
 </body>
 </html>

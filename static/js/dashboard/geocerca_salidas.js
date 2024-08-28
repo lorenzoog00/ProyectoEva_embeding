@@ -5,11 +5,7 @@ export function initGeocercaGraph(graphElement, wialonSession) {
     graphElement.innerHTML = `
         <div class="geocerca-container">
             <h2 class="geocerca-title">Salidas de geocerca por unidad</h2>
-            <div class="geocerca-select-container">
-                <select id="unitGroupSelect" class="geocerca-select">
-                    <option value="">Seleccione un grupo</option>
-                </select>
-            </div>
+
             <div id="geocercaContent" class="geocerca-content">
                 <div class="geocerca-stat">
                     <h3>Unidades con más salidas</h3>

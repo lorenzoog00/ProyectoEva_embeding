@@ -9,49 +9,40 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='sensores.css') }}">
     <script src="//hst-api.wialon.com/wsdk/script/wialon.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    {% include 'navbar.html' %}
 
-    <main class="dashboard-container" role="main">
+    <div class="dashboard-container">
         <header class="dashboard-header">
-            <h1>Bienvenido, <span id="nombre-usuario">{{ nombre_usuario }}</span></h1>
+            <h1>Bienvenido, <span id="user-name">{{ nombre_usuario }}</span></h1>
         </header>
-    
+
         <div class="dashboard-grid">
-            <div id="consulta-button" class="dashboard-item main-option">
-                <img src="{{ url_for('static', filename='icons/consulta.png') }}" alt="Consulta icon" class="option-icon">
-                <h2>Consulta</h2>
-                <p>Obtén respuestas rápidas y precisas sobre nuestros servicios.</p>
-                <a href="{{ url_for('index') }}" class="option-button">Ir a Consulta</a>
+            <div class="dashboard-card main-card" id="consulta-card">
+                <div class="card-icon">
+                    <img src="/static/icons/consulta.png" alt="Consulta icon">                
+                </div>
+                <div class="card-content">
+                    <h2>Menú de Inicio</h2>
+                    <div class="button-group">
+                        <a href="{{ url_for('index') }}" class="card-button">Consulta</a>
+                        <a href="{{ url_for('analisis_datos') }}" class="card-button">Análisis</a>
+                        <a href="{{ url_for('crear_ticket') }}" class="card-button">Ticket</a>
+                        <a href="{{ url_for('geocerca_notificacion') }}" class="card-button">Notificación</a>
+                    </div>
+                </div>
             </div>
 
-            <div id="analisis-button" class="dashboard-item main-option">
-                <img src="{{ url_for('static', filename='icons/analisis_datos.png') }}" alt="Análisis de datos icon" class="blurry-chart">
-                <h2>Análisis de datos</h2>
-                <p>Descubre insights valiosos basados en tus datos específicos.</p>
-                <a href="{{ url_for('analisis_datos') }}" class="option-button">Ir a Análisis</a>
-            </div>
-            
-            <div id="dynamic-1-3" class="dashboard-item dynamic">
-                <p>Dynamic 1-3 Content</p>
-            </div>
-    
-            <div id="dynamic-2-1" class="dashboard-item dynamic">
-                <p>Dynamic 2-1 Content</p>
-            </div>
-    
-            <div id="dynamic-2-2" class="dashboard-item dynamic">
-                <p>Dynamic 2-2 Content</p>
-            </div>
-    
-            <div id="dynamic-2-3" class="dashboard-item dynamic">
-                <p>Dynamic 2-3 Content</p>
-            </div>
+            <div class="dashboard-card dynamic-card" id="dynamic-1-2"></div>
+            <div class="dashboard-card dynamic-card" id="dynamic-1-3"></div>
+            <div class="dashboard-card dynamic-card" id="dynamic-2-1"></div>
+            <div class="dashboard-card dynamic-card" id="dynamic-2-2"></div>
+            <div class="dashboard-card dynamic-card" id="dynamic-2-3"></div>
         </div>
-    </main>
-    
-    <footer>
+    </div>
+
+    <footer class="dashboard-footer">
         © 2024 Quamtum Services. Todos los derechos reservados.
     </footer>
 

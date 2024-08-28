@@ -19,7 +19,17 @@ def bateria_analysis():
         rows = report.get('rows', [])
         for row in rows:
             unit = row[1]  # Asumiendo que la segunda columna es la unidad
-            battery = float(row[2])  # Asumiendo que la tercera columna es el nivel de batería
+            battery_data = row[2]  # Esto ahora es un diccionario
+            
+            # Extraer el valor numérico de la batería del diccionario
+            if isinstance(battery_data, dict):
+                battery = float(battery_data.get('v', 0))  # Asumiendo que 'v' es la clave para el valor
+            elif isinstance(battery_data, (int, float, str)):
+                battery = float(battery_data)
+            else:
+                print(f"Dato de batería inesperado para la unidad {unit}: {battery_data}")
+                continue  # Saltamos esta unidad si no podemos procesar los datos
+
             battery_levels[unit] = battery
             if battery >= 80:
                 battery_ranges['80-100'] += 1

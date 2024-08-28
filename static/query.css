@@ -1,0 +1,146 @@
+:root {
+    --primary-color: #FF6600;
+    --secondary-color: #003366;
+    --accent-color: #00CCFF;
+    --background-color: #F5F7FA;
+    --card-background: #FFFFFF;
+    --text-color: #333333;
+    --border-color: #E1E4E8;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --hover-color: #E65C00;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.query-form {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical;
+    min-height: 150px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.submit-button, .clear-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.submit-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.clear-button {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.clear-button:hover {
+    background-color: #D1D5DB;
+}
+
+.response-container {
+    margin-top: 40px;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+}
+
+.response-container h2 {
+    color: var(--primary-color);
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.response-text {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 10px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .submit-button, .clear-button {
+        width: 100%;
+    }
+}

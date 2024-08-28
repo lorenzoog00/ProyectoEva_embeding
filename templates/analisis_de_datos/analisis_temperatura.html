@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análisis de Temperaturas - Wialon</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bateria_analisis.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
@@ -67,33 +67,7 @@
         <div id="log" class="response-container"></div>
     </div>
     
-    <div id="modalDatosGenerales" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Datos Generales de Cada Sensor</h2>
-            <div id="modalDatosGeneralesContent"></div>
-            <div class="modal-navigation">
-                <button id="prevSensor">&larr; Anterior</button>
-                <span id="sensorCounter"></span>
-                <button id="nextSensor">Siguiente &rarr;</button>
-            </div>
-        </div>
-    </div>
 
 <script type="module" src="{{ url_for('static', filename='js/analisis_tempHumLuzBat.js') }}"></script>
-
-
-<div id="modalDatosGenerales" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Datos Generales de Cada Sensor</h2>
-        <div id="modalDatosGeneralesContent"></div>
-        <div class="modal-navigation">
-            <button id="prevSensor">&larr; Anterior</button>
-            <span id="sensorCounter"></span>
-            <button id="nextSensor">Siguiente &rarr;</button>
-        </div>
-    </div>
-</div>
 </body>
 </html>

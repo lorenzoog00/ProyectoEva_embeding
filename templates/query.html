@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta - Quantum Services</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='query.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}"> <!-- CSS del Navbar -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
@@ -19,17 +19,26 @@
     {% include 'navbar.html' %}
 
     <div class="container">
-        <h1>Consulta sobre {{ files | join(', ') }}</h1>
-        <div class="form-container">
-            <form id="query-form" action="{{ url_for('query') }}" method="post" onsubmit="showLoading()">
-                <label for="query">Escriba su consulta:</label>
-                <textarea id="query" name="query" rows="4" cols="50"></textarea>
-                <button type="submit" class="button">Enviar</button>
-            </form>
-            <div id="loading" style="display: none;">
-                <img src="{{ url_for('static', filename='gifs/cargando.gif') }}" alt="Cargando...">
+        <h1>Consulta Quantum Services</h1>
+        <h2>Haz tu pregunta sobre {{ files | join(', ') }}</h2>
+
+        <form class="query-form" action="{{ url_for('query') }}" method="post">
+            <div class="form-group">
+                <label for="query">Tu pregunta:</label>
+                <textarea id="query" name="query" required></textarea>
             </div>
+            <div class="button-group">
+                <button type="submit" class="submit-button">Enviar consulta</button>
+                <button type="reset" class="clear-button">Limpiar</button>
+            </div>
+        </form>
+
+        {% if response %}
+        <div class="response-container">
+            <h2>Respuesta:</h2>
+            <p class="response-text">{{ response }}</p>
         </div>
+        {% endif %}
     </div>
 </body>
 </html>

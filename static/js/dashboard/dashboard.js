@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         function updateDashboard(activeGraphs) {
-            const dynamicPositions = ['dynamic-1-3', 'dynamic-2-1', 'dynamic-2-2', 'dynamic-2-3'];
+            const dynamicPositions = [ 'dynamic-1-2', 'dynamic-1-3', 'dynamic-2-1', 'dynamic-2-2', 'dynamic-2-3'];
             
             dynamicPositions.forEach(position => {
                 document.getElementById(position).style.display = 'none';
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         initGeocercaGraph(graphElement, getWialonSession());
                     } else if (graph === "Batería") {
                         initBateriaPieGraph(graphElement, getWialonSession());
-                    } else {
+                        } else {
                         graphElement.innerHTML = `
                             <h2>${graph}</h2>
                             <p class="placeholder-text">Gráfica activa: ${graph}</p>
