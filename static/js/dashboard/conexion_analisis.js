@@ -1,3 +1,5 @@
+import { globalSelectedGroupId } from './dashboard.js';
+
 const RESOURCE_ID = 400730713;
 const TEMPLATE_ID = 28;
 
@@ -18,29 +20,18 @@ export function initConexionGraph(graphElement, wialonSession) {
                     <h3>Promedio de tiempo sin conexión</h3>
                     <span id="avg-conexion" class="conexion-value">-</span>
                 </div>
-            </div>
             <a href="/conexion_deep_analysis" id="moreInfoLink" class="conexion-link">Para más información, haga clic aquí</a>
         </div>
     `;
-    initializeGroupSelector(wialonSession);
-}
 
-function initializeGroupSelector(wialonSession) {
-    var sess = wialonSession;
-    sess.loadLibrary("resourceReports");
-    
-    var groups = sess.getItems("avl_unit_group");
-    var $groupSelect = $("#unitGroupSelect");
-    groups.forEach(function(group) {
-        $groupSelect.append($("<option>").val(group.getId()).text(group.getName()));
-    });
-
-    $groupSelect.on('change', function() {
-        var selectedGroupId = $(this).val();
-        if (selectedGroupId) {
-            executeConexionReport(sess, selectedGroupId);
-        }
-    });
+    if (globalSelectedGroupId) {
+        executeConexionReport(wialonSession, globalSelectedGroupId);
+    } else {
+        console.log("Esperando a que se seleccione un grupo...");
+        document.addEventListener('groupSelected', () => {
+            executeConexionReport(wialonSession, globalSelectedGroupId);
+        });
+    }
 }
 
 function executeConexionReport(wialonSession, groupId) {
@@ -59,12 +50,13 @@ function executeConexionReport(wialonSession, groupId) {
     }
 
     var now = new Date();
-    var to = Math.floor(now.getTime() / 1000) - 60; // Un minuto atrás
+    var to = Math.floor(now.getTime() / 1000); // Un minuto atrás
     var from = to - 24 * 60 * 60; // 24 horas antes de 'to'
 
     var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
 
     console.log("Ejecutando reporte con intervalo: " + new Date(from * 1000) + " a " + new Date(to * 1000));
+
     res.execReport(template, groupId, 0, interval, function(code, data) {
         if (code) { 
             console.error("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code)); 
@@ -120,8 +112,10 @@ function processConexionData(reportData, wialonSession) {
 }
 
 function sendDataToBackend(data, wialonSession) {
-    console.log("Enviando datos al backend...");
-    fetch('/conexion_analysis', {
+    console.log("Enviando datos de conexión al backend...");
+    const url = '/conexion_analysis';
+    console.log("URL de destino para conexión:", url);
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -131,18 +125,21 @@ function sendDataToBackend(data, wialonSession) {
             reportData: [data]
         }),
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log("Respuesta de conexión recibida de:", response.url);
+        return response.json();
+    })
     .then(responseData => {
-        console.log("Datos recibidos del backend:", responseData);
+        console.log("Datos de conexión recibidos del backend:", responseData);
         updateConexionInfo(responseData);
     })
     .catch((error) => {
-        console.error('Error al enviar datos al backend:', error);
+        console.error('Error al enviar datos de conexión al backend:', error);
     });
 }
 
 function updateConexionInfo(data) {
     document.getElementById('sin-conexion').textContent = data.sin_conexion.join(', ');
-    document.getElementById('recientemente-desconectado').textContent = data.recientemente_desconectado.join(', ');
+    document.getElementById('recientemente-desconectado').textContent = data.recientemente_conectado.join(', ');
     document.getElementById('avg-conexion').textContent = data.promedio_duracion;
 }

@@ -50,7 +50,7 @@ def process_conexion_data(data):
 
     # Calcular promedio de duración
     avg_duracion = total_duracion / count_duracion if count_duracion > 0 else timedelta()
-    avg_duracion_str = f"{avg_duracion.days} días {avg_duracion.seconds // 3600:02d}:{(avg_duracion.seconds // 60) % 60:02d}:{avg_duracion.seconds % 60:02d}"
+    avg_duracion_str = f"{avg_duracion.seconds // 3600:02d}:{(avg_duracion.seconds // 60) % 60:02d}:{avg_duracion.seconds % 60:02d}"
 
     return {
         'sin_conexion': sin_conexion,

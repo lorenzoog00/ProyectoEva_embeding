@@ -1,3 +1,5 @@
+import { globalSelectedGroupId } from './dashboard.js';
+
 const RESOURCE_ID = 400730713;
 const TEMPLATE_ID = 36;
 
@@ -56,7 +58,7 @@ function init(wialonSession) {
             $groupSelect.on('change', function() {
                 var selectedGroupId = $(this).val();
                 if (selectedGroupId) {
-                    executeGeocercaReport(selectedGroupId, sess);
+                    executeGeocercaReport(wialonSession);
                 } else {
                     $("#geocercaTableContainer").html("Seleccione un grupo para ver los datos de geocercas.");
                 }
@@ -73,8 +75,8 @@ function listAvailableResources(sess) {
     });
 }
 
-function executeGeocercaReport(groupId, wialonSession) {
-    console.log("Ejecutando reporte de geocerca para el grupo: " + groupId);
+function executeGeocercaReport(wialonSession) {
+    console.log("Ejecutando reporte de geocerca para el grupo: " + globalSelectedGroupId);
 
     var res = wialonSession.getItem(RESOURCE_ID);
     if (!res) {
@@ -96,7 +98,7 @@ function executeGeocercaReport(groupId, wialonSession) {
     var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
 
     console.log("Ejecutando reporte con intervalo: " + new Date(from * 1000) + " a " + new Date(to * 1000));
-    res.execReport(template, groupId, 0, interval, function(code, data) {
+    res.execReport(template, globalSelectedGroupId, 0, interval, function(code, data) {
         if (code) { 
             console.error("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code)); 
             return; 

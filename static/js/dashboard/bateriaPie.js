@@ -1,15 +1,13 @@
+import { globalSelectedGroupId } from './dashboard.js';
+
 const RESOURCE_ID = 400730713;
-const TEMPLATE_ID = 30;
+const TEMPLATE_ID = 30;  // Asegúrate de que este es el ID correcto para el reporte de batería
 
 export function initBateriaPieGraph(graphElement, wialonSession) {
+    console.log("Iniciando gráfico de batería");
     graphElement.innerHTML = `
         <div class="bateria-container">
             <h2 class="bateria-title">Estado de Batería por Unidad</h2>
-            <div class="bateria-select-container">
-                <select id="unitGroupSelect" class="bateria-select">
-                    <option value="">Seleccione un grupo</option>
-                </select>
-            </div>
             <div id="bateriaPieChartContainer">
                 <canvas id="bateriaPieChart" width="150" height="150"></canvas>
             </div>
@@ -18,28 +16,20 @@ export function initBateriaPieGraph(graphElement, wialonSession) {
             <a href="/bateria_deep_analysis" class="bateria-link">Para más información, haga clic aquí</a>
         </div>
     `;
-    initializeGroupSelector(wialonSession);
-}
 
-function initializeGroupSelector(wialonSession) {
-    var sess = wialonSession;
-    sess.loadLibrary("resourceReports");
-    
-    var groups = sess.getItems("avl_unit_group");
-    var $groupSelect = $("#unitGroupSelect");
-    groups.forEach(function(group) {
-        $groupSelect.append($("<option>").val(group.getId()).text(group.getName()));
-    });
-
-    $groupSelect.on('change', function() {
-        var selectedGroupId = $(this).val();
-        if (selectedGroupId) {
-            executeBateriaReport(sess, selectedGroupId);
-        }
-    });
+    if (globalSelectedGroupId) {
+        executeBateriaReport(wialonSession, globalSelectedGroupId);
+    } else {
+        console.log("Esperando a que se seleccione un grupo...");
+        document.addEventListener('groupSelected', () => {
+            executeBateriaReport(wialonSession, globalSelectedGroupId);
+        });
+    }
 }
 
 function executeBateriaReport(wialonSession, groupId) {
+    console.log("Ejecutando reporte de batería para el grupo:", groupId);
+
     var res = wialonSession.getItem(RESOURCE_ID);
     if (!res) {
         console.error("No se pudo encontrar el recurso con ID " + RESOURCE_ID);
@@ -53,45 +43,46 @@ function executeBateriaReport(wialonSession, groupId) {
     }
 
     var now = new Date();
-    var oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    var from = Math.floor(oneDayAgo.getTime() / 1000);
     var to = Math.floor(now.getTime() / 1000);
+    var from = to - 24 * 60 * 60; // 24 horas antes de 'to'
 
     var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
 
-    console.log("Ejecutando reporte desde", new Date(from * 1000), "hasta", new Date(to * 1000));
+    console.log("Ejecutando reporte de batería con intervalo:", new Date(from * 1000), "a", new Date(to * 1000));
 
-    res.execReport(template, groupId, 0, interval, function(code, data) {
+    res.execReport(template, groupId, groupId, interval, function(code, data) {
         if (code) { 
-            console.error("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code));
+            console.error("Error al ejecutar el informe de batería:", wialon.core.Errors.getErrorText(code));
             return; 
         }
-        if (!data.getTables().length) {
-            console.log("No se generaron datos en el reporte");
+        if (!data || !data.getTables || !data.getTables().length) {
+            console.log("No se generaron datos en el reporte de batería");
             return;
         }
+        console.log("Reporte de batería ejecutado exitosamente. Procesando datos...");
         processBateriaData(data);
     });
 }
 
 function processBateriaData(reportData) {
+    console.log("Procesando datos de batería");
     var tables = reportData.getTables();
     var processedData = [];
 
     if (!tables || tables.length === 0) {
-        console.warn("No se encontraron tablas en el reporte.");
+        console.warn("No se encontraron tablas en el reporte de batería.");
         return;
     }
 
     tables.forEach(function(table, index) {
         reportData.getTableRows(index, 0, table.rows, function(code, rows) {
             if (code) {
-                console.error("Error al obtener filas de la tabla: " + wialon.core.Errors.getErrorText(code));
+                console.error("Error al obtener filas de la tabla de batería:", wialon.core.Errors.getErrorText(code));
                 return;
             }
 
             if (!rows || rows.length === 0) {
-                console.warn("No se encontraron filas en la tabla " + (index + 1));
+                console.warn("No se encontraron filas en la tabla de batería " + (index + 1));
                 return;
             }
             
@@ -106,7 +97,9 @@ function processBateriaData(reportData) {
 }
 
 function sendDataToBackend(data) {
-    fetch('/bateria_analysis', {
+    const url = '/bateria_analysis';
+    console.log("Enviando datos de batería al backend. URL:", url);
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -116,12 +109,16 @@ function sendDataToBackend(data) {
             reportData: [data]
         }),
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log("Respuesta recibida de batería:", response.url);
+        return response.json();
+    })
     .then(responseData => {
+        console.log("Datos de batería recibidos del backend:", responseData);
         renderBateriaPieChart(responseData);
     })
     .catch((error) => {
-        console.error('Error al enviar datos al backend:', error);
+        console.error('Error al enviar datos de batería al backend:', error);
     });
 }
 
@@ -165,5 +162,4 @@ function renderBateriaPieChart(data) {
         <p>Total de unidades: ${totalUnits}</p>
         <p>Unidades con batería crítica: ${data.unidades_criticas.length}</p>
     `;
-
 }

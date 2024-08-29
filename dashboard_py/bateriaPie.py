@@ -1,7 +1,6 @@
 from flask import jsonify, request
 
-def bateria_analysis():
-    data = request.json
+def bateria_analysis(data):
     report_data = data.get('reportData', [])
     if not report_data:
         return jsonify({"status": "error", "message": "No se recibieron datos en el reporte"}), 400

@@ -114,7 +114,27 @@ def variacion_reporte():
     return render_template('notificaciones/variacionReporte.html')
 
 #Dashboard
+@app.route('/bateria_analysis', methods=['POST'])
+def handle_bateria_analysis():
+    data = request.json
+    print("BATERIA DATA:", data)
+    return bateria_analysis(data)
 
+
+@app.route('/geocerca_analysis', methods=['POST'])
+def handle_geocerca_analysis():
+    return geocerca_analysis()
+
+
+@app.route('/conexion_analysis', methods=['POST'])
+def handle_conexion_analysis():
+    data = request.json
+    print("CONEXION DATA:", data)
+    return conexion_analysis(data)
+
+
+
+# Deep dashboard
 @app.route('/geocercas_deep_analysis', methods=['GET', 'POST'])
 @login_required
 def geocercas_html():
@@ -128,21 +148,6 @@ def bateria_deep_html():
     if request.method == "POST":
         return get_battery_data()
     return render_template('dashboard/bateria_deep_analysis.html')
-
-@app.route('/conexion_analysis', methods=['POST'])
-def handle_conexion_analysis():
-    data = request.json
-    return conexion_analysis(data)
-
-# Deep dashboard
-
-@app.route('/geocerca_analysis', methods=['POST'])
-def handle_geocerca_analysis():
-    return geocerca_analysis()
-
-@app.route('/bateria_analysis', methods=['POST'])
-def handle_bateria_analysis():
-    return bateria_analysis()
 
 #Analisis
 
