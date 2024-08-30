@@ -1,7 +1,7 @@
 import { initWialon, getWialonSession } from '../loginWialon.js';
 
 // Variable global para el ID del grupo seleccionado
-let globalSelectedGroupId = null;
+export let globalSelectedGroupId = null;
 
 // Variables para almacenar las funciones de inicialización de los gráficos
 let initSensorGraph, initGeocercaGraph, initBateriaPieGraph, initConexionGraph;
@@ -12,15 +12,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     try {
         // Importar las funciones de inicialización
         const sensorModule = await import('./sensores.js');
+        const conexionModule = await import('./conexion_analisis.js');
         const geocercaModule = await import('./geocerca_salidas.js');
         const bateriaModule = await import('./bateriaPie.js');
-        const conexionModule = await import('./conexion_analisis.js');
 
         // Asignar las funciones importadas a las variables
         initSensorGraph = sensorModule.initSensorGraph;
+        initConexionGraph = conexionModule.initConexionGraph;
         initGeocercaGraph = geocercaModule.initGeocercaGraph;
         initBateriaPieGraph = bateriaModule.initBateriaPieGraph;
-        initConexionGraph = conexionModule.initConexionGraph;
 
         console.log("Módulos importados correctamente");
 
@@ -34,6 +34,11 @@ async function initializeAndLoadGraphs() {
     try {
         await initWialon();
         console.log("Wialon initialized successfully");
+        const sess = getWialonSession();
+        if (!sess) {
+            throw new Error("No se pudo obtener la sesión de Wialon");
+        }
+        sess.loadLibrary("resourceReports");
         await initializeGlobalGroupSelector();
         getActiveGraphs();
     } catch (error) {
@@ -116,6 +121,12 @@ function getActiveGraphs() {
 }
 
 function updateDashboard(activeGraphs) {
+    const sess = getWialonSession();
+    if (!sess) {
+        console.error("No se pudo obtener la sesión de Wialon en updateDashboard");
+        return;
+    }
+
     const dynamicPositions = ['dynamic-1-2', 'dynamic-1-3', 'dynamic-2-1', 'dynamic-2-2', 'dynamic-2-3'];
     
     dynamicPositions.forEach(position => {
@@ -135,18 +146,17 @@ function updateDashboard(activeGraphs) {
 
                 switch(graph) {
                     case "Consulta de sensor":
-                        initSensorGraph(graphElement, getWialonSession(), globalSelectedGroupId);
+                        initSensorGraph(graphElement, sess, globalSelectedGroupId);
                         break;
                     case "Geocercas":
-                        initGeocercaGraph(graphElement, getWialonSession(), globalSelectedGroupId);
+                        initGeocercaGraph(graphElement, sess, globalSelectedGroupId);
                         break;
                     case "Conexion":
-                        initConexionGraph(graphElement, getWialonSession(), globalSelectedGroupId);
+                        initConexionGraph(graphElement, sess, globalSelectedGroupId);
                         break;
                     case "Batería":
-                        initBateriaPieGraph(graphElement, getWialonSession(), globalSelectedGroupId);
+                        initBateriaPieGraph(graphElement, sess, globalSelectedGroupId);
                         break;
-
                     default:
                         graphElement.innerHTML = `
                             <h2>${graph}</h2>
@@ -157,6 +167,3 @@ function updateDashboard(activeGraphs) {
         }
     });
 }
-
-// Exportar el ID del grupo seleccionado
-export { globalSelectedGroupId };

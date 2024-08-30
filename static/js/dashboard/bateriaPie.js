@@ -96,6 +96,7 @@ function processBateriaData(reportData) {
     });
 }
 
+
 function sendDataToBackend(data) {
     const url = '/bateria_analysis';
     console.log("Enviando datos de batería al backend. URL:", url);
@@ -106,7 +107,9 @@ function sendDataToBackend(data) {
         },
         body: JSON.stringify({
             action: 'graficas',
-            reportData: [data]
+            reportData: [data],
+            templateId: TEMPLATE_ID,
+            resourceId: RESOURCE_ID
         }),
     })
     .then(response => {
@@ -114,8 +117,12 @@ function sendDataToBackend(data) {
         return response.json();
     })
     .then(responseData => {
-        console.log("Datos de batería recibidos del backend:", responseData);
-        renderBateriaPieChart(responseData);
+        console.log("Datos de batería recibidos del backend:", JSON.stringify(responseData, null, 2));
+        if (responseData && typeof responseData === 'object') {
+            renderBateriaPieChart(responseData);
+        } else {
+            console.error("Los datos recibidos no tienen el formato esperado:", responseData);
+        }
     })
     .catch((error) => {
         console.error('Error al enviar datos de batería al backend:', error);
@@ -123,19 +130,32 @@ function sendDataToBackend(data) {
 }
 
 function renderBateriaPieChart(data) {
+    console.log("Intentando renderizar el gráfico de batería con los datos:", JSON.stringify(data, null, 2));
+
+    if (!data || !data.ranges) {
+        console.error("Los datos no contienen la propiedad 'ranges':", data);
+        document.getElementById('bateriaSummary').innerHTML = '<p>Error: No se pudieron cargar los datos de batería.</p>';
+        return;
+    }
+
+    const ranges = data.ranges;
+    const rangeValues = ['80-100', '60-80', '40-60', '20-40', '0-20'];
+
+    // Verificar si todas las propiedades esperadas están presentes
+    const missingRanges = rangeValues.filter(range => !(range in ranges));
+    if (missingRanges.length > 0) {
+        console.error("Faltan los siguientes rangos en los datos:", missingRanges);
+        document.getElementById('bateriaSummary').innerHTML = '<p>Error: Datos de batería incompletos.</p>';
+        return;
+    }
+
     const ctx = document.getElementById('bateriaPieChart').getContext('2d');
     new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['80-100%', '60-80%', '40-60%', '20-40%', '0-20%'],
+            labels: rangeValues,
             datasets: [{
-                data: [
-                    data.ranges['80-100'],
-                    data.ranges['60-80'],
-                    data.ranges['40-60'],
-                    data.ranges['20-40'],
-                    data.ranges['0-20']
-                ],
+                data: rangeValues.map(range => ranges[range]),
                 backgroundColor: [
                     '#00FF00', // Verde brillante
                     '#32CD32', // Verde lima
@@ -156,10 +176,10 @@ function renderBateriaPieChart(data) {
         }
     });
 
-    const totalUnits = Object.values(data.ranges).reduce((a, b) => a + b, 0);
+    const totalUnits = Object.values(ranges).reduce((a, b) => a + b, 0);
     
     document.getElementById('bateriaSummary').innerHTML = `
         <p>Total de unidades: ${totalUnits}</p>
-        <p>Unidades con batería crítica: ${data.unidades_criticas.length}</p>
+        <p>Unidades con batería crítica: ${data.unidades_criticas ? data.unidades_criticas.length : 'N/A'}</p>
     `;
 }

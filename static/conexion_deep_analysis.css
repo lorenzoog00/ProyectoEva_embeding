@@ -1,0 +1,227 @@
+:root {
+    --primary-color: #FF5100;
+    --secondary-color: #3F3F3E;
+    --accent-color: #F39149;
+    --background-color: #F5F5F5;
+    --text-color: #3F3F3E;
+    --border-color: #E0E0E0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.conexion-deep-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.conexion-deep-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.conexion-deep-intro {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.conexion-deep-intro p {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.conexion-table-explanation {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.conexion-table-explanation h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.conexion-table-explanation ul {
+    padding-left: 20px;
+}
+
+.conexion-controls {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.conexion-controls label {
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.conexion-controls select,
+.conexion-controls input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.conexion-controls button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.conexion-controls button:hover {
+    background-color: var(--accent-color);
+}
+
+#conexion-deep-results {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e6e6e6;
+}
+
+@media (max-width: 768px) {
+    .conexion-deep-container {
+        padding: 20px;
+    }
+
+    .conexion-deep-title {
+        font-size: 2em;
+    }
+
+    .conexion-controls {
+        grid-template-columns: 1fr;
+    }
+}
+/* Estilos para las celdas de estado */
+.conectado {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+}
+
+.desconectado {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #F44336;
+}
+
+/* Estilos para las filas completas en la tabla de resumen */
+#conexion-summary-results .conectado {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+#conexion-summary-results .desconectado {
+    background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Asegurarse de que el texto en las celdas de estado sea legible */
+#conexion-summary-results .conectado td,
+#conexion-summary-results .desconectado td {
+    color: #333;
+}
+/* Estilos existentes ... */
+
+/* Estilos para los inputs de fecha */
+#startDateTime, #endDateTime {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Estilos para el calendario Flatpickr */
+.flatpickr-calendar {
+    background: var(--background-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonthDay:hover,
+.flatpickr-day.startRange.prevMonthDay:hover,
+.flatpickr-day.endRange.prevMonthDay:hover,
+.flatpickr-day.selected.nextMonthDay:hover,
+.flatpickr-day.startRange.nextMonthDay:hover,
+.flatpickr-day.endRange.nextMonthDay:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    background-color: var(--background-color);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+    background-color: var(--background-color);
+}
+
+.flatpickr-time input:hover,
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:focus {
+    background: var(--accent-color);
+}

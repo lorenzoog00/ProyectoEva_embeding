@@ -9,6 +9,7 @@ from dashboard_py.geocerca_deep_analysis import geocerca_deep_analysis
 from dashboard_py.bateriaPie import bateria_analysis
 from dashboard_py.conexion_analysis import conexion_analysis
 from dashboard_py.bateria_deep_analysis import get_battery_data
+from dashboard_py.conexion_deep_analysis import conexion_deep_analysis
 from notificaciones_py.CambioLuzHumTemp import check_sensor_compatibility
 from notificaciones_py.bateriaMenor import check_thinkpower_compatibility
 from query_py.query import process_user_query
@@ -114,9 +115,18 @@ def variacion_reporte():
     return render_template('notificaciones/variacionReporte.html')
 
 #Dashboard
+@app.route('/conexion_analysis', methods=['POST'])
+def handle_conexion_analysis():
+    data = request.json
+    print(f"CONEXION DATA: Template ID: {data.get('templateId')}, Resource ID: {data.get('resourceId')}")
+    print("CONEXION DATA:", data)
+    return conexion_analysis(data)
+
+
 @app.route('/bateria_analysis', methods=['POST'])
 def handle_bateria_analysis():
     data = request.json
+    print(f"BATERIA DATA: Template ID: {data.get('templateId')}, Resource ID: {data.get('resourceId')}")
     print("BATERIA DATA:", data)
     return bateria_analysis(data)
 
@@ -124,15 +134,6 @@ def handle_bateria_analysis():
 @app.route('/geocerca_analysis', methods=['POST'])
 def handle_geocerca_analysis():
     return geocerca_analysis()
-
-
-@app.route('/conexion_analysis', methods=['POST'])
-def handle_conexion_analysis():
-    data = request.json
-    print("CONEXION DATA:", data)
-    return conexion_analysis(data)
-
-
 
 # Deep dashboard
 @app.route('/geocercas_deep_analysis', methods=['GET', 'POST'])
@@ -148,6 +149,14 @@ def bateria_deep_html():
     if request.method == "POST":
         return get_battery_data()
     return render_template('dashboard/bateria_deep_analysis.html')
+
+@app.route('/conexion_deep_analysis', methods=['GET', 'POST'])
+@login_required
+def conexion_deep_html():
+    if request.method == "POST":
+        data = request.json
+        return conexion_deep_analysis(data)
+    return render_template('dashboard/conexion_deep_analysis.html')
 
 #Analisis
 

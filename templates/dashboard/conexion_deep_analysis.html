@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Profundo de Geocercas - Quamtum Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='conexion_deep_analysis.css') }}">
+    <script type="text/javascript" src="https://hst-api.wialon.com/wsdk/script/wialon.js"></script>
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+<div class="conexion-deep-container">
+    <h1 id="análisis-profundo-de-conexión" class="conexion-deep-title">Análisis Profundo de Conexión</h1>
+
+    <div class="conexion-deep-intro">
+        <p>Bienvenido al análisis profundo de conexión de Quamtum Services. Esta herramienta proporciona información detallada sobre el tiempo de conexión y desconexión de las unidades en el grupo seleccionado.</p>
+    </div>
+
+    <div class="conexion-table-explanation">
+        <h2>Explicación de la Tabla</h2>
+        <ul>
+            <li><strong>Unidad:</strong> Nombre de la unidad en el sistema.</li>
+            <li><strong>Tiempo de Conexión:</strong> Tiempo total que la unidad ha estado conectada durante el período seleccionado.</li>
+            <li><strong>Tiempo de Desconexión:</strong> Tiempo total que la unidad ha estado desconectada durante el período seleccionado.</li>
+            <li><strong>Porcentaje de Conexión:</strong> Porcentaje del tiempo total en que la unidad ha estado conectada.</li>
+        </ul>
+    </div>
+
+    <div class="conexion-controls">
+        <label for="unitGroupSelect">Seleccione un grupo de unidades</label>
+        <select id="unitGroupSelect"></select>
+        
+        <label for="startDateTime">Fecha y hora de inicio</label>
+        <input type="text" id="startDateTime" placeholder="Seleccione fecha y hora de inicio">
+        
+        <label for="endDateTime">Fecha y hora de fin</label>
+        <input type="text" id="endDateTime" placeholder="Seleccione fecha y hora de fin">
+        
+        <button id="analyzeBtn">Analizar</button>
+    </div>
+
+    <div id="conexion-summary-results"></div>
+    <div id="conexion-detailed-results"></div>
+</div>
+
+    <div id="conexion-summary-results"></div>
+    <div id="conexion-detailed-results"></div>
+    <div id="conexion-deep-results"></div>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script type="module" src="{{ url_for('static', filename='js/dashboard/conexion_deep_analysis.js') }}"></script>

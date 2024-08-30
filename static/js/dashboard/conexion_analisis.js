@@ -56,7 +56,10 @@ function executeConexionReport(wialonSession, groupId) {
     var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
 
     console.log("Ejecutando reporte con intervalo: " + new Date(from * 1000) + " a " + new Date(to * 1000));
-
+    console.log("Ejecutando reporte de conexion con los siguientes parámetros:");
+    console.log("Resource ID:", RESOURCE_ID);
+    console.log("Template ID:", TEMPLATE_ID);
+    console.log("Group ID:", groupId);
     res.execReport(template, groupId, 0, interval, function(code, data) {
         if (code) { 
             console.error("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code)); 
@@ -111,7 +114,7 @@ function processConexionData(reportData, wialonSession) {
     });
 }
 
-function sendDataToBackend(data, wialonSession) {
+function sendDataToBackend(data) {
     console.log("Enviando datos de conexión al backend...");
     const url = '/conexion_analysis';
     console.log("URL de destino para conexión:", url);
@@ -122,7 +125,9 @@ function sendDataToBackend(data, wialonSession) {
         },
         body: JSON.stringify({
             action: 'graficas',
-            reportData: [data]
+            reportData: [data],
+            templateId: TEMPLATE_ID, // Asegúrate de que TEMPLATE_ID está definido para conexión
+            resourceId: RESOURCE_ID  // Asegúrate de que RESOURCE_ID está definido para conexión
         }),
     })
     .then(response => {
