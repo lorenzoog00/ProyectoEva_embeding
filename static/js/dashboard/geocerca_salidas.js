@@ -3,11 +3,13 @@ import { globalSelectedGroupId } from './dashboard.js';
 const RESOURCE_ID = 400730713;
 const TEMPLATE_ID = 36;
 
+let wialonSessionReady = false;
+let pendingExecution = false;
+
 export function initGeocercaGraph(graphElement, wialonSession) {
     graphElement.innerHTML = `
         <div class="geocerca-container">
-            <h2 class="geocerca-title">Salidas de geocerca por unidad</h2>
-
+            <h2 class="geocerca-title">Salidas de geocerca por unidad (Último mes)</h2>
             <div id="geocercaContent" class="geocerca-content">
                 <div class="geocerca-stat">
                     <h3>Unidades con más salidas</h3>
@@ -25,58 +27,44 @@ export function initGeocercaGraph(graphElement, wialonSession) {
             <a href="/geocercas_deep_analysis" id="moreInfoLink" class="geocerca-link">Para más información, haga clic aquí</a>
         </div>
     `;
-    init(wialonSession);
+
+    initializeWialonSession(wialonSession);
 }
 
-function init(wialonSession) {
-    var res_flags = wialon.item.Item.dataFlag.base | wialon.item.Resource.dataFlag.reports;
-    var group_flags = wialon.item.Item.dataFlag.base;
-    
-    var sess = wialonSession;
-    sess.loadLibrary("resourceReports");
-    sess.updateDataFlags(
-        [
-            {type: "type", data: "avl_resource", flags: res_flags, mode: 0},
-            {type: "type", data: "avl_unit_group", flags: group_flags, mode: 0}
-        ],
+function initializeWialonSession(wialonSession) {
+    wialonSession.updateDataFlags(
+        [{type: "type", data: "avl_resource", flags: wialon.item.Item.dataFlag.base | wialon.item.Resource.dataFlag.reports, mode: 0}],
         function (code) {
-            if (code) { 
-                console.error("Error al actualizar banderas de datos: " + wialon.core.Errors.getErrorText(code)); 
-                return; 
+            if (code) {
+                console.error("Error al actualizar banderas de datos: " + wialon.core.Errors.getErrorText(code));
+                return;
             }
-
-            var groups = sess.getItems("avl_unit_group");
-            if (!groups || !groups.length){ 
-                console.error("No se encontraron grupos de unidades"); 
-                return; 
+            console.log("Sesión de Wialon inicializada para geocerca_salidas");
+            wialonSessionReady = true;
+            if (pendingExecution) {
+                executeGeocercaReport(wialonSession, globalSelectedGroupId);
             }
-            var $groupSelect = $("#unitGroupSelect");
-            groups.forEach(function(group) {
-                $groupSelect.append($("<option>").val(group.getId()).text(group.getName()));
-            });
-
-            $groupSelect.on('change', function() {
-                var selectedGroupId = $(this).val();
-                if (selectedGroupId) {
-                    executeGeocercaReport(wialonSession);
-                } else {
-                    $("#geocercaTableContainer").html("Seleccione un grupo para ver los datos de geocercas.");
-                }
-            });
         }
     );
-}
 
-function listAvailableResources(sess) {
-    var resources = sess.getItems("avl_resource");
-    console.log("Recursos disponibles:");
-    resources.forEach(function(resource) {
-        console.log("ID: " + resource.getId() + ", Nombre: " + resource.getName());
+    document.addEventListener('groupSelected', () => {
+        console.log("Evento groupSelected detectado en geocerca_salidas");
+        if (wialonSessionReady) {
+            executeGeocercaReport(wialonSession, globalSelectedGroupId);
+        } else {
+            console.log("Sesión de Wialon no está lista. Marcando para ejecución pendiente.");
+            pendingExecution = true;
+        }
     });
 }
 
-function executeGeocercaReport(wialonSession) {
-    console.log("Ejecutando reporte de geocerca para el grupo: " + globalSelectedGroupId);
+function executeGeocercaReport(wialonSession, groupId) {
+    if (!groupId) {
+        console.log("No hay grupo seleccionado para geocerca_salidas.");
+        return;
+    }
+
+    console.log("Ejecutando reporte de geocerca para el grupo:", groupId);
 
     var res = wialonSession.getItem(RESOURCE_ID);
     if (!res) {
@@ -91,23 +79,24 @@ function executeGeocercaReport(wialonSession) {
     }
 
     var now = new Date();
-    var firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
-    var from = Math.floor(firstDayOfMonth.getTime() / 1000);
     var to = Math.floor(now.getTime() / 1000);
+    var from = new Date(now.getFullYear(), now.getMonth(), 1).getTime() / 1000;
 
     var interval = { "from": from, "to": to, "flags": wialon.item.MReport.intervalFlag.absolute };
 
-    console.log("Ejecutando reporte con intervalo: " + new Date(from * 1000) + " a " + new Date(to * 1000));
-    res.execReport(template, globalSelectedGroupId, 0, interval, function(code, data) {
+    console.log("Ejecutando reporte de geocerca con intervalo:", new Date(from * 1000), "a", new Date(to * 1000));
+    console.log("Parámetros del reporte - Resource ID:", RESOURCE_ID, "Template ID:", TEMPLATE_ID, "Group ID:", groupId);
+
+    res.execReport(template, groupId, groupId, interval, function(code, data) {
         if (code) { 
-            console.error("Error al ejecutar el informe: " + wialon.core.Errors.getErrorText(code)); 
+            console.error("Error al ejecutar el informe de geocerca:", wialon.core.Errors.getErrorText(code)); 
             return; 
         }
         if (!data.getTables().length) {
-            console.log("No se generaron datos en el reporte");
+            console.log("No se generaron datos en el reporte de geocerca");
             return;
         }
-        console.log("Reporte ejecutado exitosamente. Procesando datos...");
+        console.log("Reporte de geocerca ejecutado exitosamente. Procesando datos...");
         processGeocercaData(data, wialonSession);
     });
 }
@@ -117,80 +106,65 @@ function processGeocercaData(reportData, wialonSession) {
     var processedData = [];
 
     if (!tables || tables.length === 0) {
-        console.warn("No se encontraron tablas en el reporte.");
+        console.warn("No se encontraron tablas en el reporte de geocerca.");
         return;
     }
 
-    console.log("Número de tablas a procesar: " + tables.length);
+    console.log("Número de tablas a procesar en geocerca:", tables.length);
 
     tables.forEach(function(table, index) {
-        console.log("Procesando tabla " + (index + 1) + " de " + tables.length);
+        console.log("Procesando tabla de geocerca " + (index + 1) + " de " + tables.length);
 
-        // Obtener filas de la tabla actual
         reportData.getTableRows(index, 0, table.rows, function(code, rows) {
             if (code) {
-                console.error("Error al obtener filas de la tabla: " + wialon.core.Errors.getErrorText(code));
+                console.error("Error al obtener filas de la tabla de geocerca:", wialon.core.Errors.getErrorText(code));
                 return;
             }
 
             if (!rows || rows.length === 0) {
-                console.warn("No se encontraron filas en la tabla " + (index + 1));
+                console.warn("No se encontraron filas en la tabla de geocerca " + (index + 1));
                 return;
             }
 
-            console.log("Número de filas obtenidas: " + rows.length);
-
-            var html = "<b>" + table.label + "</b><div class='wrap'><table class='styled-table'>";
-            var headers = table.header;
-
-            html += "<thead><tr>";
-            headers.forEach(function(header) {
-                html += "<th>" + header + "</th>";
-            });
-            html += "</tr></thead><tbody>";
+            console.log("Número de filas obtenidas en geocerca:", rows.length);
             
-            // Procesar cada fila
             rows.forEach(function(row, rowIndex) {
                 if (typeof row.c === "undefined") return;
-                console.log("Procesando fila " + (rowIndex + 1) + " de " + rows.length);
-                html += "<tr>";
-                row.c.forEach(function(cell) {
-                    html += "<td>" + getTableValue(cell) + "</td>";
-                });
-                html += "</tr>";
-                processedData.push(row.c);  // Almacenar los datos procesados
+                console.log("Procesando fila de geocerca " + (rowIndex + 1) + " de " + rows.length);
+                processedData.push(row.c);
             });
-            html += "</tbody></table></div>";
             
-            // Agregar los datos procesados al log de la interfaz
-            $("#log").append(html);
-            console.log("Tabla procesada y añadida al log.");
-            
-            // Enviar los datos al backend una vez que todo esté procesado
             sendDataToBackend({ headers: table.header, rows: processedData }, wialonSession);
         });
     });
 }
 
 function sendDataToBackend(data, wialonSession) {
-    console.log("Enviando datos al backend...");
-    fetch('/geocerca_analysis', {
+    console.log("Enviando datos de geocerca al backend...");
+    const url = '/geocerca_analysis';
+    console.log("URL de destino para geocerca:", url);
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             action: 'graficas',
-            reportData: [data]
+            reportData: [data],
+            templateId: TEMPLATE_ID,
+            resourceId: RESOURCE_ID
         }),
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log("Respuesta de geocerca recibida de:", response.url);
+        return response.json();
+    })
     .then(responseData => {
-        console.log("Datos recibidos del backend:", responseData);
+        console.log("Datos de geocerca recibidos del backend:", responseData);
         updateGeocercaInfo(responseData);
     })
     .catch((error) => {
-        console.error('Error al enviar datos al backend:', error);
+        console.error('Error al enviar datos de geocerca al backend:', error);
     });
 }
 
@@ -198,12 +172,4 @@ function updateGeocercaInfo(data) {
     document.getElementById('max-exits').textContent = `${data.units_with_max_exits.join(', ')} (${data.max_exits})`;
     document.getElementById('min-exits').textContent = `${data.units_with_min_exits.join(', ')} (${data.min_exits})`;
     document.getElementById('avg-exits').textContent = data.avg_exits.toFixed(2);
-}
-
-function getTableValue(data) {
-    if (typeof data === "object") {
-        return typeof data.t === "string" ? data.t : "";
-    } else {
-        return data;
-    }
 }

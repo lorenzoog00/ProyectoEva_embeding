@@ -1,7 +1,10 @@
 import { globalSelectedGroupId } from './dashboard.js';
 
 const RESOURCE_ID = 400730713;
-const TEMPLATE_ID = 30;  // Asegúrate de que este es el ID correcto para el reporte de batería
+const TEMPLATE_ID = 30;
+
+// Variable para almacenar la instancia del gráfico
+let currentChart = null;
 
 export function initBateriaPieGraph(graphElement, wialonSession) {
     console.log("Iniciando gráfico de batería");
@@ -17,14 +20,30 @@ export function initBateriaPieGraph(graphElement, wialonSession) {
         </div>
     `;
 
+    // Destruir el gráfico existente si hay uno
+    if (currentChart) {
+        currentChart.destroy();
+        currentChart = null;
+    }
+
     if (globalSelectedGroupId) {
-        executeBateriaReport(wialonSession, globalSelectedGroupId);
+        console.log("ESPERA DE coso");
     } else {
         console.log("Esperando a que se seleccione un grupo...");
         document.addEventListener('groupSelected', () => {
             executeBateriaReport(wialonSession, globalSelectedGroupId);
         });
     }
+
+    // Añadir un listener para el evento de cambio de grupo
+    document.addEventListener('groupSelected', () => {
+        if (currentChart) {
+            currentChart.destroy();
+            currentChart = null;
+        }
+        console.log("EVENTlistener para el evento de cambio de grupo");
+
+    });
 }
 
 function executeBateriaReport(wialonSession, groupId) {
@@ -87,15 +106,15 @@ function processBateriaData(reportData) {
             }
             
             rows.forEach(function(row) {
-                if (typeof row.c === "undefined") return;
-                processedData.push(row.c);
+                if (typeof row.c !== "undefined") {
+                    processedData.push(row.c);
+                }
             });
             
             sendDataToBackend({ headers: table.header, rows: processedData });
         });
     });
 }
-
 
 function sendDataToBackend(data) {
     const url = '/bateria_analysis';
@@ -114,6 +133,9 @@ function sendDataToBackend(data) {
     })
     .then(response => {
         console.log("Respuesta recibida de batería:", response.url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
         return response.json();
     })
     .then(responseData => {
@@ -122,6 +144,7 @@ function sendDataToBackend(data) {
             renderBateriaPieChart(responseData);
         } else {
             console.error("Los datos recibidos no tienen el formato esperado:", responseData);
+            throw new Error('Formato de datos incorrecto');
         }
     })
     .catch((error) => {
@@ -130,7 +153,7 @@ function sendDataToBackend(data) {
 }
 
 function renderBateriaPieChart(data) {
-    console.log("Intentando renderizar el gráfico de batería con los datos:", JSON.stringify(data, null, 2));
+    console.log("Renderizando el gráfico de batería con los datos:", JSON.stringify(data, null, 2));
 
     if (!data || !data.ranges) {
         console.error("Los datos no contienen la propiedad 'ranges':", data);
@@ -149,8 +172,19 @@ function renderBateriaPieChart(data) {
         return;
     }
 
-    const ctx = document.getElementById('bateriaPieChart').getContext('2d');
-    new Chart(ctx, {
+    const ctx = document.getElementById('bateriaPieChart');
+    if (!ctx) {
+        console.error("No se pudo encontrar el elemento canvas para el gráfico de batería");
+        return;
+    }
+
+    // Destruir el gráfico existente si hay uno
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    // Crear el nuevo gráfico
+    currentChart = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: rangeValues,

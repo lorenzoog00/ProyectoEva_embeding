@@ -158,6 +158,10 @@ def conexion_deep_html():
         return conexion_deep_analysis(data)
     return render_template('dashboard/conexion_deep_analysis.html')
 
+@app.route('/cosas_nuevas')
+@login_required
+def cosas_nuevas():
+    return render_template('dashboard/cosas_nuevas.html')
 #Analisis
 
 @app.route('/analisis_datos')

@@ -25,7 +25,7 @@ export function initConexionGraph(graphElement, wialonSession) {
     `;
 
     if (globalSelectedGroupId) {
-        executeConexionReport(wialonSession, globalSelectedGroupId);
+        console.log("Hola estamos adentro del if");
     } else {
         console.log("Esperando a que se seleccione un grupo...");
         document.addEventListener('groupSelected', () => {

@@ -3,6 +3,9 @@ import { initWialon, getWialonSession } from '../loginWialon.js';
 // Variable global para el ID del grupo seleccionado
 export let globalSelectedGroupId = null;
 
+// Variable global para las gráficas activas
+let activeGraphs = [];
+
 // Variables para almacenar las funciones de inicialización de los gráficos
 let initSensorGraph, initGeocercaGraph, initBateriaPieGraph, initConexionGraph;
 
@@ -40,7 +43,7 @@ async function initializeAndLoadGraphs() {
         }
         sess.loadLibrary("resourceReports");
         await initializeGlobalGroupSelector();
-        getActiveGraphs();
+        await getActiveGraphs();
     } catch (error) {
         console.error("Error initializing Wialon:", error);
     }
@@ -93,7 +96,8 @@ async function initializeGlobalGroupSelector() {
         groupSelect.addEventListener('change', function() {
             globalSelectedGroupId = this.value;
             console.log("Nuevo grupo seleccionado:", globalSelectedGroupId);
-            getActiveGraphs(); // Actualizar gráficos cuando cambie la selección
+            document.dispatchEvent(new Event('groupSelected'));
+            updateDashboard();
         });
         console.log("Event listener para cambio de grupo añadido");
 
@@ -102,25 +106,22 @@ async function initializeGlobalGroupSelector() {
     }
 }
 
-function getActiveGraphs() {
+async function getActiveGraphs() {
     console.log("getActiveGraphs called");
-    fetch('/api/active-graphs')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(activeGraphs => {
-            console.log('Gráficas activas:', activeGraphs);
-            updateDashboard(activeGraphs);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    try {
+        const response = await fetch('/api/active-graphs');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        activeGraphs = await response.json();
+        console.log('Gráficas activas:', activeGraphs);
+        updateDashboard();
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
-function updateDashboard(activeGraphs) {
+function updateDashboard() {
     const sess = getWialonSession();
     if (!sess) {
         console.error("No se pudo obtener la sesión de Wialon en updateDashboard");
@@ -146,16 +147,16 @@ function updateDashboard(activeGraphs) {
 
                 switch(graph) {
                     case "Consulta de sensor":
-                        initSensorGraph(graphElement, sess, globalSelectedGroupId);
+                        initSensorGraph(graphElement, sess);
                         break;
                     case "Geocercas":
-                        initGeocercaGraph(graphElement, sess, globalSelectedGroupId);
+                        initGeocercaGraph(graphElement, sess);
                         break;
                     case "Conexion":
-                        initConexionGraph(graphElement, sess, globalSelectedGroupId);
+                        initConexionGraph(graphElement, sess);
                         break;
                     case "Batería":
-                        initBateriaPieGraph(graphElement, sess, globalSelectedGroupId);
+                        initBateriaPieGraph(graphElement, sess);
                         break;
                     default:
                         graphElement.innerHTML = `
@@ -167,3 +168,6 @@ function updateDashboard(activeGraphs) {
         }
     });
 }
+
+// Exportar funciones y variables necesarias
+export { updateDashboard };
